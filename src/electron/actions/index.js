@@ -1,0 +1,17 @@
+import './accessibilitySettings';
+import './audit';
+import './environment';
+import './environmentPage';
+import './environmentTest';
+import './pageScripts';
+import './profile';
+import './project';
+import './remediation';
+import './systemCategory';
+import './systemCountry';
+import './systemEnvironment';
+import './systemStandard';
+import './technology';
+import './testCase';
+import './testPage';
+import './theme';

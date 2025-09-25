@@ -1,0 +1,38 @@
+@import 'constants/theme';
+
+.root {
+  padding-top: 12px;
+  padding-bottom: 12px;
+
+  .fullTitle {
+    margin-right: 16px;
+  }
+
+  .subTitle {
+    color: $palette-primary-main-2;
+  }
+
+  .toggleActions {
+    min-width: 32px;
+    margin-right: -8px;
+
+    svg {
+      font-size: 24px;
+    }
+  }
+
+  .actions {
+    margin-right: -12px;
+
+    button {
+      margin: 0 4px;
+      border-width: 1px;
+      height: 28px;
+      width: 28px;
+
+      svg {
+        font-size: 18px;
+      }
+    }
+  }
+}

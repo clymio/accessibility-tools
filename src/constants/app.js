@@ -1,0 +1,21 @@
+export const IS_DEVELOPMENT = process.env.NODE_ENV === 'development';
+export const DEFAULT_WINDOW_WIDTH = 1100;
+export const DEFAULT_WINDOW_HEIGHT = 700;
+export const DEFAULT_THEME = 'light';
+export const MIN_WINDOW_WIDTH = 1120;
+export const MIN_WINDOW_HEIGHT = 670;
+export const HEADER_HEIGHT = 36;
+export const MAIN_NAV_DEFAULT_WIDTH = 47;
+export const FILE_EXPLORER_DEFAULT_WIDTH = 300;
+export const FILE_EXPLORER_MIN_WIDTH = 100;
+export const FILE_EXPLORER_MAX_WIDTH_PERCENTAGE = 80;
+export const TERMINAL_DEFAULT_HEIGHT_PERCENTAGE = 40;
+export const TERMINAL_MIN_HEIGHT = 300;
+export const TERMINAL_MAX_HEIGHT_PERCENTAGE = 65;
+export const SCREENSHOT_DEFAULT_WIDTH = 1280;
+export const SCREENSHOT_DEFAULT_HEIGHT = 720;
+export const DB_NAME = 'db.sqlite';
+export const MAX_TIME_TO_CRAWL = 20000; // 20 seconds
+export const CRAWL_DEPTH = 20;
+export const CHECK_UPDATE_INTERVAL = 24 * 60 * 60 * 1000; // 1 day
+export const EULA_LAST_UPDATED = '2025-07-18';

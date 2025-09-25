@@ -1,0 +1,225 @@
+@import 'constants/theme';
+
+
+.root {
+  background-color: $palette-content-background;
+  padding: 12px 24px 4px;
+  border-radius: $palette-border-radius;
+  margin-bottom: 12px !important;
+
+  :global(.MuiCollapse-root) {
+    position: relative;
+  }
+
+  &:not(.opened) {
+    .summary {
+      border-bottom: 0;
+
+      > div:first-child {
+        margin-bottom: 8px;
+      }
+    }
+  }
+
+  .summary {
+    &:global(.Mui-focusVisible) {
+      background-color: rgba(0, 0, 0, 0);
+    }
+
+    > div:first-child {
+      margin-top: 0;
+      margin-bottom: 12px;
+    }
+
+    .title {
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 1.43rem;
+      color: $palette-primary-title;
+    }
+
+    .subTitle {
+      color: $palette-secondary-text;
+      font-size: 12px;
+      line-height: 1.66;
+      letter-spacing: 0.033em;
+    }
+
+    :global(.MuiAccordionSummary-expandIconWrapper) {
+      margin-bottom: 8px;
+    }
+  }
+
+  :global(.MuiCollapse-root) {
+    margin-left: -24px;
+    padding-left: 24px;
+    width: calc(100% + 48px);
+    padding-right: 24px;
+    margin-bottom: -4px;
+    padding-bottom: 4px;
+
+  }
+
+  .content {
+    border-bottom: 0;
+    margin-top: 0;
+    padding-top: 16px;
+  }
+
+  .icon {
+    width: 36px;
+    height: 35px;
+    padding: 6px;
+    margin-right: 16px;
+    background-color: $palette-primary-main;
+    border-radius: $palette-border-radius * 2;
+    border: 1px solid rgba(0, 0, 0, 0);
+
+    svg {
+      width: 100%;
+      height: 100%;
+      fill: $palette-primary-contrastText;
+    }
+  }
+
+  .blocked {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background-color: rgba(255, 255, 255, 0.2);
+    z-index: 100;
+  }
+
+  .actions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 12px;
+
+    button {
+      margin-left: 8px;
+
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+  }
+}
+
+.item {
+  &.hover {
+    margin-left: -32px;
+    margin-right: -32px;
+    padding-left: 32px;
+    padding-right: 32px;
+
+    &:hover {
+      background-color: lighten($palette-accordion-details, 1);
+    }
+  }
+
+  &.light {
+    background-color: $palette-content-background;
+
+    &.hover:hover {
+      background-color: darken($palette-content-background, 1);
+    }
+  }
+  &.tableRow {
+    margin-left: -32px;
+    padding-left: 32px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-right: 16px;
+    width: calc(100% + 64px);
+  }
+
+  &.extended {
+    margin-left: -32px;
+    padding-left: 32px;
+    margin-right: -32px;
+    padding-right: 32px;
+  }
+
+  border-bottom: 1px solid $palette-primary-mist;
+  padding: 16px 0;
+
+  :global(.MuiChip-root) {
+    margin-right: 8px;
+    border-radius: $palette-border-radius * 2;
+  }
+
+  &:first-child {
+    margin-top: -8px;
+  }
+
+  > div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    > div:first-child {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      max-width: calc(100% - 50px);
+      overflow: auto;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+
+      > p {
+        margin-right: 8px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+
+  &:first-child {
+    padding-top: 8px;
+  }
+
+  .itemActions {
+    padding-right: 8px;
+    max-width: 50%;
+    flex-shrink: 0;
+
+    button, > span {
+      margin-left: 8px;
+
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+  }
+
+  > p:first-child {
+    color: $palette-secondary-main;
+    font-size: 1.1rem;
+    font-weight: 500;
+  }
+}
+
+
+.help {
+  background-color: $palette-accordion-details;
+  margin-left: -24px;
+  margin-right: -24px;
+  margin-bottom: -4px;
+  padding: 6px 32px;
+  font-size: 14px;
+  text-align: right;
+  border-bottom-left-radius: $palette-border-radius*2;
+  border-bottom-right-radius: $palette-border-radius*2;
+}

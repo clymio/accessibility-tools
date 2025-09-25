@@ -1,0 +1,261 @@
+@import "constants/theme";
+
+.dialogContainer {
+  .dialogHeader {
+    svg.edit {
+      fill: none;
+    }
+  }
+}
+
+.infoIcon {
+  height: 16px;
+  cursor: pointer;
+
+  svg {
+    color: $palette-primary-main;
+    fill: transparent;
+    position:relative;
+    font-size: 16px;
+
+    @media (prefers-color-scheme: dark) {
+      color: $palette-dark-tertiary-text;
+    }
+  }
+}
+
+.formField {
+  @media (prefers-color-scheme: dark) {
+    > p,
+    label {
+      color: $palette-dark-primary-text-2 !important;
+
+      p {
+        color: $palette-dark-primary-text-2 !important;
+      }
+      svg {
+        color: $palette-dark-tertiary-text;
+      }
+    }
+  }
+  input {
+    border-radius: 8px;
+    border-color: $palette-secondary-main;
+  }
+  .textField {
+    border-radius: 8px;
+    margin-bottom: 0;
+    margin-top: 2rem;
+
+    :global(.MuiInputLabel-root) {
+      top: -20px;
+      color: $palette-primary-main-3;
+      font-family: $regular-font;
+    }
+
+    :global(.MuiTypography-root) {
+      color: $palette-primary-main-3;
+      font-family: $regular-font;
+    }
+
+    > div {
+      border-radius: 8px;
+      border: 1px solid $palette-secondary-main;
+      input,
+      fieldset,
+      textarea {
+        border-radius: 8px;
+
+        &:focus {
+          border-color: $palette-secondary-main;
+        }
+      }
+
+      input,
+      textarea {
+        @media (prefers-color-scheme: dark) {
+          background-color: $palette-dark-background-2;
+          border-radius: 8px;
+
+          &::placeholder {
+            color: $palette-dark-report-divider;
+          }
+        }
+      }
+
+      :global(fieldset.MuiOutlinedInput-notchedOutline) {
+        @media (prefers-color-scheme: dark) {
+          border-color: $palette-dark-background-content;
+        }
+      }
+    }
+
+    &.textFieldError {
+      border: none;
+      color: $palette-error-main;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :global(.MuiOutlinedInput-root) {
+        border-radius: 8px;
+        background-color: $palette-dark-background-2;
+        border-color: $palette-dark-border !important;
+      }
+    }
+  }
+
+  .textFieldError {
+    border: none;
+    color: $palette-error-main;
+    margin-top: 0.5rem;
+    display: block;
+  }
+}
+
+.dialogContentContainer {
+  overflow: auto;
+  width: 100%;
+  padding: 30px 50px;
+  & > * {
+    margin: 0 auto;
+  }
+}
+
+.dialogContainer {
+  .dialogHeader {
+    width: 100%;
+    max-width: 360px;
+    text-align: center;
+    padding: 0;
+    border-bottom: none;
+
+    p {
+      font-size: 18px;
+      font-weight: 500;
+      margin-top: 20px;
+      color: $palette-primary-text;
+
+      @media (prefers-color-scheme: dark) {
+        color: $palette-dark-primary-text;
+      }
+    }
+
+    &.dialogHeaderEdit {
+      .icon {
+        border: none;
+      }
+    }
+  }
+
+  .dialogContent {
+    width: 100%;
+    max-width: 360px;
+    flex: 0 0 auto;
+    padding-bottom: 0;
+    overflow: visible;
+  }
+}
+
+.addProfile,
+.addTest {
+  button {
+    border-radius: 8px;
+    padding: 8px 14px;
+    background-color: $palette-primary-main;
+    font-family: $regular-font;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    text-transform: none;
+
+    svg {
+      margin-left: 8px;
+      fill:$palette-button-main;
+      stroke: $palette-button-main;
+      path {
+        fill: $palette-button-main;
+      }
+    }
+  }
+}
+
+.addTest {
+  margin-top: 1rem;
+  button {
+    margin-top: 1rem;
+  }
+}
+
+.datePickerWrapper {
+  margin-top: 2rem;
+  position: relative;
+
+  .formLabel {
+    position: absolute;
+    top: -1.5rem;
+    left: 2px;
+    color: $palette-primary-main-3;
+    font-family: $regular-font;
+    font-weight: 500;
+  }
+
+  :global(.react-datepicker-wrapper) {
+    border-radius: 8px;
+    width: 100%;
+
+    :global(.react-datepicker__input-container) {
+      border-radius: 8px;
+      :global(.MuiFormControl-root) {
+        margin-top: 0;
+        border-radius: 8px;
+      }
+    }
+
+    input {
+      border-radius: 8px;
+      padding: 10px 14px;
+      border: 1px solid $palette-secondary-main;
+      font-family: $regular-font;
+      width: 100%;
+
+      @media (prefers-color-scheme: dark) {
+        background-color: $palette-dark-background-2;
+        border-color: $palette-dark-background-content;
+
+        &::placeholder {
+          color: $palette-dark-report-divider;
+        }
+      }
+    }
+
+    fieldset {
+      border-radius: 8px;
+    }
+
+    &:focus {
+      border-color: $palette-secondary-main;
+    }
+  }
+
+  .textFieldError {
+    border: none;
+    color: $palette-error-main;
+  }
+
+  .formField {
+    &.error {
+      input {
+        border-color: $palette-error-main;
+      }
+    }
+  }
+}
+
+.error {
+  color: $palette-error-main !important;
+  span,
+  p {
+    color: $palette-error-main !important;
+  }
+}

@@ -1,0 +1,16 @@
+@import "constants/theme";
+
+.root {
+  width: 0;
+  border: 1px solid $palette-border-resizable-blocks;
+  transition: width 0.2s ease-in-out;
+  overflow-x: hidden;
+  overflow-y: auto;
+  &.open {
+    width: 440px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    border-color: $palette-dark-background-header;
+  }
+}

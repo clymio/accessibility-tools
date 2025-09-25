@@ -1,0 +1,12 @@
+@import "constants/theme";
+
+.aceEditor {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid $palette-secondary-main;
+  margin-top: 0.4rem;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: $palette-dark-background-2;
+  }
+}

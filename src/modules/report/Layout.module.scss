@@ -1,0 +1,55 @@
+@import "constants/theme";
+
+.page {
+  width: calc(210mm - 8rem);
+  position: relative;
+  margin: 0 auto;
+  &:not(:last-child) {
+    break-after: always;
+  }
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 2rem;
+    .title {
+      font-weight: 500;
+      font-size: 1.5rem;
+      line-height: 2rem;
+    }
+  }
+  .section {
+    margin-top: 2rem;
+    .title {
+      font-weight: 500;
+      font-size: 1.133rem;
+      line-height: 1.7rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid $palette-report-divider;
+      margin-bottom: 0.5rem;
+    }
+  }
+  .footer {
+    position: absolute;
+    color: #475467;
+    font-size: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid $palette-report-footer-divider;
+    bottom: 4rem;
+    left: 0rem;
+    right: 0rem;
+    p {
+      text-align: right;
+    }
+  }
+
+  :global(.pdf-body) {
+    font-size: 10px;
+    overflow: auto;
+    height: auto;
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}

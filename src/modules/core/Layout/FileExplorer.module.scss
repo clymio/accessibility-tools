@@ -1,0 +1,290 @@
+@import "constants/theme";
+
+.root {
+  box-sizing: border-box;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  height: calc(100vh - var(--top-margin));
+  background-color: $palette-background-resizable-blocks;
+  border-right: 1px solid $palette-border-resizable-blocks;
+  width: 100%;
+  z-index: 10;
+  @media (prefers-color-scheme: dark) {
+    background-color: $palette-dark-background-content;
+    border-right: 1px solid $palette-dark-background-2;
+
+    .chip {
+      background-color: $palette-dark-chip-background;
+      color: $palette-dark-primary-text-2;
+    }
+  }
+}
+
+.accordion {
+  border-radius: 0 !important;
+  background-color: $palette-background-resizable-blocks;
+  --Paper-overlay: $palette-background-resizable-blocks !important;
+  @media (prefers-color-scheme: dark) {
+    background-color: $palette-dark-background-content;
+    opacity: 1;
+    --Paper-overlay: $palette-dark-background-content !important;
+  }
+
+  .accordionDetails {
+    padding: 0;
+    border: none;
+  }
+
+  &.overflowedAccordion {
+    overflow-y: auto;
+  }
+
+  &.auditAccordion {
+    overflow: auto;
+    height: 100%;
+    >:global(.MuiAccordion-heading) {
+      cursor: default;
+      :global(.MuiAccordionSummary-root) {
+        cursor: default;
+      }
+    }
+    >:global(.MuiCollapse-root) {
+      max-height:inherit;
+      overflow: auto;
+    }
+    :global(.MuiAccordionSummary-root) {
+      margin: 8px 0;
+      :global(.MuiAccordionSummary-content) {
+        flex-grow: 0;
+      }
+
+      :global(.MuiAccordionDetails-root) {
+        padding-left: 12px;
+      }
+    }
+
+    .accordionDetails {
+      .childAccordion {
+        :global(.MuiAccordionSummary-root) {
+          padding-right: 40px;
+        }
+      }
+    }
+  }
+}
+
+.childAccordion {
+  padding: 0;
+  border-bottom: none;
+}
+
+.progressAccordion {
+  background-color: $palette-background-content;
+  padding-top: 8px;
+  .progressAccordionSummary {
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: center;
+    :global(.MuiAccordionSummary-expandIconWrapper) {
+      margin: 0;
+    }
+    :global(.MuiAccordionSummary-content) {
+      margin: 0;
+      width: 100%;
+      padding: 16px;
+      padding-top: 0;
+    }
+  }
+  .progressAccordionDetails {
+    padding: 16px;
+  }
+  .accordionTitle {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    color: $palette-primary-main-3;
+    font-weight: 500;
+    p {
+      color: inherit;
+    }
+    .titleSummary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      .name {
+        font-weight: 600;
+      }
+    }
+    .caption {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      svg {
+        color: $palette-primary-icon;
+        font-size: 36px;
+      }
+      :disabled {
+        svg {
+          color: $palette-primary-disabled;
+        }
+      }
+    }
+    .counter,
+    .description {
+      color: $palette-primary-subtitle;
+    }
+    .description {
+      font-size: 12px;
+      font-style: italic;
+    }
+    .progressBar {
+      height: 8px;
+      border-radius: 4px;
+    }
+  }
+  .tabs {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    .tabButton {
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-transform: none;
+      border-radius: 8px;
+      padding: 8px 14px;
+      border-width: 1px;
+      border-color: $palette-secondary-main;
+      background-color: $palette-primary-contrastText;
+      color: $palette-primary-main-3;
+      p {
+        color: inherit;
+      }
+      &.active,
+      &:hover {
+        background-color: $palette-background-grey;
+        border-color: $palette-background-grey;
+        color: $palette-primary-main;
+      }
+    }
+  }
+  .tab {
+    margin-top: 16px;
+    color: $palette-primary-main-3;
+    p {
+      color: inherit;
+    }
+  }
+  .stat {
+    margin-bottom: 1rem;
+    .statTitle {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: .5rem;
+      .statName {
+        flex-shrink: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        color: $palette-primary-main-3;
+        margin-right: .5rem;
+      }
+      .statNumbers {
+        white-space: nowrap;
+        color: $palette-secondary-icon;
+      }
+    }
+  }
+
+  &.auditStatsAccordion {
+    overflow-y: auto;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    background-color: $palette-dark-background-2;
+    p, span {
+      color: $palette-dark-primary-text-2 !important;
+    }
+
+    .accordionTitle {
+      .caption {
+        svg {
+          color: $palette-dark-tertiary-text;
+        }
+      }
+    }
+
+    .tabs {
+      .tabButton {
+        background-color: $palette-dark-background-2;
+        border-color: $palette-dark-border;
+        &.active,
+        &:hover {
+          background-color: $palette-dark-primary-main;
+          border-color: $palette-dark-primary-main;
+
+          &::before {
+            background-color: $palette-dark-primary-main;
+          }
+        }
+      }
+    }
+
+  }
+}
+
+.listContainer {
+  padding-block: 0;
+}
+
+.chip {
+  font-size: 11px;
+  font-weight: 500;
+  height: auto;
+  border-radius: 20px;
+  padding: 4px 6px;
+  border: none;
+}
+
+.auditItem {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  padding: 0.25rem 0 0.25rem .75rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  position: relative;
+}
+
+.chipWrapper {
+  position:absolute;
+  right: 0;
+
+  :global(.MuiChip-root) {
+    background-color: $palette-secondary-main;
+    color: $palette-chip-background;
+    border-radius: 20px;
+    padding: 3px 6px;
+  }
+}
+
+.active {
+  font-weight: 600;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0rem;
+    width: 3px;
+    height: 100%;
+    background-color: $palette-list-border;
+    @media (prefers-color-scheme: dark) {
+      background-color: $palette-dark-list-border;
+    }
+  }
+}

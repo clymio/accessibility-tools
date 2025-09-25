@@ -1,0 +1,18 @@
+@import 'constants/theme';
+
+.root {
+  p {
+    color: $palette-primary-contrastText;
+  }
+  svg {
+    margin-left: 0 !important;
+  }
+  :global(.MuiAlert-action) {
+    button {
+      &:global(.MuiIconButton-root) {
+        background-color: transparent !important;
+        align-self: center;
+      }
+    }
+  }
+}

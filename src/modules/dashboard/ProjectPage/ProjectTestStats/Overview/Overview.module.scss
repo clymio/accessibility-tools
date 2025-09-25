@@ -1,0 +1,25 @@
+@import "constants/theme";
+
+.pieChart {
+  margin-top: 8px;
+  :global(.MuiPieArc-root) {
+    stroke: none;
+  }
+}
+
+.section {
+  margin-top: 16px;
+  color: $palette-primary-main-3;
+  p {
+    font-weight: 500;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .tooltip {
+    :global(.MuiChartsTooltip-labelCell),
+    :global(.MuiChartsTooltip-valueCell ) {
+      color: $palette-dark-primary-text-2;
+    }
+  }
+}

@@ -1,0 +1,173 @@
+@import "constants/theme";
+
+.root {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.5rem;
+
+  .button {
+    text-transform: none;
+    border-width: 1px;
+    border-radius: 8px;
+    padding: 8px 14px;
+    border-color: $palette-secondary-main;
+    background-color: $palette-primary-contrastText;
+    &:not(:disabled) {
+      color: $palette-primary-main-3;
+    }
+    margin: 0;
+    &:hover {
+      background-color: darken($palette-primary-contrastText, 5);
+    }
+    p {
+      color: inherit;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      background-color: $palette-dark-background-main-nav;
+      border-color: $palette-dark-border;
+      &:not(:disabled) {
+        color: $palette-dark-primary-text-2;
+      }
+      margin: 0;
+      &:hover {
+        background-color: darken($palette-dark-background-main-nav, 5);
+      }
+    }
+  }
+
+  .paginationButtons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &.withActions {
+    justify-content: space-between;
+  }
+
+  .actions {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  &.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+}
+
+.limitWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.limit {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+  gap: 16px;
+
+  > p {
+    font-weight: 500;
+  }
+
+  span {
+    display: inline-block;
+    margin-right: 0.5rem;
+  }
+
+  :global(.MuiSelect-root) {
+    padding-right: 24px !important;
+    padding-left: 10px !important;
+    padding-top: 4px !important;
+    padding-bottom: 4px !important;
+    color: $palette-primary-text;
+    font-size: 14px !important;
+    min-height: auto !important;
+    line-height: 16px !important;
+  }
+  :global(.Mui-disabled) {
+    background-color: transparent;
+  }
+
+  svg {
+    width: 24px;
+    height: 24px;
+    right: 1px;
+    top: 0px;
+  }
+}
+
+.select {
+  margin: 0 !important;
+  border: 1px solid $palette-secondary-main;
+  border-radius: 8px;
+  overflow: hidden;
+  fieldset {
+    border-radius: 8px;
+  }
+
+  :global(.MuiSelect-select) {
+    min-height: 1.2rem;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-right: 24px !important;
+    padding-left: 10px;
+    font-size: 0.8rem;
+  }
+
+  :global(.MuiOutlinedInput-notchedOutline) {
+    border-radius: 8px;
+  }
+
+  svg {
+    top: 4px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    border-color: $palette-dark-border;
+
+    :global(.MuiSelect-select) {
+      color: $palette-dark-primary-text-2;
+      background-color: $palette-dark-background-main-nav;
+    }
+
+    svg {
+      color: $palette-dark-primary-text-2;
+    }
+
+  }
+}
+
+.limit {
+  cursor: default;
+  font-size: 14px;
+  color: $palette-primary-text;
+}
+
+.filterInfoWrapper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.selectItem {
+  @media (prefers-color-scheme: dark) {
+    color: $palette-dark-primary-text-2;
+
+    &:global(.Mui-selected) {
+      background-color: $palette-dark-background-content;
+      color: $palette-dark-tertiary-text;
+    }
+  }
+}

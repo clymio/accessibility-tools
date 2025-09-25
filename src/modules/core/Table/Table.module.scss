@@ -1,0 +1,106 @@
+@import "constants/theme";
+.root {
+  max-width: 100%;
+  max-height: var(--max-height);
+  position: relative;
+  border-radius: 0;
+
+  .loader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    border-color: $palette-dark-border;
+  }
+}
+.table {
+  border-spacing: 0;
+  width: 100%;
+  &.sortable {
+    th span {
+      &:focus,
+      &:focus-within {
+        outline: -webkit-focus-ring-color auto 1px;
+      }
+    }
+  }
+  thead {
+    tr {
+      background: $palette-table-head-background;
+      border-bottom: 1px solid $palette-table-border;
+      @media (prefers-color-scheme: dark) {
+        border-color: $palette-dark-border;
+        th {
+          background-color: $palette-dark-background-2;
+        }
+      }
+    }
+  }
+  tr {
+    &:not(:last-of-type) {
+      border-bottom: 1px solid $palette-table-border;
+      @media (prefers-color-scheme: dark) {
+        border-bottom-color: $palette-dark-border;
+      }
+    }
+
+    @media (prefers-color-scheme: dark) {
+      background: $palette-dark-background-main-nav !important;
+    }
+  }
+  th,
+  td {
+    padding: 12px 16px;
+    border-bottom: inherit;
+    &.skeletonCell {
+      padding: 0;
+    }
+    p svg {
+      stroke: #667085;
+      color: transparent;
+    }
+    svg {
+      font-size: 20px;
+    }
+    p {
+      color: $palette-primary-main-3;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      p {
+        color: $palette-dark-primary-text-2;
+        svg {
+          stroke: $palette-dark-primary-text-2;
+          color: transparent;
+        }
+      }
+
+      :global(.MuiCheckbox-root.Mui-checked) {
+        color: $palette-dark-table-checkbox-selected-background;
+        border-radius: 6px;
+      }
+    }
+  }
+  th {
+    font-weight: 600;
+  }
+  tr {
+    &:focus,
+    &:focus-visible {
+      outline: -webkit-focus-ring-color auto 1px;
+    }
+  }
+  td.dragIcon {
+    padding-right: 0;
+    svg {
+      font-size: 24px;
+    }
+  }
+  :global(.Mui-selected) {
+    background-color: initial;
+  }
+}

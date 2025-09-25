@@ -1,0 +1,35 @@
+@import "constants/theme";
+
+.root {
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: none;
+  padding: 3px 6px;
+  border: none;
+  background-color: $palette-chip-background;
+  color: $palette-chip-color;
+  &.success {
+    background-color: $palette-chip-background-success;
+    color: $palette-chip-color-success;
+  }
+  &.disabled {
+    background-color: $palette-chip-background-disabled;
+    color: $palette-chip-color-disabled;
+  }
+  &.error {
+    background-color: $palette-chip-background-error;
+    color: $palette-chip-color-error;
+  }
+  &.warning {
+    background-color: $palette-chip-background-warning;
+    color: $palette-chip-color-warning;
+  }
+  &.info {
+    background-color: $palette-chip-background-info;
+    color: $palette-chip-color-info;
+  }
+  :global(.MuiChip-label) {
+    line-height: normal;
+  }
+}

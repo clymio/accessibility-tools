@@ -1,0 +1,172 @@
+$palette-primary-main: #002ae6;
+$palette-secondary-green: #08f279;
+$palette-primary-error: #b42318;
+$palette-primary-main-2: #a0a0a0;
+$palette-primary-main-3: #344054;
+$palette-primary-cobalt: #002ae6;
+$palette-primary-title: #606060;
+$palette-primary-subtitle: #667085;
+$palette-primary-mist: #e8ebf1;
+$palette-primary-mist-hover: #f2f4f7;
+$palette-primary-gray: #7b7b7b;
+$palette-primary-light-grey: #c6c6c6;
+$palette-primary-contrastText: #ffffff;
+$palette-primary-text: #3a3d41;
+$palette-primary-icon: #0027d6;
+$palette-secondary-icon: #98a2b3;
+$palette-primary-disabled: #ccd2e0;
+$palette-content-background: #ffffff;
+$palette-dropdown-shadow:
+  0px 4px 6px -2px #10182808,
+  0px 12px 16px -4px #10182814;
+
+$palette-label-main: #1f1f1f;
+
+$palette-secondary-main: #d0d5dd;
+$palette-secondary-text: #474971;
+$palette-menu-main: #7f7f7f;
+$palette-menu-active: #3a3d41;
+$palette-menu-active-bar: #002ae6;
+$palette-menu-dropdown: #ffffff;
+$palette-menu-dropdown-gray: $palette-primary-mist;
+$palette-accordion-details: #f8f9fb;
+$palette-dialog-overlay: rgba(12, 22, 71, 0.7);
+$palette-error-main: #dc3545;
+$palette-error-main-2: #fecdca;
+$palette-action-alert: #d92d20;
+$palette-warning-main: #f88a0d;
+$palette-success-main: #10c645;
+$palette-border-radius: 2px;
+$palette-stripe-footer: #8e9cb9;
+$palette-list-main: $palette-primary-title;
+$palette-list-active: #333333;
+$palette-list-border: $palette-primary-icon;
+$palette-list-track: #d4d4d4;
+$palette-list-hover: rgba($palette-list-track, 0.5);
+$palette-button-main: #fcfcfd;
+$palette-table-border: #d0d5dd;
+$palette-table-background: #ffffff;
+$palette-table-head-background: #f9fafb;
+$palette-table-checkbox-selected-background: #e7ecff;
+$palette-chip-background: #475467;
+$palette-chip-color: #ffffff;
+$palette-chip-background-success: #ecfdf3;
+$palette-chip-color-success: #027a48;
+$palette-chip-background-disabled: #f2f4f7;
+$palette-chip-color-disabled: #344054;
+$palette-chip-background-error: #fef3f2;
+$palette-chip-color-error: #b42318;
+$palette-chip-background-warning: #fff6ed;
+$palette-chip-color-warning: #c4320a;
+$palette-chip-background-info: #f4f3ff;
+$palette-chip-color-info: #5925dc;
+$palette-slider-background: #f9fafb;
+$palette-slider-background-track: #5c0f98;
+$palette-accordion-border: #d0d5dd;
+$palette-card-title: #09154a;
+$palette-card-background: #f2f4f7;
+$palette-card-divider: #d1d9ff;
+$palette-connected-profile-card: #e7ecff;
+$palette-card-icon: #002ae6;
+$palette-input-code: #f5f5f5;
+$palette-input-code-text: #474971;
+
+$palette-background-content: #ffffff;
+$palette-background-main-nav: #e5e5e5;
+$palette-background-header: #d4d4d4;
+$palette-background-grey: #e7ecff;
+$palette-background-mist: #d1d9ff;
+
+$palette-background-resizable-blocks: #f0f0f0;
+$palette-border-resizable-blocks: $palette-background-header;
+$palette-resize-bar: #3552d5;
+
+$palette-text-footer: #969696;
+
+$palette-report-divider: #98a2b3;
+$palette-report-footer-divider: #e4e7ec;
+
+$palette-eula-license-color: #198039;
+
+$title-font: var(--font-roboto-mono), Arial, sans-serif;
+$regular-font: var(--font-roboto), "Helvetica", "Arial", sans-serif;
+
+$site-scan-blue: #09154a;
+$site-scan-white: white;
+$site-scan-divider: #e8ebf1;
+$site-scan-text: #474974;
+
+// dark theme
+$palette-dark-primary-main: #002ae6;
+$palette-dark-secondary-green: #08f279;
+$palette-dark-primary-main-2: #8f9bb9;
+$palette-dark-primary-main-3: #cdd2e1;
+$palette-dark-primary-cobalt: #002ae6;
+$palette-dark-primary-title: #cccccc;
+$palette-dark-primary-mist: #e8ebf1;
+$palette-dark-primary-mist-hover: #f2f4f7;
+$palette-dark-primary-gray: #7b7b7b;
+$palette-dark-primary-light-grey: #c7c7c7;
+$palette-dark-primary-contrastText: #ffffff;
+$palette-dark-primary-text: #fcfcfd;
+$palette-dark-primary-text-2: #f9fafb;
+$palette-dark-primary-disabled: #ccd2e0;
+$palette-dark-content-background: #ffffff;
+$palette-dark-dropdown-shadow: 1px 2px 5px #e5e5e5;
+
+$palette-dark-label-main: #1f1f1f;
+
+$palette-dark-secondary-main: #767676;
+$palette-dark-secondary-text: #474971;
+$palette-dark-tertiary-text: #afbeff;
+$palette-dark-menu-main: #98a2b3;
+$palette-dark-menu-active: #fcfcfd;
+$palette-dark-menu-dropdown: #1e1e1e;
+$palette-dark-menu-dropdown-gray: $palette-dark-primary-mist;
+$palette-dark-accordion-details: #f8f9fb;
+$palette-dark-dialog-overlay: rgba(12, 22, 71, 0.7);
+$palette-dark-error-main: #dc3545;
+$palette-dark-warning-main: #f88a0d;
+$palette-dark-success-main: #10c645;
+$palette-dark-stripe-footer: #8e9cb9;
+$palette-dark-list-main: $palette-dark-primary-title;
+$palette-dark-list-active: #dcdcdc;
+$palette-dark-list-border: #254cfa;
+$palette-dark-list-track: #565656;
+$palette-dark-list-hover: rgba($palette-dark-list-track, 0.5);
+$palette-dark-button-main: #fcfcfd;
+$palette-dark-table-border: #d0d5dd;
+$palette-dark-table-background: #ffffff;
+$palette-dark-table-head-background: #f9fafb;
+$palette-dark-table-checkbox-selected-background: #e7ecff;
+$palette-dark-chip-background: #475467;
+$palette-dark-chip-color: #ffffff;
+$palette-dark-chip-background-success: #ecfdf3;
+$palette-dark-chip-color-success: #027a48;
+$palette-dark-chip-background-disabled: #f2f4f7;
+$palette-dark-chip-color-disabled: #344054;
+$palette-dark-chip-background-error: #fef3f2;
+$palette-dark-chip-color-error: #b42318;
+$palette-dark-chip-background-warning: #fff6ed;
+$palette-dark-chip-color-warning: #c4320a;
+$palette-dark-chip-background-info: #f4f3ff;
+$palette-dark-chip-color-info: #5925dc;
+$palette-dark-select-icon: #667085;
+
+$palette-dark-background-content: #344054;
+$palette-dark-background-2: #101828;
+$palette-dark-background-main-nav: #1d2939;
+$palette-dark-background-header: #1d2939;
+$palette-dark-border: #344054;
+
+$palette-dark-background-resizable-blocks: #181818;
+$palette-dark-border-resizable-blocks: $palette-dark-background-header;
+$palette-dark-button-border: #344054;
+$palette-dark-resize-bar: #3552d5;
+
+$palette-dark-text-footer: #969696;
+
+$palette-dark-report-divider: #98a2b3;
+$palette-dark-report-footer-divider: #e4e7ec;
+
+$palette-dark-eula-license-color: #7fd39a;

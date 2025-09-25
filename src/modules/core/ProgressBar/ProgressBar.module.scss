@@ -1,0 +1,33 @@
+@import 'constants/theme';
+
+.progressBar {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+  background-color: $palette-background-grey;
+  padding: 12px;
+  border-radius: 16px;
+  width: 176px;
+  justify-self: center;
+
+  .progressStep {
+    width: 70px;
+    height: 8px;
+    background-color: $palette-content-background;
+    margin: 0 4px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+
+    @media(prefers-color-scheme: dark) {
+      background-color: $palette-background-mist;
+    }
+
+    &.active,
+    &.completed {
+      background-color: $palette-primary-main;
+    }
+  }
+  @media(prefers-color-scheme: dark) {
+    background-color: $palette-dark-background-2;
+  }
+}

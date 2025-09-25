@@ -1,0 +1,80 @@
+@import "constants/theme";
+
+.dialogContainer {
+  .dialogContentContainer {
+    padding: 0;
+  }
+  .dialogHeader {
+    position: relative;
+    text-align: left;
+    display: flex;
+    border-bottom: none;
+
+    :global(.MuiTypography-body1) {
+      font-size: 1.125rem;
+    }
+
+    p {
+      span {
+        display: block;
+        text-align: left;
+        margin-bottom: 8px;
+        line-height: 28px;
+
+        &:nth-child(2) {
+          line-height: 20px;
+          margin-bottom: 32px;
+        }
+      }
+    }
+    .iconContainer {
+      height: 64px;
+      width: 64px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 24px;
+      .icon {
+        fill: transparent;
+        color: $palette-action-alert;
+        box-shadow:
+          inset 0px 0px 0px 200px rgba(254, 228, 226, 1),
+          0px 0px 0px calc(var(--shadow-size) * 0.6) rgba(254, 228, 226, 1),
+          0px 0px 0px var(--shadow-size) rgba(254, 243, 242, 1);
+      }
+    }
+  }
+  .dialogContent {
+    margin-left: 84px;
+    width: fit-content;
+    max-width: 360px;
+    flex: 0 0 auto;
+    padding-bottom: 0;
+    overflow: visible;
+    float: left;
+
+    .checkboxBase {
+      width: 20px;
+      height: 20px;
+      border: 2px solid $palette-secondary-main;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .checkboxX {
+      color: $palette-primary-main-3;
+      font-size: 14px;
+      font-weight: bold;
+      position: absolute;
+    }
+  }
+  .dialogActions {
+    width: fit-content !important;
+    float: right;
+    margin-top: 0 !important;
+    max-width: 360px !important;
+  }
+}

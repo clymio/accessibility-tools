@@ -1,0 +1,30 @@
+@import "constants/theme";
+
+.root {
+  color: inherit;
+  border-radius: 100%;
+  font-size: inherit;
+
+  &.shadow {
+    color: $palette-primary-icon;
+    font-size: 24px;
+    box-shadow:
+      inset 0px 0px 0px 200px rgba($palette-primary-icon, 0.2),
+      0px 0px 0px calc(var(--shadow-size) * 0.6)
+        rgba($palette-primary-icon, 0.1),
+      0px 0px 0px var(--shadow-size) rgba($palette-primary-icon, 0.1);
+  }
+
+  @media (prefers-color-scheme: dark) {
+
+
+    &.shadow {
+      color: $palette-dark-primary-main;
+      box-shadow:
+        inset 0px 0px 0px 200px rgba($palette-background-mist, 1),
+        0px 0px 0px calc(var(--shadow-size) * 0.6)
+        rgba($palette-background-mist, 1),
+        0px 0px 0px var(--shadow-size) rgba($palette-background-mist, 0.8);
+    }
+  }
+}

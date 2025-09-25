@@ -1,0 +1,337 @@
+@import "constants/theme";
+
+.dialogContainer {
+  .dialogHeader {
+    svg.edit {
+      fill: none;
+    }
+  }
+}
+
+.formField {
+  @media (prefers-color-scheme: dark) {
+    > p,
+    label {
+      color: $palette-dark-primary-text-2 !important;
+    }
+  }
+
+  .radioGroup {
+    margin-top: 0.5rem;
+  }
+
+  .formFieldSet {
+    width: 100%;
+    max-width: 360px;
+    margin-top: 16px;
+  }
+
+  .projectBoxLabel {
+    border: 1px solid $palette-secondary-main;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 360px;
+    margin-right: 0;
+    margin-left: 0;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    padding: 16px;
+
+    .projectBoxRadioButton {
+      input {
+        position: absolute;
+      }
+
+      svg {
+        color: $palette-secondary-main;
+      }
+
+      .projectBoxRadioIconChecked {
+        background-color: $palette-primary-cobalt;
+        stroke: $palette-content-background;
+        padding:3px;
+        font-size: 24px;
+        fill: none;
+      }
+    }
+
+    &.selected {
+      border-color: $palette-primary-icon;
+    }
+
+    &.disabled {
+      opacity: 50%;
+    }
+  }
+
+  .projectBox {
+    display: flex;
+    align-items: center;
+
+    svg {
+      margin-right: 24px;
+      color: $palette-primary-cobalt;
+      fill: transparent;
+    }
+
+    p {
+      font-size: 14px;
+      font-weight: 500;
+      color: $palette-primary-main-3;
+
+      @media (prefers-color-scheme: dark) {
+        color: $palette-dark-primary-text-2;
+      }
+    }
+
+    &.selected {
+      color: blue;
+      border-color: $palette-primary-cobalt;
+    }
+  }
+
+  .textField {
+    > div {
+      input {
+        font-size: 16px;
+        line-height: 24px;
+        height: auto;
+        font-family: $regular-font;
+
+        &:global(.Mui-disabled) {
+          background-color: $palette-primary-disabled;
+          border-radius: 8px;
+        }
+
+        @media (prefers-color-scheme: dark) {
+          background-color: $palette-dark-background-2;
+          border-radius: 8px;
+
+          &::placeholder {
+            color: $palette-dark-report-divider;
+          }
+
+          &:global(.Mui-disabled) {
+            background-color: $palette-dark-background-2;
+            border: 1px solid $palette-dark-border;
+            color: $palette-report-divider;
+          }
+        }
+      }
+      :global(fieldset.MuiOutlinedInput-notchedOutline) {
+        border: 1px solid $palette-secondary-main;
+        border-radius: 8px;
+
+        @media (prefers-color-scheme: dark) {
+          border-color: $palette-dark-background-content;
+        }
+      }
+
+      &:global(.Mui-disabled) {
+        fieldset {
+          border: 1px solid $palette-table-border;
+          border-radius: 8px;
+        }
+      }
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :global(.MuiOutlinedInput-root) {
+        border-radius: 8px;
+        background-color: $palette-dark-background-2;
+        border-color: $palette-dark-border !important;
+      }
+    }
+  }
+
+  .environmentSection {
+    .environmentRow {
+      &:not(:first-child) {
+        border-top: 1px solid $palette-secondary-main;
+        margin-top: 16px;
+
+        @media (prefers-color-scheme: dark) {
+          border-top-color: $palette-dark-border;
+        }
+      }
+      :global(.MuiFormControl-root) {
+        &:not(:first-child) {
+          margin-top: 38px;
+        }
+      }
+    }
+  }
+}
+
+.purposeAndFunctionalitySection {
+  .formField {
+    width: 100%;
+
+    .textField {
+      border-radius: 8px;
+      margin-bottom: 1rem;
+
+      :global(.MuiInputLabel-root) {
+        top: -20px;
+      }
+
+      > div {
+        border-radius: 8px;
+        border: 1px solid $palette-secondary-main;
+        input,
+        fieldset,
+        textarea {
+          border-radius: 8px;
+
+          &:focus {
+            border-color: $palette-secondary-main;
+          }
+        }
+      }
+
+      &.textFieldError {
+        border: none;
+      }
+    }
+
+    textarea {
+      @media (prefers-color-scheme: dark) {
+        background-color: $palette-dark-background-2;
+      }
+    }
+
+    .infoIcon {
+      height: 16px;
+      cursor: pointer;
+
+      svg {
+        color: $palette-primary-main;
+        fill: transparent;
+        position:relative;
+        font-size: 16px;
+
+        @media (prefers-color-scheme: dark) {
+          color: $palette-dark-tertiary-text;
+        }
+      }
+    }
+
+    &:first-child {
+      margin-top: 0;
+      margin-bottom: 1rem;
+    }
+  }
+  :global(.MuiDivider-root) {
+    height: 1px;
+
+    @media (prefers-color-scheme: dark) {
+      border-color: $palette-dark-border;
+    }
+  }
+}
+
+.removeButton,
+.addEnvironmentButton,
+.addPurposeButton {
+  margin-top: 16px;
+
+  p {
+    font-family: $regular-font;
+    color: $palette-primary-icon;
+    text-transform: none;
+    letter-spacing: 0;
+    line-height: 20px;
+    font-size: 14px;
+  }
+
+  svg {
+    margin-right: 8px;
+    color: $palette-primary-icon;
+    fill: none;
+  }
+}
+
+.removeIcon {
+  fill: none;
+}
+
+.addEnvironmentButton {
+  svg {
+    font-size: 20px;
+  }
+  @media (prefers-color-scheme: dark) {
+    p,
+    svg {
+      color: $palette-dark-tertiary-text;
+    }
+  }
+}
+
+.addPurposeButton {
+  svg {
+    font-size: 20px;
+    margin-left: .5rem;
+  }
+  @media (prefers-color-scheme: dark) {
+    p,
+    svg {
+      color: $palette-dark-primary-text-2;
+    }
+
+    svg {
+      margin-right: 0;
+      margin-left: 8px;
+    }
+  }
+}
+
+.dialogContentContainer {
+  overflow: auto;
+  width: 100%;
+  padding: 30px 50px;
+  & > * {
+    margin: 0 auto;
+  }
+}
+.dialogContainer {
+  .dialogHeader {
+    width: 100%;
+    max-width: 360px;
+    text-align: center;
+    padding: 0;
+    border-bottom: none;
+
+    p {
+      font-size: 18px;
+      font-weight: 500;
+      margin-top: 20px;
+      color: $palette-primary-text;
+
+      @media (prefers-color-scheme: dark) {
+        color: $palette-dark-primary-text;
+      }
+    }
+
+    .icon {
+      //border: 2px solid $palette-primary-icon;
+    }
+  }
+
+  .dialogContent {
+    width: 100%;
+    max-width: 360px;
+    flex: 0 0 auto;
+    padding-bottom: 0;
+    overflow: visible;
+  }
+}
+
+.captionLink {
+  color: $palette-menu-dropdown;
+  .captionLinkText {
+    color: $palette-menu-dropdown;
+    margin-left: 3px;
+    text-decoration: underline;
+  }
+}

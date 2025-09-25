@@ -1,0 +1,21 @@
+@import "constants/theme";
+
+.root {
+  display:flex;
+  align-items: center;
+  padding: 0;
+  .colorButton {
+    height: .75rem;
+    min-width: .75rem;
+    padding: .75rem;
+    border-radius: 100%;
+    background-color: $palette-dark-background-header;
+    border: 2px solid $palette-primary-mist;
+    margin-left: .5rem;
+
+    &:nth-child(2) {
+      background-color: $palette-content-background;
+      margin-left: 1rem;
+    }
+  }
+}

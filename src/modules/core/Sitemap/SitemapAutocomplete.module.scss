@@ -1,0 +1,165 @@
+@import "constants/theme";
+
+.autocomplete {
+  overflow: hidden;
+  color: $palette-primary-main-3;
+  border-radius: 8px;
+
+
+  :global(.MuiInputBase-root) {
+    &:global(.Mui-disabled) {
+      background-color: $palette-primary-disabled;
+
+      input {
+        background-color: $palette-primary-disabled;
+      }
+
+      svg {
+        color: $palette-primary-disabled !important;
+      }
+    }
+  }
+  @media (prefers-color-scheme: dark) {
+    color: $palette-dark-primary-text-2;
+
+    :global(.MuiInputBase-root) {
+      background-color: $palette-dark-background-2;
+
+      input {
+        background-color: $palette-dark-background-2;
+        color: $palette-dark-primary-text-2;
+
+        &::placeholder {
+          color: $palette-dark-report-divider;
+        }
+      }
+
+      fieldset {
+        border-color: $palette-dark-border;
+      }
+
+      &:global(.Mui-disabled) {
+        background-color: $palette-dark-background-2;
+        border: 1px solid $palette-dark-border;
+        border-radius: 8px;
+
+        input {
+          background-color: $palette-dark-background-2;
+          color: $palette-report-divider;
+        }
+
+        svg {
+          color: $palette-report-divider !important;
+        }
+      }
+    }
+  }
+
+  fieldset {
+    border: 1px solid $palette-secondary-main;
+  }
+}
+.autocompleteTextField {
+  margin: 0;
+
+  svg {
+    color: inherit !important;
+  }
+}
+.autocompleteOption {
+  padding-block: 10px;
+  color: $palette-primary-main-3;
+  @media (prefers-color-scheme: dark) {
+    color: $palette-dark-primary-main-3;
+  }
+  p {
+    font-size: 14px;
+    font-weight: inherit;
+  }
+}
+.paper {
+  margin: 0 !important;
+  border: 1px solid $palette-secondary-main !important;
+  border-radius: 8px !important;
+  overflow: hidden;
+
+  @media (prefers-color-scheme: dark) {
+    &:global(.MuiPaper-root) {
+      border-color: $palette-dark-border !important;
+      background-color:$palette-dark-background-2;
+      color: $palette-dark-primary-text-2;
+      --Paper-overlay: none !important;
+      --Paper-shadow: none !important;
+    }
+  }
+}
+.addPageButton {
+  text-transform: none;
+  font-weight: 500;
+  font-size: 14px;
+  padding: 12px 16px;
+  text-align: left;
+  justify-content: flex-start;
+  border: none;
+  color: $palette-primary-main-3;
+  @media (prefers-color-scheme: dark) {
+    color: $palette-dark-primary-main-3;
+  }
+  p {
+    color: inherit;
+  }
+  &:hover {
+    cursor: pointer;
+    border-width: 1px;
+    @media (prefers-color-scheme: dark) {
+      background-color: $palette-dark-secondary-main;
+    }
+  }
+}
+.customInputContainer {
+  border-top: 1px solid $palette-secondary-main;
+  padding: 5px;
+
+  @media (prefers-color-scheme: dark) {
+    border-top-color: $palette-dark-border;
+  }
+}
+.form {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  .textField {
+    margin: 0;
+    flex: 1;
+    input {
+      padding-block: 6px;
+    }
+
+    &.error {
+      fieldset {
+        border-width: 2px;
+        border-color: $palette-error-main !important;
+      }
+    }
+  }
+  button {
+    text-transform: none;
+    border-radius: 8px;
+    padding: 8px 14px;
+    p {
+      color: $palette-primary-contrastText;
+    }
+  }
+}
+
+.errorMessage {
+  color: $palette-error-main;
+  padding-top: .5rem;
+  display: block;
+}
+
+.icon {
+  fill: none;
+  font-size: 20px;
+}

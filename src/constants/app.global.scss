@@ -1,0 +1,325 @@
+@import "./theme";
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+  background-color: $palette-background-content;
+
+  &.pdf-body {
+    font-size: 10px;
+    overflow-y: auto;
+    @media print {
+      height: auto;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+  }
+
+  &.no-scroll {
+    overflow: hidden;
+  }
+
+  &.transparent {
+    background-color: transparent !important;
+
+    body {
+      background-color: transparent !important;
+    }
+  }
+
+  @media (prefers-color-scheme: dark) {
+    background-color: $palette-dark-background-content;
+  }
+}
+
+button,
+input {
+  -webkit-app-region: no-drag;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: $palette-primary-main;
+  text-decoration: none;
+  cursor: pointer;
+
+  @media (prefers-color-scheme: dark) {
+    color: $palette-dark-primary-main;
+  }
+
+  &:hover {
+    color: darken($palette-primary-main, 10);
+
+    @media (prefers-color-scheme: dark) {
+      color: darken($palette-dark-primary-main, 10);
+    }
+  }
+}
+
+.MuiMenu-paper {
+  background-color: $palette-menu-dropdown;
+  border-radius: 8px;
+  @media (prefers-color-scheme: dark) {
+    background-color: $palette-dark-menu-dropdown;
+    border-color: $palette-dark-border;
+    ul,
+    li {
+      background-color: $palette-dark-menu-dropdown;
+    }
+  }
+}
+
+.code-control {
+  > label {
+    font-weight: 400 !important;
+  }
+
+  > code {
+    margin-top: 20px;
+  }
+}
+
+code {
+  display: block;
+  //box-shadow: inset 2px 3px 4px 0px rgba(206, 206, 206, 1), inset -1px -1px 2px 0px rgba(221, 221, 222, 07);
+  padding: 10px 15px;
+  border-radius: $palette-border-radius;
+  white-space: pre;
+  word-wrap: break-word;
+  overflow-x: auto;
+}
+
+.transparent {
+  background-color: transparent !important;
+}
+
+.MuiPaper-root > table > tbody > tr {
+  > th,
+  > td {
+    border-radius: 0 !important;
+  }
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.form-select {
+  > label:first-child {
+    top: -18px !important;
+  }
+}
+
+div[role="tooltip"] {
+  ul {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 1rem;
+  }
+}
+
+td.table-icon {
+  padding-right: 0;
+}
+
+td.table-action {
+  padding-right: 0;
+
+  button.MuiButton-root {
+    margin-left: 4px;
+  }
+}
+
+.select-white {
+  background-color: $palette-menu-dropdown;
+  @media (prefers-color-scheme: dark) {
+    background-color: $palette-dark-menu-dropdown;
+  }
+
+  svg {
+    fill: $palette-primary-text;
+    @media (prefers-color-scheme: dark) {
+      fill: $palette-dark-primary-text;
+    }
+  }
+
+  > div {
+    color: $palette-primary-text;
+    @media (prefers-color-scheme: dark) {
+      color: $palette-dark-primary-text;
+    }
+  }
+
+  &:hover {
+    background-color: lighten($palette-primary-mist, 3);
+    @media (prefers-color-scheme: dark) {
+      background-color: lighten($palette-dark-primary-mist, 3);
+    }
+  }
+}
+
+.warning {
+  color: $palette-warning-main;
+  @media (prefers-color-scheme: dark) {
+    color: $palette-dark-warning-main;
+  }
+}
+
+.chip-warning {
+  background-color: $palette-warning-main;
+  @media (prefers-color-scheme: dark) {
+    background-color: $palette-dark-warning-main;
+  }
+}
+.chip-error {
+  background-color: $palette-error-main;
+  @media (prefers-color-scheme: dark) {
+    background-color: $palette-dark-error-main;
+  }
+}
+.chip-success {
+  background-color: $palette-success-main;
+  @media (prefers-color-scheme: dark) {
+    background-color: $palette-dark-success-main;
+  }
+}
+
+table.transparent {
+  border-spacing: 0;
+
+  thead tr th:first-of-type,
+  tbody tr td:first-of-type {
+    padding-left: 0;
+  }
+
+  thead tr th:last-of-type,
+  tbody tr td:last-of-type {
+    padding-right: 0;
+  }
+
+  tbody tr td {
+    border-top: 1px solid $palette-primary-mist;
+    @media (prefers-color-scheme: dark) {
+      border-top: 1px solid $palette-dark-primary-mist;
+    }
+  }
+
+  tbody tr:last-of-type td {
+    border-bottom: 1px solid $palette-primary-mist;
+    @media (prefers-color-scheme: dark) {
+      border-bottom: 1px solid $palette-dark-primary-mist;
+    }
+  }
+
+  thead tr,
+  tbody tr {
+    background-color: transparent;
+    border: 0;
+
+    th,
+    td {
+      line-height: 1rem;
+      padding: 8px;
+    }
+
+    th {
+      color: $palette-label-main;
+      @media (prefers-color-scheme: dark) {
+        color: $palette-dark-label-main;
+      }
+      font-weight: 500;
+    }
+
+    &:hover {
+      box-shadow: none;
+    }
+  }
+}
+
+table.compact {
+  border-spacing: 0;
+
+  > thead {
+    //box-shadow: 0px 0px 3px 1px rgba(206, 206, 206, 1) !important;
+
+    tr {
+      //box-shadow: 0px 0px 3px 1px rgba(206, 206, 206, 1) !important;
+      border-top-left-radius: 6px !important;
+      border-top-right-radius: 6px !important;
+      border-bottom-left-radius: 0 !important;
+      border-bottom-right-radius: 0 !important;
+
+      th {
+        background-color: #f4f4f4;
+
+        &:last-child {
+          border-bottom-right-radius: 0 !important;
+        }
+      }
+    }
+  }
+
+  > tbody {
+    tr:not(:last-child) {
+      td {
+        border-radius: 0 !important;
+      }
+    }
+
+    tr td {
+      padding: 8px;
+    }
+
+    tr:last-child {
+      td:first-child {
+        border-top-left-radius: 0 !important;
+      }
+
+      td:last-child {
+        border-top-right-radius: 0 !important;
+      }
+    }
+  }
+}
+
+.avatar-circle {
+  background-color: transparent;
+  border: 1px solid $palette-primary-mist;
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid $palette-dark-primary-mist;
+  }
+}
+
+.MuiSnackbar-root .MuiPaper-root .MuiAlert-action {
+  padding-top: 0;
+}
+
+.split-layout {
+  .MuiSnackbar-root .MuiPaper-root {
+    max-width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.MuiCircularProgress-root {
+  color: $palette-primary-main;
+  @media (prefers-color-scheme: dark) {
+    color: $palette-dark-primary-text-2;
+  }
+}

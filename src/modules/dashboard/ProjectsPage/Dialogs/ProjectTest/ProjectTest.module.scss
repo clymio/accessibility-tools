@@ -1,0 +1,258 @@
+@import "constants/theme";
+
+.dialogContainer {
+  .dialogHeader {
+    svg.edit {
+      fill: none;
+    }
+  }
+}
+
+.infoIcon {
+  height: 16px;
+  cursor: pointer;
+
+  svg {
+    color: $palette-primary-main;
+    fill: transparent;
+    position:relative;
+    font-size: 16px;
+
+    @media (prefers-color-scheme: dark) {
+      color: $palette-dark-tertiary-text;
+    }
+  }
+}
+
+.stepTwo,
+.stepThree {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  .stepHeader {
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+
+    .infoIcon {
+      margin-left: 6px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      color: $palette-dark-primary-text-2;
+
+      svg {
+        color: $palette-dark-tertiary-text;
+      }
+    }
+  }
+
+  .pageRow {
+    .selectContainer {
+      display: flex;
+      align-items: center;
+      flex: 1 0 100%;
+      position: relative;
+
+      p {
+        flex: 1 1 auto;
+        margin-right: 12px;
+
+        @media (prefers-color-scheme: dark) {
+          &:not(:global(.Mui-error)) {
+            color: $palette-dark-primary-text-2;
+          }
+        }
+      }
+
+      :global(.MuiBox-root) {
+        font-family: $regular-font;
+        font-size: 14px;
+        flex: 1 1 100%;
+
+        :global(.MuiFormControl-root) {
+          flex-direction: row;
+          align-items: center;
+          margin-top: 0;
+          flex-wrap: wrap;
+
+          :global(.MuiAutocomplete-hasClearIcon) {
+            padding-right: 0;
+          }
+
+          :global(.MuiFormLabel-root) {
+            margin-left: 12px;
+            margin-right: 20px;
+            position: relative;
+            top: unset;
+            left: unset;
+            transform: none;
+          }
+
+          :global(.MuiInputBase-root) {
+            flex-grow: 1;
+            padding: 10px 14px;
+          }
+        }
+      }
+
+      :global(.MuiAutocomplete-hasClearIcon) {
+        :global(.MuiInputBase-root) {
+          padding-right: 9px;
+        }
+      }
+
+      .deleteButton {
+        position: absolute;
+        right: -44px;
+        top:0;
+        bottom: 0;
+        width: 44px;
+        svg {
+          color: $palette-primary-main-3;
+          fill: none;
+          font-size: 16px;
+
+          @media(prefers-color-scheme: dark) {
+            color: $palette-dark-primary-text-2;
+          }
+        }
+      }
+    }
+  }
+}
+
+.formField {
+  @media (prefers-color-scheme: dark) {
+    > p,
+    label {
+      color: $palette-dark-primary-text-2 !important;
+
+      svg {
+        color: $palette-dark-tertiary-text;
+      }
+    }
+  }
+  input {
+    border-radius: 8px;
+    border-color: $palette-secondary-main;
+  }
+  .textField {
+    border-radius: 8px;
+    margin-bottom: 1rem;
+
+    :global(.MuiInputLabel-root) {
+      top: -20px;
+    }
+
+    > div {
+      border-radius: 8px;
+      border: 1px solid $palette-secondary-main;
+
+      @media (prefers-color-scheme: dark) {
+        border-color: $palette-dark-background-content;
+      }
+
+      input,
+      fieldset,
+      textarea {
+        border-radius: 8px;
+
+        &:focus {
+          border-color: $palette-secondary-main;
+        }
+      }
+
+      input,
+      textarea {
+        @media (prefers-color-scheme: dark) {
+          background-color: $palette-dark-background-2;
+
+          &::placeholder {
+            color: $palette-dark-report-divider;
+          }
+        }
+      }
+    }
+
+    &.textFieldError {
+      border: none;
+    }
+  }
+}
+
+.removeButton,
+.addPageButton {
+  color: $palette-primary-icon;
+  align-self: start;
+
+  p {
+    font-family: $regular-font;
+    color: $palette-primary-icon;
+    text-transform: none;
+    letter-spacing: 0;
+    line-height: 20px;
+    font-size: 14px;
+
+    @media (prefers-color-scheme: dark) {
+      color: $palette-dark-tertiary-text;
+    }
+  }
+
+  svg {
+    margin-right: 8px;
+    @media (prefers-color-scheme: dark) {
+      color: $palette-dark-tertiary-text;
+    }
+  }
+
+  &[disabled] {
+    p {
+      color:$palette-primary-disabled;
+    }
+
+  }
+}
+
+.dialogContentContainer {
+  overflow: auto;
+  width: 100%;
+  padding: 30px 50px;
+  & > * {
+    margin: 0 auto;
+  }
+}
+
+.dialogContainer {
+  .dialogHeader {
+    width: 100%;
+    max-width: 360px;
+    text-align: center;
+    padding: 0;
+    border-bottom: none;
+
+    p {
+      font-size: 18px;
+      font-weight: 500;
+      margin-top: 20px;
+      color: $palette-primary-text;
+
+      @media (prefers-color-scheme: dark) {
+        color: $palette-dark-primary-text;
+      }
+    }
+
+    .icon {
+      //border: 2px solid $palette-primary-icon;
+    }
+  }
+
+  .dialogContent {
+    width: 100%;
+    max-width: 360px;
+    flex: 0 0 auto;
+    padding-bottom: 0;
+    overflow: visible;
+  }
+}

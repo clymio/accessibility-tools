@@ -1,0 +1,116 @@
+@import "constants/theme";
+
+.coreDialog {
+  .dialog {
+    background-color: $palette-content-background;
+    @media (prefers-color-scheme: dark) {
+      background-color: $palette-dark-background-main-nav;
+      --Paper-overlay: none !important;
+    }
+  }
+  .dialogContentContainer {
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 100%;
+
+    & > * {
+      margin: 0 auto;
+    }
+
+    form:not(.delete) {
+      padding: 30px 50px;
+      overflow: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100%;
+    }
+
+    .closeDialogButton {
+      position: absolute;
+      top: 12px;
+      right: 22px;
+      z-index: 1;
+    }
+
+    .dialogActions {
+      width: 100%;
+      max-width: 360px;
+      flex: 1 1 auto;
+      align-items: flex-start;
+      margin-top: 32px;
+      gap: 8px;
+      &:not(.delete) {
+        flex-direction: row-reverse;
+      }
+      button {
+        flex: 1 0 calc(50% - 6px);
+        padding: 10px 18px;
+        border-radius: 8px;
+        font-size: 16px;
+        line-height: 24px;
+        height: auto;
+        text-transform: none;
+        font-family: $regular-font;
+        margin: 0;
+      }
+      .deleteBtn {
+        background-color: $palette-action-alert;
+        border: 2px solid $palette-action-alert;
+        &[disabled] {
+          background-color: $palette-error-main-2;
+          border-color: $palette-error-main-2;
+        }
+        p {
+          color: $palette-primary-contrastText;
+          @media (prefers-color-scheme: dark) {
+            color: $palette-dark-primary-text;
+          }
+        }
+      }
+      .cancelBtn {
+        border-color: $palette-secondary-main;
+        p {
+          color: $palette-primary-main-3;
+        }
+        &:hover {
+          background-color: $palette-secondary-main;
+        }
+        @media (prefers-color-scheme: dark) {
+          border-color: $palette-dark-border;
+          background-color: $palette-dark-background-2;
+          p {
+            color: $palette-dark-primary-text-2;
+          }
+          &:hover {
+            background-color: darken($palette-dark-background-2, 5);
+          }
+        }
+      }
+      .submitBtn {
+        border: 1px solid $palette-secondary-main;
+        p {
+          color: $palette-primary-contrastText;
+        }
+        @media (prefers-color-scheme: dark) {
+          border-color: $palette-dark-primary-main;
+        }
+      }
+      .backBtn {
+        border: 1px solid $palette-secondary-main;
+        background-color: $palette-content-background;
+        color: $palette-primary-text;
+        @media (prefers-color-scheme: dark) {
+          color: $palette-dark-primary-text;
+          border-color: $palette-dark-button-border;
+          background-color: $palette-dark-background-2;
+        }
+      }
+    }
+    .progressSpinner {
+      position: relative;
+      left: -10px;
+    }
+  }
+}

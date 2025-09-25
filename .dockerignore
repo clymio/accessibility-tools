@@ -1,0 +1,15 @@
+node_modules
+*.log
+.git
+.idea
+.gitlab-ci.yml
+README.md
+.editorconfig
+.next
+.DS_Store
+k8s
+cypress
+.husky
+*-credentials.json
+Dockerfile*
+Makefile

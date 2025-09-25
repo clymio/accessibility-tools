@@ -1,0 +1,185 @@
+@import "constants/theme";
+
+@page {
+  size: A4;
+  margin: 6rem 4rem 4rem;
+}
+
+.root {
+  --section-margins: 2rem;
+  width: calc(210mm - 8rem);
+  margin: 0 auto;
+  background: white;
+  &.html {
+    width: 100%;
+    margin: 0;
+    padding: 2rem 4rem 4rem;
+    .dataTableContainer {
+      margin-top: 2rem;
+    }
+    .dataTableContainer .dataTable {
+      margin-top: 1rem;
+    }
+    .poweredBy {
+      text-align: left;
+      justify-content: center;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 1rem;
+      p {
+        font-size: 0.8rem;
+        color: $palette-primary-title;
+      }
+    }
+  }
+  header {
+    text-align: center;
+    margin-bottom: 2rem;
+    .title {
+      margin-inline: 4rem;
+    }
+  }
+  .poweredBy {
+    display: none;
+    .appLogo {
+      height: 12px;
+      aspect-ratio: 7/1;
+    }
+    .clymLogo {
+      height: 12px;
+      aspect-ratio: 3/1;
+    }
+  }
+  h1 {
+    font-size: 1.8rem;
+  }
+  h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+  }
+  h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+  }
+  a h3 {
+    color: inherit;
+    text-decoration: underline;
+  }
+  .title {
+    text-align: center;
+  }
+  table {
+    border-spacing: 0;
+    margin-top: 0.5rem;
+    width: 100%;
+    border-collapse: collapse;
+    td,
+    th {
+      border: 1px solid black;
+      padding: 0.5rem;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      background-color: #bfbfbf;
+      p {
+        font-size: 0.9rem;
+        color: black;
+      }
+    }
+    td {
+      p {
+        font-size: 0.8rem;
+      }
+    }
+    ul {
+      list-style: none;
+      text-align: left;
+      padding-left: 0;
+      margin: 0;
+    }
+  }
+  ul li {
+    &::marker {
+      font-size: 1rem;
+    }
+  }
+  .info {
+    margin-top: var(--section-margins);
+  }
+  .overviewTable {
+    td:first-of-type {
+      min-width: 10rem;
+    }
+    td:last-of-type {
+      text-align: left;
+    }
+  }
+  .executiveSummary {
+    margin-top: var(--section-margins);
+  }
+  .guidelineTable {
+    margin-top: var(--section-margins);
+    h2 {
+      margin-bottom: 0.2rem;
+    }
+    table {
+      th,
+      td {
+        &:last-of-type {
+          text-align: left;
+          min-width: 15rem;
+        }
+      }
+    }
+  }
+  .terms {
+    margin-top: var(--section-margins);
+    h2 {
+      margin-bottom: 0.2rem;
+    }
+    ul li {
+      margin-bottom: 0.5rem;
+    }
+  }
+  .dataTableContainer {
+    break-before: always;
+    .dataTable {
+      &:not(:first-of-type) {
+        margin-top: 2rem;
+      }
+      table {
+        th,
+        td {
+          min-width: 150px;
+        }
+        th {
+          text-align: left;
+          white-space: nowrap;
+        }
+        td p {
+          text-align: left;
+        }
+        p {
+          color: inherit;
+        }
+        a p {
+          text-decoration: underline;
+        }
+        .type {
+          span {
+            font-weight: 500;
+          }
+        }
+      }
+    }
+  }
+  .disclaimer {
+    margin-top: 2rem;
+    .disclaimerText {
+      margin-top: 0.5rem;
+      font-size: 1rem;
+    }
+  }
+}

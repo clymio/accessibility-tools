@@ -1,0 +1,216 @@
+@import "constants/theme";
+
+.dialogContentContainer {
+  overflow: auto;
+  width: 100%;
+  padding: 30px 50px;
+  & > * {
+    margin: 0 auto;
+  }
+}
+.dialogContainer {
+  .dialogHeader {
+    width: 100%;
+    max-width: 360px;
+    text-align: center;
+    padding: 0;
+    border-bottom: none;
+
+    p {
+      font-size: 18px;
+      font-weight: 500;
+      margin-top: 20px;
+      color: $palette-primary-text;
+
+      @media (prefers-color-scheme: dark) {
+        color: $palette-dark-primary-text;
+      }
+    }
+    svg {
+      border: none;
+    }
+  }
+
+  .dialogContent {
+    width: 100%;
+    max-width: 360px;
+    flex: 0 0 auto;
+    padding-bottom: 0;
+    overflow: visible;
+
+    .autocompleteRow {
+      position: relative;
+
+      .autocomplete {
+        border-radius: 8px;
+        padding: 0;
+        margin-bottom: 16px;
+
+        :global(.MuiBox-root) {
+          padding-left: 0;
+          padding-right: 0;
+          border-radius: 8px;
+
+          .textField {
+            border-radius: 8px;
+            width: 100%;
+
+            :global(.MuiInputBase-root) {
+              border-radius: 8px;
+              padding: 10px 14px;
+
+              .optionItem {
+                width: inherit;
+                .optionName {
+                  font-weight: 600;
+                }
+              }
+
+              input {
+                padding: 0;
+                color: $palette-primary-main-3;
+
+                &::placeholder {
+                  font-size: 0.875rem;
+                  color: $palette-primary-main-3;
+                }
+
+                @media (prefers-color-scheme: dark) {
+                  color: $palette-dark-primary-text-2;
+                }
+              }
+
+              fieldset {
+                padding: 0;
+                border-radius: 8px;
+                border: 1px solid $palette-secondary-main;
+
+                @media (prefers-color-scheme: dark) {
+                  border-color: $palette-dark-background-content;
+                }
+              }
+            }
+
+            &.textFieldHasValue {
+              :global(.MuiInputBase-root) {
+                input {
+                  display: none;
+                }
+              }
+            }
+          }
+
+          .icon {
+            color: $palette-primary-main-3;
+            fill: none;
+            &.inputArrow {
+              font-size: 20px;
+              cursor: pointer;
+              transition: transform 0.1s ease-in-out;
+              color: $palette-primary-main-3 !important;
+              &.inputArrowOpen {
+                transform: rotate(180deg);
+              }
+
+              @media (prefers-color-scheme: dark) {
+                color: $palette-dark-primary-text-2 !important;
+              }
+
+            }
+          }
+        }
+
+        &:global(.Mui-expanded) {
+          border-bottom-right-radius: 0;
+          border-bottom-left-radius: 0;
+
+          :global(.MuiBox-root) {
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+
+            .textField {
+              border-bottom-right-radius: 0;
+              border-bottom-left-radius: 0;
+
+              :global(.MuiInputBase-root) {
+                border-bottom-right-radius: 0;
+                border-bottom-left-radius: 0;
+                &:hover {
+                  border-bottom: none;
+
+                  fieldset {
+                    border-bottom: none !important;
+                  }
+                }
+
+                input {
+                  padding: 0;
+                }
+
+                fieldset {
+                  padding: 0;
+                  border-bottom-right-radius: 0;
+                  border-bottom-left-radius: 0;
+                  border-bottom: none;
+                  border-color: $palette-primary-main !important;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .deleteButton {
+        position: absolute;
+        right: -36px;
+        top:0;
+        bottom: 0;
+        width: 36px;
+        height: fit-content;
+        svg {
+          color: $palette-primary-main-3;
+          fill: none;
+          font-size: 20px;
+
+          @media(prefers-color-scheme: dark) {
+            color: $palette-dark-primary-text-2;
+          }
+        }
+      }
+
+      :global(.MuiPopper-root) {
+        :global(.MuiPaper-root) {
+          border-top: 0;
+          border-color: $palette-primary-main;
+          margin-top: 0;
+          margin-bottom: 0;
+          transform: translateY(-2px);
+          border-bottom-left-radius: 8px;
+          border-bottom-right-radius: 8px;
+
+          .optionItem {
+            padding: 10px 14px;
+            .optionName {
+              font-weight: 600;
+            }
+          }
+        }
+      }
+    }
+
+    .addRemediationButton {
+      color: $palette-primary-main;
+      p {
+        color: $palette-primary-main;
+        text-transform: none;
+        padding-left: 8px;
+      }
+      @media (prefers-color-scheme: dark) {
+        p,
+        svg {
+          color: $palette-dark-tertiary-text;
+        }
+      }
+    }
+  }
+}

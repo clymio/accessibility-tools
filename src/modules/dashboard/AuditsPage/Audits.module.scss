@@ -1,0 +1,177 @@
+@import "constants/theme";
+
+.audits {
+  .pageHeading {
+    font-size: 24px;
+    font-family: $regular-font;
+    color: $palette-primary-text;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .title {
+      font-size: 24px;
+      font-family: $regular-font;
+      color: $palette-primary-text;
+
+      @media (prefers-color-scheme: dark) {
+        color: $palette-dark-primary-text;
+      }
+    }
+
+    .addAudit {
+      button {
+        border-radius: 8px;
+        padding: 8px 14px;
+        background-color: $palette-primary-main;
+        font-family: $regular-font;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 20px;
+        text-transform: none;
+
+        svg {
+          font-size: 20px;
+          margin-left: 8px;
+          fill:$palette-button-main;
+          stroke: $palette-button-main;
+          path {
+            fill: $palette-button-main;
+          }
+        }
+      }
+    }
+  }
+
+  .auditsList {
+    display: grid;
+    align-items: center;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 32px;
+    margin-top: 34px;
+
+    @media screen and (max-width: 1025px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media screen and (max-width: 740px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .audit {
+      cursor: pointer;
+      font-family: $regular-font;
+      color: $palette-primary-text;
+
+      @media (prefers-color-scheme: dark) {
+        color: $palette-dark-primary-text;
+      }
+
+      .auditImg {
+        width: 100%;
+        aspect-ratio: 16/9;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: $palette-dropdown-shadow;
+        img {
+          width: 100%;
+          height: 100%;
+          border-radius: 8px;
+        }
+        &.placeholder {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border: 1px solid $palette-table-border;
+
+          @media (prefers-color-scheme: dark) {
+            border-color: $palette-dark-background-2;
+          }
+
+          img {
+            border-radius: none;
+            width: 50%;
+            height: 50%;
+            object-fit: contain;
+            object-position: center;
+          }
+        }
+      }
+
+      .auditInfo {
+        display: flex;
+        justify-content: space-between;
+
+        .status {
+          align-self: center;
+          margin-right: 0.5rem;
+          &.CLOSED {
+            background-color: $palette-chip-color-success;
+          }
+          &.IN_PROGRESS {
+            background-color: $palette-warning-main;
+          }
+          &.OPEN {
+            background-color: $palette-secondary-icon;
+          }
+        }
+
+        .auditName {
+          flex-grow: 1;
+          display: flex;
+          align-items: center;
+
+          .auditIcon {
+            margin-left: 8px;
+            svg {
+              display: block;
+            }
+          }
+        }
+
+        .auditMenu {
+          svg {
+            display: block;
+          }
+        }
+      }
+      .icon {
+        font-size: 36px;
+      }
+    }
+  }
+}
+
+.splashScreen {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 10rem;
+
+  p.splashScreenText {
+    margin-bottom: 1rem;
+  }
+
+  button {
+    border-radius: 8px;
+    padding: 8px 14px;
+    background-color: $palette-primary-main;
+    font-family: $regular-font;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    text-transform: none;
+
+    svg {
+      font-size: 20px;
+      margin-left: 8px;
+    }
+
+    p {
+      color: inherit;
+    }
+  }
+}

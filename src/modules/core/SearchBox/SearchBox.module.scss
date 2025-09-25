@@ -1,0 +1,24 @@
+@import 'constants/theme';
+
+.inputWrapper {
+  background-color: #ffffff;
+  padding: 2px 4px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border: 1px solid rgba(221, 221, 222, 0.6);
+
+  &.focused {
+    border: 1px solid #767676;
+  }
+}
+
+.clear {
+  padding: 0;
+  opacity: 0.5;
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+}

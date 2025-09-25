@@ -1,0 +1,20 @@
+@import "constants/theme";
+
+.root {
+  margin-top: 0;
+  border: 2px solid $palette-primary-main;
+  border-radius: 8px;
+  overflow: hidden;
+  width: 100%;
+  input {
+    padding-block: 6px;
+    padding-left: 0;
+  }
+  .searchIcon {
+    color: $palette-secondary-icon;
+    fill: transparent;
+  }
+  :global(.MuiOutlinedInput-notchedOutline) {
+    border: none !important;
+  }
+}

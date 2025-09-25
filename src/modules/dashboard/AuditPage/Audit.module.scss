@@ -1,0 +1,79 @@
+@import "constants/theme";
+
+.root {
+  padding-left: 0;
+  padding-right: 0;
+  padding-bottom: 0;
+  .textField {
+    border-radius: 8px;
+    margin-bottom: 0;
+    margin-top: 2rem;
+
+    :global(.MuiInputLabel-root) {
+      top: -20px;
+      color: $palette-primary-main-3;
+      font-family: $regular-font;
+    }
+
+    :global(.MuiTypography-root) {
+      color: $palette-primary-main-3;
+      font-family: $regular-font;
+    }
+
+    > div {
+
+      &:global(.MuiInputBase-root) {
+        border-radius: 8px;
+        input, fieldset, textarea {
+          border-radius: 8px;
+          &:global(.MuiInputBase-input) {
+            border-radius: 8px;
+            border: 1px solid $palette-secondary-main;
+
+            &[disabled] {
+              background-color: $palette-menu-dropdown-gray;
+
+              @media (prefers-color-scheme: dark) {
+                background-color: $palette-dark-chip-color-disabled;
+                border-color: $palette-dark-background-main-nav;
+              }
+            }
+
+            @media (prefers-color-scheme: dark) {
+              border-color: $palette-dark-border;
+              background-color: $palette-dark-background-2;
+            }
+          }
+        }
+        &:focus,
+        &:hover,
+        &:active {
+          input, fieldset, textarea {
+            border-radius: 8px;
+            border: 1px solid $palette-secondary-main;
+          }
+        }
+      }
+
+    }
+  }
+  button {
+    margin-top: 2rem;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 16px;
+    line-height: 24px;
+    height: auto;
+    text-transform: none;
+    font-family: $regular-font;
+    border: 1px solid $palette-secondary-main;
+    width: fit-content;
+    align-self: flex-end;
+    p {
+      color: $palette-primary-contrastText;
+      @media (prefers-color-scheme: dark) {
+        color: $palette-dark-background-content;
+      }
+    }
+  }
+}

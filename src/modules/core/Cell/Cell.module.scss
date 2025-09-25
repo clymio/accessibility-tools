@@ -1,0 +1,142 @@
+@import 'constants/theme';
+
+.inner {
+  padding-left: 24px;
+
+  :global(.MuiBullet-root) {
+    margin-right: 8px;
+  }
+
+  :global(.MuiSwitch-root) {
+    width: auto;
+  }
+}
+
+.tableCell {
+  .value {
+    font-size: 16px;
+    line-height: 18px;
+  }
+
+  .name {
+    font-size: 14px;
+    line-height: 14px;
+    color: $palette-menu-main;
+  }
+}
+
+.userCell {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+
+
+  &.cover {
+    img {
+      object-fit: cover;
+    }
+  }
+
+  &.reverse {
+    flex-direction: row-reverse;
+
+    > div:first-child {
+      margin-left: 10px;
+      margin-right: 0;
+    }
+
+    h6, p {
+      text-align: right;
+    }
+  }
+
+  > div:first-child {
+    margin-right: 10px;
+  }
+
+  h6 {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 16px;
+  }
+
+  p {
+    font-size: 14px;
+    line-height: 16px;
+  }
+}
+
+.formHeader {
+  cursor: default;
+  font-weight: 600;
+}
+
+.formSubHeader {
+  margin-top: -10px;
+  margin-left: 5px;
+}
+
+
+.bullet {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border: 1px solid rgba(0, 0, 0, 0);
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 1px 1px 2px $palette-primary-light-grey;
+}
+
+
+.tooltipIcon {
+  width: 18px;
+  height: 18px;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.formColumn {
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  > p {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  margin-bottom: 10px;
+
+  /*:global(>.MuiGrid-root:last-child) {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+  }*/
+
+  &.alignCenter :global(.MuiFormControl-root) {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  :global(.MuiFormControl-root) {
+    margin-top: 0;
+  }
+
+  :global(.MuiFormControlLabel-label),
+  :global(.MuiTypography-root):not(a) {
+    font-weight: 400;
+    color: $palette-label-main !important;
+
+    > span {
+      color: $palette-primary-gray;
+      margin-left: 8px;
+      font-size: 0.85rem;
+      line-height: 1rem;
+    }
+  }
+}

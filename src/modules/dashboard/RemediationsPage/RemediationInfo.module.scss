@@ -1,0 +1,106 @@
+@import "constants/theme";
+
+.root {
+  padding: 0;
+  .infoIcon {
+    height: 16px;
+    cursor: pointer;
+    svg {
+      fill: transparent;
+      position: relative;
+      font-size: 16px;
+      @media (prefers-color-scheme: dark) {
+        color: $palette-dark-tertiary-text;
+      }
+    }
+  }
+  .help {
+    margin-top: 1rem;
+    .helpLinks {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-top: 4px;
+    }
+    button {
+      border-radius: 0.5rem;
+      border-color: $palette-secondary-main;
+      padding: 0.5rem 0.75rem;
+      color: $palette-primary-main-3;
+      height: fit-content;
+      width: 100%;
+      white-space: nowrap;
+
+      p {
+        line-height: 1.25rem;
+        text-transform: none;
+        margin-right: 0.5rem;
+        color: $palette-primary-main-3;
+      }
+      &:hover {
+        border-color: $palette-primary-cobalt;
+        color: $palette-primary-mist-hover;
+
+        p {
+          color: $palette-primary-mist-hover;
+        }
+      }
+    }
+  }
+
+  .steps {
+    list-style-type: none;
+    padding-inline-start: 0.5rem;
+    margin-top: 4px;
+  }
+
+  .examples {
+    margin-block: 1rem;
+    ul {
+      list-style-type: none;
+      padding-left: 4px;
+      margin: 0;
+      li {
+        margin-top: 4px;
+        margin-bottom: 12px;
+      }
+    }
+    pre {
+      margin-block: 4px;
+    }
+    code {
+      padding: 10px;
+      border-radius: 8px;
+      position: relative;
+      overflow: hidden;
+      margin-top: 0;
+      font-size: 14px;
+      width: 100%;
+      background: $palette-input-code;
+      color: $palette-input-code-text;
+    }
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .root {
+    .examples {
+      code {
+        background-color: $palette-dark-background-2;
+        color: $palette-dark-primary-text-2;
+      }
+    }
+
+    .help {
+      button {
+        border-color: $palette-dark-primary-main;
+        background-color: $palette-dark-primary-main;
+
+        p,
+        svg {
+          color: $palette-dark-primary-text-2;
+        }
+      }
+    }
+  }
+}

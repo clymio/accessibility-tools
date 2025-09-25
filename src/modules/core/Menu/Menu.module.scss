@@ -1,0 +1,69 @@
+@import "constants/theme";
+
+.root {
+  box-shadow: $palette-dropdown-shadow;
+
+  li {
+    p {
+      display: flex;
+      align-items: center;
+
+      svg {
+        display: block;
+        margin-right: 12px;
+      }
+    }
+  }
+
+  @media (prefers-color-scheme: dark) {
+    hr {
+      border-color: $palette-dark-chip-background;
+      background-color: $palette-dark-chip-background;
+    }
+  }
+}
+.menuItem {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: $palette-primary-main-3;
+  font-weight: 500;
+  font-size: 20px;
+  p {
+    color: inherit;
+  }
+
+  svg {
+    fill: transparent;
+  }
+  &.destroy {
+    color: $palette-primary-error;
+  }
+  &:focus,
+  &:focus-within {
+    background-color: $palette-primary-mist-hover;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    background-color: $palette-dark-background-main-nav;
+    border-color: $palette-dark-chip-background;
+
+    svg {
+      color: $palette-dark-primary-contrastText;
+    }
+
+    p {
+      color: $palette-dark-primary-contrastText;
+    }
+
+    &.destroy {
+      p {
+        color: $palette-dark-chip-color-error;
+      }
+      svg {
+        fill: transparent;
+        color: $palette-dark-chip-color-error;
+      }
+    }
+  }
+}

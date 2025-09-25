@@ -1,0 +1,25 @@
+@import "constants/theme";
+
+.root {
+  top: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  position: sticky;
+  padding: 3px 10px;
+  z-index: 10;
+  background-color: $palette-background-header;
+  &.draggable {
+    -webkit-app-region: drag;
+  }
+  border-block: 1px solid $palette-border-resizable-blocks;
+  @media (prefers-color-scheme: dark) {
+    background-color: $palette-dark-background-header;
+    border-block: 1px solid $palette-dark-border-resizable-blocks;
+  }
+
+  .icon[disabled] {
+    visibility: hidden;
+  }
+}

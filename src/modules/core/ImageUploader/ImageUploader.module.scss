@@ -1,0 +1,105 @@
+@import "constants/theme";
+
+.uploader {
+  width: 100%;
+  height: 200px;
+  border: 2px solid $palette-secondary-main;
+  border-radius: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  position: relative;
+  overflow: hidden;
+
+  &:focus,
+  &:focus-within {
+    outline: -webkit-focus-ring-color auto 1px;
+  }
+
+  &.imgAdded {
+    border: none;
+    height: unset;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    border-radius: 8px;
+    background-color: $palette-dark-background-2;
+    border-color: $palette-dark-border !important;
+  }
+}
+
+.uploader.dragging {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.fileInput {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.preview {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.imageContainer {
+  position: relative;
+  display: inline-block;
+  max-height: 200px;
+}
+
+.preview {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.removeButton {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  &:hover {
+    background: rgba(0, 0, 0, 0.8);
+  }
+}
+
+.helperText {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 200px;
+
+  .iconContainer {
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+
+    svg {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      path {
+        stroke: $palette-chip-background;
+      }
+    }
+  }
+
+  span {
+    font-weight: 600;
+    color: $palette-primary-icon;
+  }
+
+  .error {
+    color: $palette-error-main;
+    margin-top: 0.25rem;
+  }
+}

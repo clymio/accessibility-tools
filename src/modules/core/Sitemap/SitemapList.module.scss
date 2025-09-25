@@ -1,0 +1,75 @@
+@import "constants/theme";
+
+.list.track {
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 1px;
+    width: 1px;
+    height: 100%;
+    background-color: $palette-list-track;
+    @media (prefers-color-scheme: dark) {
+      background-color: $palette-dark-list-track;
+    }
+  }
+}
+
+.listItem {
+  padding: 0 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  span {
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    color: $palette-list-main;
+    @media (prefers-color-scheme: dark) {
+      color: $palette-dark-primary-text-2;
+    }
+    font-weight: 500;
+  }
+  &.active {
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 3px;
+      height: 100%;
+      background-color: $palette-list-border;
+      @media (prefers-color-scheme: dark) {
+        background-color: $palette-dark-list-border;
+      }
+    }
+    span {
+      color: $palette-list-active;
+      @media (prefers-color-scheme: dark) {
+        color: $palette-dark-primary-text-2;
+      }
+      font-weight: 700;
+    }
+  }
+  button {
+    padding: 2px;
+  }
+  svg {
+    color: $palette-primary-light-grey;
+    @media (prefers-color-scheme: dark) {
+      color: $palette-dark-primary-light-grey;
+    }
+  }
+  &:hover {
+    background-color: $palette-list-hover;
+    @media (prefers-color-scheme: dark) {
+      background-color: $palette-dark-list-hover;
+    }
+  }
+}
+
+.listItemText > span {
+  font-size: 13px;
+}

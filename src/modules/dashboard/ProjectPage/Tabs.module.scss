@@ -1,0 +1,67 @@
+@import "constants/theme";
+
+.root {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  overflow: auto;
+  background-color: $palette-background-resizable-blocks;
+  border-bottom: 1px solid $palette-border-resizable-blocks;
+  @media (prefers-color-scheme: dark) {
+    background-color: $palette-dark-background-content;
+    border-bottom: 1px solid $palette-dark-background-main-nav;
+  }
+}
+
+.tabs {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.openDevToolsBtn {
+  margin-right: 16px;
+  background: transparent;
+
+  :global(.MuiButton-icon) {
+    svg {
+      font-size: 44px;
+    }
+  }
+}
+
+.tab {
+  padding: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: $palette-background-main-nav;
+  @media (prefers-color-scheme: dark) {
+    background-color: $palette-dark-background-main-nav;
+  }
+  &:hover {
+    background-color: $palette-background-header;
+    @media (prefers-color-scheme: dark) {
+      background-color: $palette-dark-background-header;
+    }
+  }
+  &.active {
+    background-color: $palette-background-header;
+    @media (prefers-color-scheme: dark) {
+      background-color: $palette-dark-background-2;
+    }
+  }
+  p {
+    font-size: 13px;
+  }
+  &.selectedPageTab {
+    max-width: 200px;
+    p {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+  }
+}

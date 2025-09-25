@@ -1,0 +1,118 @@
+@import "constants/theme";
+
+.root {
+  position: relative;
+  width: 100%;
+
+  &.error {
+    .summary > div :global(.MuiTypography-root) {
+      color: $palette-error-main;
+    }
+  }
+
+  &.disabled {
+    :global(.MuiTypography-root) {
+      color: $palette-primary-gray !important;
+    }
+
+    :global(.MuiAccordionSummary-root) {
+      cursor: default !important;
+    }
+
+    :global(.MuiAccordionSummary-expandIconWrapper) {
+      display: none;
+    }
+  }
+
+  svg {
+    fill: none;
+    font-size: 16px;
+    color: $palette-primary-light-grey;
+    @media (prefers-color-scheme: dark) {
+      color: $palette-dark-primary-text-2;
+    }
+  }
+}
+
+.toggleText {
+  position: absolute;
+  right: 24px;
+  top: 14px;
+  font-size: 0.8rem;
+  color: $palette-primary-cobalt;
+
+  &.toggleTextNoIcon {
+    right: 6px;
+  }
+}
+
+.action {
+  font-size: 0.8rem;
+  color: $palette-primary-cobalt;
+  cursor: pointer;
+}
+
+.bullet {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.summary {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  min-height: auto;
+
+  @media (prefers-color-scheme: dark) {
+    border-bottom-color: $palette-dark-background-main-nav;
+  }
+
+  &.isChildAccordion {
+    border-bottom: none;
+    :global(.MuiAccordionSummary-content) {
+      margin: 4px 0;
+    }
+    :global(.MuiAccordionSummary-expandIconWrapper) {
+      margin-top: 0;
+      align-self: center;
+      margin-left: .5rem;
+    }
+    .summaryTitle {
+      padding-left: 12px;
+    }
+  }
+
+  .summaryTitle {
+    width: max-content;
+    text-transform: uppercase;
+    padding-left: 20px;
+
+    > :global(.MuiTypography-root) {
+      font-size: 11px;
+      color: $palette-primary-title;
+      @media (prefers-color-scheme: dark) {
+        color: $palette-dark-primary-text-2;
+      }
+      font-weight: 500;
+
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+    }
+  }
+
+  :global(.MuiAccordionSummary-expandIconWrapper) {
+    margin-top: 12px;
+    margin-right: 12px;
+  }
+
+  :global(.MuiChip-root) {
+    margin-right: 8px;
+    margin-left: 8px;
+    border-radius: $palette-border-radius * 2;
+    font-weight: 500;
+    font-size: 11px;
+  }
+}

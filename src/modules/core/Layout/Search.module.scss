@@ -1,0 +1,30 @@
+@import "constants/theme";
+
+.popoverBtn {
+  border: none;
+  text-transform: none;
+  font-size: 12px;
+  padding: 4px;
+  width: 50vw;
+  height: auto;
+  border-radius: 6px;
+  color: $palette-primary-main-2;
+  background-color: $palette-background-content;
+  @media (prefers-color-scheme: dark) {
+    background-color: $palette-dark-background-content;
+  }
+}
+
+.popoverContainer {
+  padding-block: 8px;
+  width: 50vw;
+  height: 50vh;
+  background-color: $palette-background-resizable-blocks;
+  @media (prefers-color-scheme: dark) {
+    background-color: $palette-dark-background-resizable-blocks;
+  }
+}
+
+.listItem {
+  font-size: 14px;
+}

@@ -1,0 +1,18 @@
+@import "constants/theme";
+
+.root {
+  padding: 4px !important;
+  min-width: auto;
+  text-align: center;
+  &:global(.MuiButton-sizeSmall) {
+    padding: 2px !important;
+    height: 26px !important;
+  }
+  :global(.MuiButton-endIcon) {
+    margin: 0 !important;
+  }
+  border: none;
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
+}

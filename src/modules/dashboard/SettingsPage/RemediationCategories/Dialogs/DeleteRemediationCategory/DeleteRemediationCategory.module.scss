@@ -1,0 +1,137 @@
+@import "constants/theme";
+
+.dialogContainer {
+  .dialogContentContainer {
+    padding: 0;
+  }
+  .dialogHeader {
+    position: relative;
+    text-align: left;
+    display:flex;
+    border-bottom: none;
+
+    :global(.MuiTypography-body1) {
+      font-size: 1.125rem;
+    }
+
+    p {
+      span {
+        display:block;
+        text-align: left;
+        margin-bottom: 8px;
+        line-height: 28px;
+
+        &:nth-child(2) {
+          line-height: 20px;
+          margin-bottom: 32px;
+        }
+      }
+    }
+    .iconContainer {
+      height: 64px;
+      width: 64px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 24px;
+      .icon {
+        fill: none;
+        color: $palette-action-alert;
+        box-shadow: inset 0px 0px 0px 200px rgba(254, 228, 226, 1), 0px 0px 0px calc(var(--shadow-size)* 0.6) rgba(254, 228, 226, 1), 0px 0px 0px var(--shadow-size) rgba(254, 243, 242, 1);
+      }
+    }
+
+  }
+  .dialogContent {
+    margin-left: 84px;
+    width: fit-content;
+    max-width: 360px;
+    flex: 0 0 auto;
+    padding-bottom: 0;
+    overflow: visible;
+    float: left;
+
+    .checkboxBase {
+      width: 20px;
+      height: 20px;
+      border: 2px solid $palette-secondary-main;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .checkboxX {
+      color: $palette-primary-main-3;
+      font-size: 14px;
+      font-weight: bold;
+      position: absolute;
+    }
+
+  }
+  .dialogActions {
+    width: fit-content;
+    float: right;
+    margin-top: 0;
+    max-width: 360px;
+    flex: 1 1 auto;
+    align-items: flex-start;
+    margin-top: 0 !important;
+    button {
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 16px;
+      line-height: 24px;
+      height: auto;
+      text-transform: none;
+      font-family: $regular-font;
+
+      &:first-child {
+        margin-right: 6px;
+        background-color: $palette-action-alert;
+        border: 2px solid $palette-action-alert;
+
+        &[disabled] {
+          background-color: $palette-error-main-2;
+          border-color: $palette-error-main-2;
+        }
+        p {
+          color: $palette-primary-contrastText;
+          @media (prefers-color-scheme: dark) {
+            color: $palette-dark-primary-text;
+          }
+        }
+
+
+
+      }
+      &:nth-child(2) {
+        margin-left: 6px;
+        border-color: $palette-secondary-main;
+
+        p {
+          color: $palette-primary-main-3;
+        }
+
+        &:hover {
+          background-color: $palette-secondary-main;
+        }
+
+        @media (prefers-color-scheme: dark) {
+          border-color: $palette-dark-border;
+          background-color: $palette-dark-background-2;
+
+          p {
+            color: $palette-dark-primary-text-2;
+          }
+
+          &:hover {
+            background-color: darken($palette-dark-background-2, 5);
+          }
+        }
+      }
+    }
+  }
+}
+

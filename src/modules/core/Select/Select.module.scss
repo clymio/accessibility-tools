@@ -1,0 +1,216 @@
+@import "constants/theme";
+
+:global(.MuiFormControl-root) {
+  .inputLabel {
+    top: -20px;
+    display: flex;
+
+    :global(.MuiFormLabel-asterisk) {
+      font-family: $regular-font;
+    }
+  }
+  :global(.MuiInputBase-root) {
+    &.selectField {
+      border-radius: 8px;
+      div,
+      input,
+      fieldset {
+        border-radius: 8px;
+        border: 1px solid $palette-secondary-main;
+
+        p {
+          line-height: 1.4375rem;
+        }
+
+        @media (prefers-color-scheme: dark) {
+          border-color: $palette-dark-background-content;
+        }
+      }
+
+      div {
+        @media (prefers-color-scheme: dark) {
+          background-color: $palette-dark-background-2;
+          color: $palette-dark-primary-text-2;
+        }
+      }
+
+      svg {
+        fill: none;
+        font-size: 20px;
+        z-index: 2;
+
+        @media (prefers-color-scheme: dark) {
+          color: $palette-dark-primary-text-2;
+        }
+      }
+
+      .selectChip {
+        background-color: $palette-primary-mist-hover;
+        padding: 2px 0 2px 8px;
+        justify-content: center;
+        align-items: center;
+        max-width:100px;
+        gap: 8px;
+        border-radius: 16px;
+        color: $palette-primary-main-3;
+        font-size: 0.75rem;
+        border-color: $palette-primary-mist-hover;
+        margin-right: 8px;
+
+        @media (prefers-color-scheme: dark) {
+          background-color: $palette-dark-button-border;
+          border-color: $palette-dark-button-border;
+          color: $palette-dark-primary-text-2;
+        }
+
+        span {
+          padding: 0;
+          text-transform: none;
+        }
+
+        :global(.MuiChip-deleteIcon) {
+          margin-right: 0;
+          color: $palette-primary-main-3;
+        }
+      }
+
+      .deleteChip {
+        svg {
+          width: 1.4rem;
+          height: 1.4rem;
+          padding: 4px;
+        }
+      }
+
+      &:global(.Mui-disabled) {
+        svg {
+          background-color: $palette-primary-disabled !important;
+        }
+      }
+
+      @media (prefers-color-scheme: dark) {
+        &:global(.Mui-disabled) {
+          background-color: $palette-dark-background-2;
+
+          svg {
+            color: $palette-dark-report-divider;
+            background-color: $palette-dark-background-2;
+          }
+        }
+      }
+
+      &.multiple {
+        svg:not(.chipIcon) {
+          font-size: 38px;
+          z-index: 2;
+          padding: 9px 0 9px 9px;
+          right: 2px;
+          background-color: white;
+          border-radius: 8px;
+        }
+
+        &.selectFieldOpen {
+          svg:not(.chipIcon) {
+            padding: 9px 9px 9px 0;
+          }
+        }
+      }
+    }
+
+    &:global(.Mui-error) {
+      &:not(:global(.Mui-focused)) {
+        &.selectField {
+          border-radius: 8px;
+
+          fieldset {
+            border-color: $palette-error-main;
+          }
+        }
+      }
+    }
+  }
+}
+
+.selectMenu {
+  max-height: 15rem;
+  :global(.MuiList-root) {
+    padding-bottom: 0;
+    li {
+      min-height: 32px;
+
+      @media (prefers-color-scheme: dark) {
+        &:global(.Mui-selected) {
+          background-color: $palette-dark-background-content;
+          p {
+            color: $palette-dark-tertiary-text;
+          }
+        }
+      }
+    }
+  }
+  :global(.MuiBox-root) {
+    border-top: 1px solid $palette-secondary-main;
+    padding: 5px 6px 5px 16px;
+
+    :global(.MuiFormControl-root) {
+      margin-top: 0;
+
+      :global(.MuiInputBase-root) {
+        padding-left: 0;
+
+        :global(.MuiBox-root) {
+          border-top: none;
+          padding: 0;
+        }
+
+        :global(.MuiInputBase-input) {
+          padding: 0;
+
+          &::placeholder {
+            font-size: 0.875rem;
+            color: $palette-primary-main-3;
+            font-weight: 700;
+
+            @media (prefers-color-scheme: dark) {
+              color: $palette-dark-primary-text-2;
+            }
+          }
+        }
+      }
+    }
+
+    :global(.MuiButtonBase-root) {
+      border-radius: 8px;
+      padding: 8px 14px;
+
+      :global(.MuiTypography-root) {
+        color: $palette-primary-contrastText;
+        text-transform: capitalize;
+      }
+    }
+  }
+}
+
+.optionDeleteIcon {
+  margin-left: 6px;
+  height: 1rem;
+  width: 1rem;
+
+  @media (prefers-color-scheme: dark) {
+    color: $palette-dark-primary-text-2;
+  }
+}
+
+.addIcon {
+  @media (prefers-color-scheme: dark) {
+    color: $palette-dark-primary-text-2;
+  }
+}
+
+.errorMessage {
+  margin-left: 5px;
+  margin-top: 3px;
+  display: block;
+  transform: none;
+  color: $palette-error-main !important;
+}

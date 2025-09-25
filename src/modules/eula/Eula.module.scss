@@ -1,0 +1,171 @@
+@import "constants/theme";
+
+.root {
+  background-color: $palette-background-content;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  @media (prefers-color-scheme: dark) {
+    background-color: $palette-dark-background-content;
+  }
+  header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 12px;
+    background-color: $palette-background-main-nav;
+    @media (prefers-color-scheme: dark) {
+      background-color: $palette-dark-background-main-nav;
+    }
+  }
+  h1 {
+    font-size: 1.6rem;
+  }
+  h2 {
+    font-size: 1.2rem;
+    font-weight: 700;
+  }
+  h3 {
+    font-size: 1rem;
+    font-weight: 700;
+  }
+  p {
+    font-size: 1rem;
+  }
+  button {
+    text-transform: none;
+    border-width: 1px;
+    border-radius: 8px;
+    width: 6rem;
+    padding: 8px;
+    margin: 0;
+    border-color: $palette-secondary-main;
+    background-color: $palette-primary-contrastText;
+    p {
+      color: inherit;
+    }
+    &:hover {
+      border-width: 1px;
+    }
+    font-weight: 500;
+  }
+  .content {
+    margin: 24px;
+  }
+  .eulaContainer {
+    padding: 16px;
+    overflow-y: auto;
+    margin-bottom: 12px;
+    margin-top: 0;
+    background-color: $palette-background-main-nav;
+    @media (prefers-color-scheme: dark) {
+      background-color: $palette-dark-background-main-nav;
+    }
+  }
+  .termsContainer {
+    margin-top: 3rem;
+    .terms {
+      margin-top: 2rem;
+      h3 {
+        margin-top: 1rem;
+      }
+      p {
+        margin-top: 0.5rem;
+        a {
+          color: $palette-primary-main-3;
+          text-decoration: underline;
+          @media (prefers-color-scheme: dark) {
+            color: $palette-dark-primary-main-3;
+          }
+        }
+      }
+    }
+    ul {
+      margin-block: 0.5rem;
+      li::marker {
+        color: $palette-primary-main-3;
+        @media (prefers-color-scheme: dark) {
+          color: $palette-dark-primary-main-3;
+        }
+      }
+    }
+  }
+  .licenseContainer {
+    margin-top: 1rem;
+    border-radius: 16px;
+    padding: 16px;
+    color: $palette-eula-license-color;
+    background-color: $palette-background-content;
+    @media (prefers-color-scheme: dark) {
+      color: $palette-dark-eula-license-color;
+      background-color: $palette-dark-background-content;
+    }
+    p {
+      margin-bottom: 0.5rem !important;
+      color: inherit;
+      font-style: var(--font-roboto-mono);
+      letter-spacing: 1px;
+    }
+  }
+  .footer {
+    margin-inline: 24px;
+    .formControlLabel {
+      align-items: flex-start;
+    }
+    .checkbox {
+      margin: 0;
+      padding-block: 0;
+      @media (prefers-color-scheme: dark) {
+        color: $palette-dark-primary-main-3;
+      }
+    }
+    .actionButtonsContainer {
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .actionButtons {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        .cancelButton {
+          border-color: $palette-secondary-main;
+          background-color: $palette-primary-contrastText;
+          &:not(:disabled) {
+            color: $palette-primary-main-3;
+          }
+          &:hover {
+            background-color: darken($palette-primary-contrastText, 5);
+          }
+          p {
+            color: inherit;
+          }
+
+          @media (prefers-color-scheme: dark) {
+            background-color: $palette-dark-background-main-nav;
+            border-color: $palette-dark-border;
+            &:not(:disabled) {
+              color: $palette-dark-primary-text-2;
+            }
+            &:hover {
+              background-color: darken($palette-dark-background-main-nav, 5);
+            }
+          }
+        }
+        .submitButton {
+          &:not(:disabled) {
+            background-color: $palette-primary-main;
+            @media (prefers-color-scheme: dark) {
+              background-color: $palette-dark-primary-main;
+            }
+            p {
+              @media (prefers-color-scheme: dark) {
+                color: $palette-dark-primary-text;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

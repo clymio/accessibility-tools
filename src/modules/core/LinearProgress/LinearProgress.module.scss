@@ -1,0 +1,13 @@
+@import "constants/theme";
+
+.root {
+  .progressBar {
+    height: 8px;
+    border-radius: 5px;
+    background-color: $palette-background-mist;
+    :global(.MuiLinearProgress-bar) {
+      background-color: $palette-primary-cobalt;
+      border-radius: 5px;
+    }
+  }
+}

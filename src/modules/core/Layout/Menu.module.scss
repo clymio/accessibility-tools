@@ -1,0 +1,145 @@
+@import "constants/theme";
+
+.root {
+  box-sizing: border-box;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  height: calc(100vh - var(--top-margin));
+  min-width: 48px;
+  background-color: $palette-background-main-nav;
+  border-right: 1px solid $palette-border-resizable-blocks;
+  @media (prefers-color-scheme: dark) {
+    background-color: $palette-dark-background-main-nav;
+    border-right: 1px solid $palette-dark-border-resizable-blocks;
+  }
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.divider {
+  position: absolute;
+  right: 4px;
+  top: -1px;
+}
+
+.item {
+  text-decoration: none;
+  position: relative;
+
+  padding-block: 5px;
+  width: 100%;
+  font-size: 60px;
+  font-weight: 400;
+  text-transform: uppercase;
+  display: flex;
+  font-family: $title-font;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: $palette-menu-main;
+
+  @media (prefers-color-scheme: dark) {
+    color: $palette-dark-menu-main;
+  }
+
+  .title {
+    @media (max-width: 992px) {
+      display: none;
+    }
+  }
+
+  &:hover {
+    color: darken($palette-menu-main, 5);
+
+    @media (prefers-color-scheme: dark) {
+      color: darken($palette-dark-menu-main, 5);
+    }
+  }
+
+  &.itemActive {
+    color: $palette-menu-active;
+    @media (prefers-color-scheme: dark) {
+      color: $palette-dark-menu-active;
+    }
+
+    > i, svg {
+      color: $palette-menu-active;
+      @media (prefers-color-scheme: dark) {
+        color: $palette-dark-menu-active;
+      }
+    }
+  }
+
+  > svg,
+  i {
+    font-size: 56px;
+    stroke: transparent;
+  }
+
+  .activeBar {
+    position: absolute;
+    width: 3px;
+    height: 100%;
+    border: 2px solid $palette-menu-active-bar;
+    background-color: $palette-menu-main;
+    @media (prefers-color-scheme: dark) {
+      color: $palette-dark-menu-main;
+      background-color: $palette-dark-menu-main;
+    }
+    left: 0;
+    z-index: 2;
+  }
+}
+
+.footer {
+  cursor: default;
+  margin-bottom: 12px;
+  margin-top: 12px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+
+  > img {
+    max-width: 118px;
+    max-height: 40px;
+    width: 100%;
+  }
+
+  > a {
+    margin: 0;
+    font-size: 0.9rem;
+    height: 56px;
+    > svg,
+    i {
+      font-size: 22px;
+    }
+  }
+
+  .labels {
+    @media (max-width: 992px) {
+      display: none;
+    }
+
+    a {
+      color: $palette-secondary-text;
+      font-size: 12px;
+      line-height: 22px;
+      display: block;
+
+      &:hover {
+        color: $palette-primary-cobalt;
+      }
+    }
+  }
+}

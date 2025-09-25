@@ -1,0 +1,24 @@
+{
+  "overrides": [
+    {
+      "files": ["*.tsx", "*.ts", "*.js", "*.jsx"],
+      "options": {
+        "bracketSameLine": false,
+        "bracketSpacing": true,
+        "embeddedLanguageFormatting": "auto",
+        "htmlWhitespaceSensitivity": "css",
+        "jsxSingleQuote": true,
+        "printWidth": 180,
+        "proseWrap": "preserve",
+        "quoteProps": "as-needed",
+        "semi": true,
+        "singleQuote": true,
+        "tabWidth": 2,
+        "trailingComma": "none",
+        "useTabs": false,
+        "endOfLine": "lf",
+        "arrowParens": "avoid"
+      }
+    }
+  ]
+}
