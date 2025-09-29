@@ -6,7 +6,7 @@ export { default as alignRight } from './align-right.svg';
 export { default as blackAndWhite } from './black-and-white.svg';
 export { default as brightness } from './brightness.svg';
 export { default as chevronDown } from './chevron-down.svg';
-export { default as chevronUp } from './chevron-down.svg';
+export { default as chevronUp } from './chevron-up.svg';
 export { default as check } from './check.svg';
 export { default as circlePlus } from './circle-plus.svg';
 export { default as clipboard } from './clipboard.svg';

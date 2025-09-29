@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import styles from './Audit.module.scss';
 
 const Audit = () => {
-  const { audit, setAudit, selectedCriterion } = useAuditStore();
+  const { audit, setAudit, selectedCriterion, getAuditStats } = useAuditStore();
   const [formState, setFormState] = useState({});
 
   useEffect(() => {
@@ -82,6 +82,7 @@ const Audit = () => {
         level: sectionState.level || '',
         remarks: sectionState.level ? sectionState.remarks : ''
       });
+      await getAuditStats(audit);
     } catch (e) {
       console.error('Failed to save audit report item:', e);
     }
@@ -91,13 +92,18 @@ const Audit = () => {
 
   return (
     <Stack height='100%' width='100%' padding={3} spacing={4} className={styles.root}>
-      <Typography variant='h4' sx={{ paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>{selectedCriterion.name ? selectedCriterion.name : selectedCriterion.id}</Typography>
+      <Typography variant='h4' sx={{ paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
+        {selectedCriterion.name ? selectedCriterion.name : selectedCriterion.id}
+      </Typography>
       <Box height='100%' width='100%' flex={1} sx={{ overflow: 'auto', padding: '1.5rem', paddingBottom: 0 }}>
         <Box sx={{ display: 'flex', flexDirection: 'column', marginBottom: '2rem' }}>
           {selectedCriterion.types.map(section => (
             <Box key={section.id} className={styles.formSection} mb={5}>
-              {section.id !== 'FULL'
-              && <Typography variant='h6' gutterBottom>{formatSectionId(section.id)}</Typography>}
+              {section.id !== 'FULL' && (
+                <Typography variant='h6' gutterBottom>
+                  {formatSectionId(section.id)}
+                </Typography>
+              )}
 
               <Box mb={2}>
                 <Select
@@ -127,7 +133,6 @@ const Audit = () => {
           ))}
         </Box>
       </Box>
-
     </Stack>
   );
 };

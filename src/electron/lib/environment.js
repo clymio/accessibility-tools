@@ -294,8 +294,8 @@ class EnvironmentLib {
     );
     const data = await joiLib.validate(schema, input);
     try {
-      const url = formatDomain(data.url, true);
-      const result = await dns.lookup(url);
+      const url = new URL(formatDomain(data.url));
+      const result = await dns.lookup(url.hostname);
       if (!result) {
         throw new Error('DNS lookup failed');
       }

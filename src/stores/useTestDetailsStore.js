@@ -8,7 +8,6 @@ export const useTestDetailsStore = create((set, get) => ({
   remediation: '',
   remediationOptions: [],
   currentTargetNode: null,
-  testStats: null,
 
   setFormSaved: formSaved => set({ formSaved }),
   setStatus: (status) => {
@@ -23,7 +22,6 @@ export const useTestDetailsStore = create((set, get) => ({
   setRemediation: remediation => set({ remediation }),
   setRemediationOptions: options => set({ remediationOptions: options }),
   setCurrentTargetNode: node => set({ currentTargetNode: node }),
-  setTestStats: stats => set({ testStats: stats }),
 
   handleStatusChange: async (value) => {
     const { status, setStatus, setFormSaved, handleFormSubmit, setNotes, setRemediation, remediationOptions } = get();

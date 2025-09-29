@@ -3732,15 +3732,7 @@
       "category": "F",
       "technique": "F2",
       "selectors": [
-        "b",
-        "strong",
-        "i",
-        "em",
-        "u",
-        "[style*='font-weight']",
-        "[style*='font-style']",
-        "[style*='text-decoration']",
-        "body"
+        "img"
       ],
       "axeRules": []
     },
@@ -3797,7 +3789,7 @@
       "selectors": [
         "video",
         "audio",
-        "body"
+        "caption"
       ],
       "axeRules": []
     },
@@ -3816,9 +3808,15 @@
       "technique": "F9",
       "selectors": [
         "input",
+        "button",
         "select",
+        "option",
+        "optgroup",
         "textarea",
-        "button"
+        "fieldset",
+        "legend",
+        "label",
+        "output"
       ],
       "axeRules": []
     },
@@ -3873,7 +3871,7 @@
       "category": "F",
       "technique": "F13",
       "selectors": [
-        "img[alt]"
+        "img"
       ],
       "axeRules": []
     },
@@ -3946,17 +3944,19 @@
       "category": "F",
       "technique": "F20",
       "selectors": [
-        "img[alt]",
-        "object",
-        "area",
-        "input[type='image']",
-        "audio",
-        "video",
-        "embed",
-        "canvas",
+        "img",
+        "picture",
+        "figure",
         "svg",
+        "canvas",
+        "video",
+        "audio",
+        "embed",
+        "object",
         "iframe",
-        "body"
+        "track",
+        "map",
+        "area"
       ],
       "axeRules": []
     },
@@ -4092,15 +4092,18 @@
       "technique": "F30",
       "selectors": [
         "img",
-        "object",
-        "area",
-        "input[type='image']",
-        "audio",
-        "video",
-        "embed",
-        "canvas",
+        "picture",
+        "figure",
         "svg",
-        "iframe"
+        "canvas",
+        "video",
+        "audio",
+        "embed",
+        "object",
+        "iframe",
+        "track",
+        "map",
+        "area"
       ],
       "axeRules": []
     },
@@ -4653,12 +4656,18 @@
       "technique": "F67",
       "selectors": [
         "img",
-        "object",
-        "embed",
+        "picture",
+        "figure",
         "svg",
         "canvas",
-        "audio[controls]",
-        "video[controls]"
+        "video",
+        "audio",
+        "embed",
+        "object",
+        "iframe",
+        "track",
+        "map",
+        "area"
       ],
       "axeRules": []
     },
@@ -5150,7 +5159,7 @@
       "category": "F",
       "technique": "F94",
       "selectors": [
-        "body"
+        "[style*='font-size']"
       ],
       "axeRules": []
     },
@@ -5299,7 +5308,7 @@
       "category": "F",
       "technique": "F102",
       "selectors": [
-        "body"
+        "a"
       ],
       "axeRules": []
     },
@@ -5716,6 +5725,7 @@
       "category": "S",
       "technique": "S14",
       "selectors": [
+        "blink",
         "body"
       ],
       "axeRules": []
@@ -5734,6 +5744,7 @@
       "category": "S",
       "technique": "S15",
       "selectors": [
+        "blink",
         "body"
       ],
       "axeRules": []
@@ -5997,6 +6008,8 @@
       "category": "S",
       "technique": "S27",
       "selectors": [
+        "abbr",
+        "dfn",
         "body"
       ],
       "axeRules": []
@@ -6015,6 +6028,7 @@
       "category": "S",
       "technique": "S28",
       "selectors": [
+        "abbr",
         "body"
       ],
       "axeRules": []
@@ -6177,7 +6191,7 @@
       "category": "S",
       "technique": "S37",
       "selectors": [
-        "body"
+        "form"
       ],
       "axeRules": []
     },
@@ -6418,7 +6432,7 @@
         "1.3.1",
         "3.3.2"
       ],
-      "description": "WAI-ARIA aria-describedby property should provide programmatically determined, descriptive information about a UI element using an ID reference list containing one or more unique element IDs. \nRefer to ARIA in HTML for more info on providing WAI-ARIA States and Properties with HTML.\n???",
+      "description": "WAI-ARIA aria-describedby property should provide programmatically determined, descriptive information about a UI element using an ID reference list containing one or more unique element IDs. \nRefer to ARIA in HTML for more info on providing WAI-ARIA States and Properties with HTML.",
       "category": "ARIA",
       "technique": "ARIA1",
       "selectors": [
@@ -6433,7 +6447,7 @@
         },
         {
           "id": "SYS_REM_10001-2",
-          "name": "Example 2: Using aria-describedby property to provide more detailed information about the button",
+          "name": "Example 2: Using aria-describedby to provide detailed info about the button",
           "code": "<div>\n  <span id=\"fontDesc\">Select the font faces and sizes to be used on this page</span>\n  <button aria-describedby=\"fontDesc\" id=\"fontB\" type=\"button\">Fonts</button>\n </div>\n <div>\n  <span id=\"colorDesc\">Select the colors to be used on this page</span>\n  <button aria-describedby=\"colorDesc\" id=\"colorB\" type=\"button\">Colors</button>\n </div>\n <div>\n  <span id=\"customDesc\">Customize the layout and styles used on this page</span>\n  <button aria-describedby=\"customDesc\" id=\"customB\" type=\"button\">Customize</button>\n </div>"
         }
       ]
@@ -6480,13 +6494,13 @@
       "category": "ARIA",
       "technique": "ARIA4",
       "selectors": [
-        "body"
+        "[role]"
       ],
       "examples": [
         {
           "id": "SYS_REM_10003-1",
           "name": "Example 1: A simple toolbar",
-          "description": "A toolbar containing three buttons. The div element has a role of \"toolbar\", and the img elements have \"button\" roles:",
+          "description": "A toolbar containing three buttons. The div element has the role of \"toolbar\", and the img elements have \"button\" roles:",
           "code": "<div role=\"toolbar\"\n  tabindex=\"0\" \n  id=\"customToolbar\" \n  onkeydown=\"return optionKeyEvent(event);\"\n  onkeypress=\"return optionKeyEvent(event);\"\n  onclick=\"return optionClickEvent(event);\"\n  onblur=\"hideFocus()\"\n  onfocus=\"showFocus()\"\n  > \n  <img src=\"img/btn1.gif\" \n  role=\"button\" \n  tabindex=\"-1\" \n  alt=\"Home\" \n  id=\"b1\" \n  title=\"Home\">\n  <img src=\"img/btn2.gif\" \n  role=\"button\" \n  tabindex=\"-1\" \n  alt=\"Refresh\" \n  id=\"b2\" \n  title=\"Refresh\">\n  <img src=\"img/btn3.gif\" \n  role=\"button\" \n  tabindex=\"-1\" \n  alt=\"Help\" \n  id=\"b3\" \n  title=\"Help\"> \n </div>"
         },
         {
@@ -6503,11 +6517,57 @@
       "criteria": [
         "4.1.2"
       ],
-      "description": "Use WAI-ARIA state and property attributes to expose the state, properties, and values of UI components, so that they can be read and set by AT. Exposing the state and property attributes enables users to understand the widget and how to interact with it. \nFor more information, see the WAI-ARIA specifications. \n???",
+      "description": "Use WAI-ARIA state and property attributes to expose the state, properties, and values of UI components, so that they can be read and set by AT. Exposing the state and property attributes enables users to understand the widget and how to interact with it. \nFor more information, see the WAI-ARIA specifications.",
       "category": "ARIA",
       "technique": "ARIA5",
       "selectors": [
-        "body"
+        "[aria-activedescendant]",
+        "[aria-atomic]",
+        "[aria-autocomplete]",
+        "[aria-braillelabel]",
+        "[aria-brailleroledescription]",
+        "[aria-busy]",
+        "[aria-checked]",
+        "[aria-colcount]",
+        "[aria-colindex]",
+        "[aria-colspan]",
+        "[aria-controls]",
+        "[aria-current]",
+        "[aria-describedby]",
+        "[aria-details]",
+        "[aria-disabled]",
+        "[aria-errormessage]",
+        "[aria-expanded]",
+        "[aria-flowto]",
+        "[aria-haspopup]",
+        "[aria-hidden]",
+        "[aria-invalid]",
+        "[aria-keyshortcuts]",
+        "[aria-label]",
+        "[aria-labelledby]",
+        "[aria-level]",
+        "[aria-live]",
+        "[aria-modal]",
+        "[aria-multiline]",
+        "[aria-multiselectable]",
+        "[aria-orientation]",
+        "[aria-owns]",
+        "[aria-placeholder]",
+        "[aria-posinset]",
+        "[aria-pressed]",
+        "[aria-readonly]",
+        "[aria-relevant]",
+        "[aria-required]",
+        "[aria-roledescription]",
+        "[aria-rowcount]",
+        "[aria-rowindex]",
+        "[aria-rowspan]",
+        "[aria-setsize]",
+        "[aria-sort]",
+        "[aria-valuemax]",
+        "[aria-valuemin]",
+        "[aria-valuenow]",
+        "[aria-valuetext]"
       ],
       "examples": [
         {
@@ -6519,7 +6579,7 @@
         {
           "id": "SYS_REM_10004-2",
           "name": "Example 2: A slider",
-          "description": "A widget with role slider lets a user select a value from within a given range. The slider represents the current value and the range of possible values via the size of the slider and the position of the handle. These properties of the slider are represented by the attributes aria-valuemin, aria-valuemax, and aria-valuenow.",
+          "description": "A widget with the role \"slider\" lets a user select a value from within a given range. The slider represents the current value and the range of possible values via the size of the slider and the position of the handle. These properties of the slider are represented by the attributes aria-valuemin, aria-valuemax, and aria-valuenow.",
           "code": "<div id=\"id-red\" class=\"color-slider-label\">Red</div>\n <div class=\"color-slider red\"\n  role=\"slider\"\n  tabindex=\"0\"\n  aria-valuemin=\"0\"\n  aria-valuenow=\"128\"\n  aria-valuemax=\"255\"\n  aria-labelledby=\"id-red\">\n  ...\n </div>"
         }
       ]
@@ -6530,7 +6590,7 @@
       "criteria": [
         "1.1.1"
       ],
-      "description": "Provide labels for objects that can be read by AT, such as the aria-label attribute; However, aria-label may be disregarded by AT when aria-labelledby is used for the same object. Moreover, aria-label will override any native naming such as ”alt” on images or labels associated with a form field using the ”for” attribute. \nFor more information on the naming hierarchy, see the accessible name and description computation section of the Accessible Name and Description Computation recommendation.\n???",
+      "description": "Provide labels for objects that can be read by AT, such as the aria-label attribute; However, aria-label may be disregarded by AT when aria-labelledby is used for the same object. Moreover, aria-label will override any native naming such as ”alt” on images or labels associated with a form field using the ”for” attribute. \nFor more information on the naming hierarchy, see the accessible name and description computation section of the Accessible Name and Description Computation recommendation.",
       "category": "ARIA",
       "technique": "ARIA6",
       "selectors": [
@@ -6540,7 +6600,7 @@
         {
           "id": "SYS_REM_10005-1",
           "name": "Example 1: Distinguishing navigation landmarks",
-          "description": "The following example shows how aria-label could be used to distinguish two navigation landmarks in an HTML document, where there are more than two of the same type of landmark on the same page, and there is no existing text on the page that can be referenced as the label.",
+          "description": "The following example shows how aria-label can be used to distinguish two navigation landmarks in an HTML document, where there are more than two of the same type of landmark on the same page, and there is no existing text on the page that can be referenced as the label.",
           "code": "<div role=\"navigation\" aria-label=\"Primary\">\n  <ul>\n  <li>...a list of links here ...</li>\n  </ul>\n </div>\n <div role=\"navigation\" aria-label=\"Secondary\">\n  <ul>\n  <li>...a list of links here ...</li>\n  </ul>\n </div>"
         },
         {
@@ -6573,7 +6633,7 @@
         {
           "id": "SYS_REM_10006-1",
           "name": "Example 1: Providing additional information for links",
-          "description": "This example will mean that the link text as shown on screen is then used as the start of the accessible name for the link. Screen readers will announce this as:\n \"Read more ...Storms hit east coast\" and will display that same text in the links list which is very useful for screen reader users who may browse by links.",
+          "description": "This example will mean that the link text as shown on screen is then used as the start of the accessible name for the link. Screen readers will announce this as: \"Read more ...Storms hit east coast\" and will display that same text in the links list which is very useful for screen reader users who may browse by links.",
           "code": "<h2 id=\"headline\">Storms hit east coast</h2>\n <p>Torrential rain and gale force winds have struck the east coast, \n  causing flooding in many coastal towns.\n  <a id=\"p123\" href=\"news.html\" aria-labelledby=\"p123 headline\">Read more...</a>\n </p>"
         },
         {
@@ -6591,7 +6651,7 @@
         "2.4.4",
         "2.4.9"
       ],
-      "description": "Describe the purpose of a link using the aria-label attribute, which can place a descriptive text label on an object, such as a link, when there are no elements visible on the page that describe the object. If descriptive elements are visible on the page, then use aria-labelledby instead of aria-label. \nPer the Accessible Name and Description Computation and the Accessible Name and Description Computation in the HTML Accessibility API Mappings 1.0, the aria-label text will override the text supplied within the link.\n???",
+      "description": "Describe the purpose of a link using the aria-label attribute, which can place a descriptive text label on an object, such as a link, when there are no elements visible on the page that describe the object. If descriptive elements are visible on the page, then use aria-labelledby instead of aria-label. \nPer the Accessible Name and Description Computation and the Accessible Name and Description Computation in the HTML Accessibility API Mappings 1.0, the aria-label text will override the text supplied within the link.",
       "category": "ARIA",
       "technique": "ARIA8",
       "selectors": [
@@ -6617,7 +6677,7 @@
       "category": "ARIA",
       "technique": "ARIA9",
       "selectors": [
-        "body"
+        "[aria-labelledby]"
       ],
       "examples": [
         {
@@ -6655,8 +6715,8 @@
       "examples": [
         {
           "id": "SYS_REM_10009-1",
-          "name": "Example 1: Providing a short description for a complex graphic",
-          "description": "This example shows how to use the aria-labelledby attribute to provide a short text description for a read-only complex graphic of an star rating pattern; the graphic is composed of several image elements. The text alternative for the graphic is the label, visible on the page beneath the star pattern.",
+          "name": "Example 1: Providing a short desc for a complex graphic",
+          "description": "This example shows how to use the aria-labelledby attribute to provide a short text desc for a read-only complex graphic of an star rating pattern; the graphic is composed of several image elements. The text alternative for the graphic is the label, visible on the page beneath the star pattern.",
           "code": "<div role=\"img\" aria-labelledby=\"star-id\">\n  <img src=\"fullstar.png\" alt=\"\">\n  <img src=\"fullstar.png\" alt=\"\">\n  <img src=\"fullstar.png\" alt=\"\">\n  <img src=\"fullstar.png\" alt=\"\">\n  <img src=\"emptystar.png\" alt=\"\">\n </div>\n <div id=\"star-id\">4 of 5</div>"
         }
       ]
@@ -6673,7 +6733,13 @@
       "category": "ARIA",
       "technique": "ARIA11",
       "selectors": [
-        "body"
+        "header",
+        "footer",
+        "main",
+        "nav",
+        "aside",
+        "section",
+        "form"
       ],
       "examples": [
         {
@@ -6712,7 +6778,13 @@
       "category": "ARIA",
       "technique": "ARIA12",
       "selectors": [
-        "body"
+        "h1",
+        "h2",
+        "h3",
+        "h4",
+        "h5",
+        "h6",
+        "[role='heading']"
       ],
       "examples": [
         {
@@ -6739,7 +6811,7 @@
       "category": "ARIA",
       "technique": "ARIA13",
       "selectors": [
-        "body"
+        "[aria-labelledby]"
       ],
       "examples": [
         {
@@ -6751,7 +6823,7 @@
         {
           "id": "SYS_REM_100012-2",
           "name": "Example 2: Identification for Application landmarks",
-          "description": "The following code snippet for application landmarks with static prose. If you have a regional landmark of type application and static descriptive text is available, then on the application landmark, include an aria-describedby reference to associate the application and the static text as shown here:",
+          "description": "The following code snippet is for application landmarks with static prose. If you have a regional landmark of the type application and static descriptive text is available, then, on the application landmark, include an aria-describedby reference to associate the application and the static text, as shown here:",
           "code": "<div role=\"application\" aria-labelledby=\"p123\" aria-describedby=\"info\">\n  <h1 id=\"p123\">Calendar<h1>\n  <p id=\"info\">This calendar shows the game schedule for the Boston Red Sox.</p>\n  <div role=\"grid\">\n  ...\n  </div>\n </div>"
         }
       ]
@@ -6766,7 +6838,7 @@
       "category": "ARIA",
       "technique": "ARIA14",
       "selectors": [
-        "body"
+        "[aria-label]"
       ],
       "examples": [
         {
@@ -6792,13 +6864,13 @@
       "category": "ARIA",
       "technique": "ARIA15",
       "selectors": [
-        "img[aria-describedby]"
+        "[aria-describedby]"
       ],
       "examples": [
         {
           "id": "SYS_REM_100014-1",
           "name": "Example 1: Describing an image",
-          "description": "The following example shows how aria-describedby can be applied to an image to provide a long description, where that text description is on the same page as the image.",
+          "description": "The following example shows how aria-describedby can be applied to an image to provide a long desc, where that text desc is on the same page as the image.",
           "code": "<img src=\"ladymacbeth.jpg\" alt=\"Lady MacBeth\" aria-describedby=\"p1\">\n <p id=\"p1\">This painting dates back to 1889 and is oil on canvas. It was created by \n  John Singer Sargent, and represents ...</p>"
         }
       ]
@@ -6848,7 +6920,16 @@
       "category": "ARIA",
       "technique": "ARIA17",
       "selectors": [
-        "[role='group']"
+        "input",
+        "button",
+        "select",
+        "option",
+        "optgroup",
+        "textarea",
+        "fieldset",
+        "legend",
+        "label",
+        "output"
       ],
       "examples": [
         {
@@ -6877,7 +6958,7 @@
       "category": "ARIA",
       "technique": "ARIA18",
       "selectors": [
-        "[role='alertdialog']"
+        "[aria-alertdialog]"
       ],
       "examples": [
         {
@@ -6917,11 +6998,17 @@
       "criteria": [
         "1.3.1"
       ],
-      "description": "To make UA and ATs able to programmatically identify it, assign a generic region role to a page section so that the section that contains content of significance becomes readily discoverable and navigable. The generic region should be used when the section cannot be marked up using a standard document landmark role (see ARIA11).\nIt is important to name regions using using aria-labelledby, aria-label, or another technique because they are generic grouping elements and users will need some way to tell which region they are in. ",
+      "description": "To make UA and ATs able to programmatically identify it, assign a generic region role to a page section so that the section that contains content of significance becomes readily discoverable and navigable. The generic region should be used when the section cannot be marked up using a standard document landmark role (see ARIA11).\nIt is important to name regions using aria-labelledby, aria-label, or another technique because they are generic grouping elements and users will need some way to tell which region they are in. ",
       "category": "ARIA",
       "technique": "ARIA20",
       "selectors": [
-        "body"
+        "header",
+        "footer",
+        "main",
+        "nav",
+        "aside",
+        "section",
+        "form"
       ],
       "examples": [
         {
@@ -6987,13 +7074,13 @@
         {
           "id": "SYS_REM_100021-1",
           "name": "Example 1: Including a search results message",
-          "description": "After a user presses a Search button, the page content is updated to include the results of the search, which are displayed in a section below the Search button. The change to content also includes the message \"5 results returned\" near the top of this new content. This text is given an appropriate role for a status message. A screen reader will announce \"5 results returned\".",
+          "description": "After pressing the Search button, the page content is updated to include the results of the search, which are displayed in a section below the Search button. The change to content also includes the message \"5 results returned\" near the top of this new content. This text is given an appropriate role for a status message. A screen reader will announce \"5 results returned\".",
           "code": "<div role=\"status\" aria-atomic=\"true\">5 results returned.</div>"
         },
         {
           "id": "SYS_REM_100021-2",
           "name": "Example 2: Updating the shopping cart status",
-          "description": "After a user presses an Add to Shopping Cart button, content near the Shopping Cart icon updates to read \"1 items\". The container for this text (in this case a <p>) is marked with the role of status. Because it adds visual context, the shopping cart image — with succinct and accurate alt text — is also placed in the container. Due to the aria-atomic value, a screen reader will announce \"Shopping cart, six items\".",
+          "description": "After pressing the Add to Shopping Cart button, content near the Shopping Cart icon updates to read \"1 items\". The container for this text (in this case a <p>) is marked with the role of status. Because it adds visual context, the shopping cart image — with succinct and accurate alt text — is also placed in the container. Due to the aria-atomic value, a screen reader will announce \"Shopping cart, six items\".",
           "code": "<p role=\"status\" aria-atomic=\"true\">\n  <img src=\"shopping-cart.png\" alt=\"Shopping Cart\">\n  <span id=\"cart\">0</span> items\n </p>"
         }
       ]
@@ -7014,13 +7101,13 @@
         {
           "id": "SYS_REM_100022-1",
           "name": "Example 1: Updating the contents of a chat conversation",
-          "description": "Comments that users type into a chat input field are appended to the end of the chat history region. The region is marked with role of log so that new additions are announced by ATs. When each new chat message appears, a screen reader should announce its content (depending on AT/browser compatibility).",
+          "description": "Comments that users type into a chat input field are appended to the end of the chat history region. The region is marked with the role of log so that new additions are announced by ATs. When each new chat message appears, a screen reader should announce its content (depending on AT/browser compatibility).",
           "code": "<div id=\"chatRegion\" role=\"log\" aria-labelledby=\"chatHeading\">\n  <h4 id=\"chatHeading\">Chat History</h4>\n  <ul id=\"conversation\">\n  <li>The latest chat message</li>\n  </ul>\n </div>"
         },
         {
           "id": "SYS_REM_100022-2",
           "name": "Example 2: Updating the log of a server",
-          "description": "An application log records time-stamped activities. The log is exposed in the app as a view, with the region marked with the role of log so that the new additions are announced by the ATs. (The default value for the aria-relevant attribute is \"additions\", so the removal of the old top entries due to log size limitations will not be announced.) When each new log entry is added, a screen reader announces it.",
+          "description": "An application log records time-stamped activities. The log is exposed in the app as a view, with the region marked with the role of log so that the new additions are announced by the ATs. (The default value for the aria-relevant attribute is \"additions\", so the removal of the old top entries due to log size limitations will not be announced). When each new log entry is added, a screen reader announces it.",
           "code": "<div id=\"activityLog\" role=\"log\">\n  <h4 id=\"logHeading\">Recent activity</h4>\n  <ul id=\"logentries\"\">\n  <li>08:03 UserX logged off</li>\n  </ul>\n </div>"
         }
       ]
@@ -7041,25 +7128,25 @@
         {
           "id": "SYS_REM_100023-1",
           "name": "Example 1: Star Icon Font used as an indicator (not interactive)",
-          "description": "In this example a star icon is used to indicate a favorite. It is not interactive and does not disappear if the user overrides the font family via CSS.",
+          "description": "In this example, a star icon is used to indicate a favorite. It is not interactive and does not disappear if the user overrides the font family via CSS.",
           "code": "/* default class for fonts-face with icons */\n .icon { font-family: 'IconFontRoleImg' !important; }\n \n\n /* specific class for icon */\n .icon-star-bg:before { content: \"\\e982\"; }"
         },
         {
           "id": "SYS_REM_100023-2",
           "name": "Example 2: Two colored / stacked star Icon Font used as an indicator",
-          "description": "In this example a two colored star icon is created by stacking two fonts with different colors on top of each other. This way it's possible to mimic only half the star is filled. It is not interactive and does not disappear if the user overrides the font family via CSS.",
+          "description": "In this example, a two-colored star icon is created by stacking two fonts with different colors on top of each other. This way it is possible to mimic only half the star is filled. It is not interactive and does not disappear if the user overrides the font family via CSS.",
           "code": "/* default class for fonts-face with icons */\n .icon { font-family: 'IconFontRoleImg' !important; }\n \n\n /* specific classes for icons */\n .icon-star-bg:before {content: \"\\e982\"; }\n .icon-star-half:before {content: \"\\e983\"; }"
         },
         {
           "id": "SYS_REM_100023-3",
           "name": "Example 3: Email Icon Font in a link WITHOUT visible text",
-          "description": "In this example an email icon is in a link with no visible text. It does not disappear if a user overrides font family. The icon font is identified by assistive technology as a \"link image\" and the name \"Email\" (keyboard or mouse).",
+          "description": "In this example, an email icon is in a link with no visible text. It does not disappear if a user overrides the font family. The icon font is identified by AT as a \"link image\" and the name \"Email\" (keyboard or mouse).",
           "code": "/* default class for fonts-face with icons */\n .icon { font-family: 'IconFontRoleImg' !important; }\n \n\n /* specific class for icon */\n .icon-email:before { content: \"\\e93e\"; }"
         },
         {
           "id": "SYS_REM_100023-4",
           "name": "Example 4: Multiple Icon Fonts as part of another sematic element WITH visible text",
-          "description": "This example already has a visible text label in the link to be used as an accessible name, the mail and chevron font icons must stay visible when the font family is changed. This can be done by ensuring the icons are contained in their own element and the attribute aria-hidden=\"true\" is used so the font icons will be ignored by assistive technologies.",
+          "description": "This example already has a visible text label in the link to be used as an accessible name, the mail and chevron font icons must stay visible when the font family is changed. This can be done by ensuring the icons are contained in their own element and the attribute aria-hidden=\"true\" is used, so the font icons will be ignored by ATs.",
           "code": "/* default class for fonts-face with icons */\n .icon { font-family: 'IconFontRoleImg' !important; }\n \n\n /* specific class for icon */\n - See style declarations in HTML examples -"
         }
       ]
@@ -7122,7 +7209,7 @@
         {
           "id": "SYS_REM_100026-1",
           "name": "Example 1",
-          "description": "A page of stock market quotes uses script to refresh the page every five minutes in order to ensure the latest statistics remain available. 20 seconds before the five minute period expires, a confirm dialog appears asking if the user needs more time before the page refreshes. This allows the user to be aware of the impending refresh and to avoid it if desired.",
+          "description": "A page of stock market quotes uses script to refresh the page every five minutes in order to ensure the latest statistics remain available. 20 seconds before the five-minute period expires, a confirmation dialog appears, asking if the user needs more time before the page refreshes. This allows the user to be aware of the impending refresh and to avoid it, if desired.",
           "code": "<!doctype html>\n <html lang=\"en\">\n <head>\n  <meta charset=\"utf-8\">\n  <title>Stock Market Quotes</title>\n  <script>\n  function timeControl() {\n  // set timer for 4 min 40 sec, then ask user to confirm.\n  setTimeout('userCheck()', 280000);\n  }\n \n\n  function userCheck() {\n  // set page refresh for 20 sec\n  var id=setTimeout('pageReload()', 20000);\n  // If user selects \"OK\" the timer is reset \n  // else the page will refresh from the server.\n  if (confirm(\"This page is set to refresh in 20 seconds. \n  Would you like more time?\"))\n  {\n  clearTimeout(id);\n  timeControl();\n  }\n  }\n \n\n  function pageReload() {\n  window.location.reload(true);\n  }\n \n\n  timeControl();\n  </script>\n </head>\n <body>\n  <h1>Stock Market Quotes</h1>\n  ...\n </body>\n </html>"
         }
       ]
@@ -7151,7 +7238,7 @@
         {
           "id": "SYS_REM_100027-2",
           "name": "Example 2: Checking multiple controls when the user submits the form",
-          "description": "The following sample shows multiple controls in a form. The form element uses the onsubmit attribute which creates an event handler to execute the validation script when the user attempts to submit the form. If the validation is successful, the event returns true and the form submission proceeds; if the validation finds errors, it displays an error message and returns false to cancel the submit attempt so the user can fix the problems.",
+          "description": "The following sample shows multiple controls in a form. The form element uses the onsubmit attribute, which creates an event handler to execute the validation script when the user attempts to submit the form. If the validation is successful, the event returns true and the form submission proceeds; if the validation finds errors, it displays an error message and returns 'false' to cancel the submit attempt so that the user can fix the problems.",
           "code": "function validate() {\n  // initialize error message\n  var msg = \"\";\n  \n  //validate name\n  var pattern = /^[a-zA-Z\\s]+$/;\n  var el = document.getElementById(\"name\");\n  \n  if (!pattern.test(el.value)) {\n  msg += \"Name can only have letters and spaces. \";\n  }\n  \n  // validate number\n  var pattern = /^[\\d\\-+\\.\\s]+$/;\n  var el = document.getElementById(\"tel\");\n \n\n  if (!pattern.test(el.value)) {\n  msg += \"Telephone number can only have digits and separators. \";\n  }\n  \n  if (msg != \"\") {\n  alert(msg);\n  return false;\n  }\n  else {\n  return true;\n  }"
         }
       ]
@@ -7200,7 +7287,7 @@
         {
           "id": "SYS_REM_100029-2",
           "name": "Example 2",
-          "description": "This example shows a custom link control where both the mouse and the keyboard can be used to activate the function. The mouse onclick event is duplicated by an appropriate keyboard onkeypress event. The tabindex attribute ensures that the keyboard will have a tab stop on the span element. Note that in this example, the nextPage() function should check that the key pressed was Enter, otherwise it will respond to all keyboard actions while the span has focus, which is not the desired behavior.",
+          "description": "This example shows a custom link control where both the mouse and the keyboard can be used to activate the function. The mouse onclick event is duplicated by an appropriate keyboard onkeypress event. The tabindex attribute ensures that the keyboard will have a tab stop on the span element. Note that, in this example, the nextPage() function should check that the key pressed was Enter, otherwise it will respond to all keyboard actions while the span has focus, which is not the desired behavior.",
           "code": "<span onclick=\"nextPage();\" onkeypress=\"nextPage();\" role=\"link\" tabindex=\"0\">\n  <img alt=\"Go to next page\" src=\"arrow.gif\">\n </span>"
         }
       ]
@@ -7215,7 +7302,8 @@
       "category": "SCR",
       "technique": "SCR22",
       "selectors": [
-        "blink"
+        "blink",
+        "body"
       ],
       "examples": [
         {
@@ -7242,7 +7330,7 @@
         {
           "id": "SYS_REM_100031-1",
           "name": "Example 1: Using JavaScript to open a new tab / window",
-          "description": "The script is included in the head of the document, and the link has an id that can be used as a hook by the script.",
+          "description": "The script is included in the head of the document, and the link has an ID that can be used as a hook by the script.",
           "code": "<script src=\"popup.js\"></script>\n ...\n <a href=\"help.html\" id=\"newwin\">Show Help</a>"
         }
       ]
@@ -7263,7 +7351,7 @@
         {
           "id": "SYS_REM_100032-1",
           "name": "Example 1",
-          "description": "This example creates a menu when a link is clicked and inserts it after the link. The onclick event of the link is used to call the ShowHide script, passing in an id for the new menu as a parameter.",
+          "description": "This example creates a menu when a link is clicked and inserts it after the link. The onclick event of the link is used to call the ShowHide script, passing in an ID for the new menu as a parameter.",
           "code": "<button aria-expanded=\"false\" type=\"button\" onclick=\"ShowHide('foo',this)\">\n  Toggle\n </button>"
         }
       ]
@@ -7326,7 +7414,7 @@
         {
           "id": "SYS_REM_100035-1",
           "name": "Example 1: Adding a JavaScript action to a div element",
-          "description": "The div element on the page is given a unique id attribute and a tabindex attribute with value 0. A script uses the Document Object Model (DOM) to find the div element by its id and add the onclick handler and the onkeyup handler. The onkeyup handler will invoke the action when the Enter key is pressed. Note that the div element must be loaded into the DOM before it can be found and modified. This is usually accomplished by calling the script from the onload event of the body element. The script to add the event handlers will only execute if the user agent supports and has JavaScript enabled.",
+          "description": "The div element on the page is given a unique id attribute and a tabindex attribute with value 0. A script uses the Document Object Model (DOM) to find the div element by its ID and add the onclick handler and the onkeyup handler. The onkeyup handler will invoke the action when the Enter key is pressed. Note that the div element must be loaded into the DOM before it can be found and modified. This is usually accomplished by calling the script from the onload event of the body element. The script to add the event handlers will only execute if the user agent supports and has JavaScript enabled.",
           "code": "<script>\n // this is the function to perform the action. This simple example toggles a message.\n function doSomething(event) {\n  var msg=document.getElementById(\"message\");\n  msg.style.display = msg.style.display==\"none\" ? \"\" : \"none\";\n \n\n  //return false from the function to make certain\n  // that the href of the link does not get invoked\n  return false;\n  }\n  \n  // this is the function to perform the action when the Enter key has been pressed.  \n  function doSomethingOnEnter(event) {\n  var key = 0;\n \n\n  // Determine the key pressed, depending on whether window.event\n  // or the event object is in use\n  if (window.event) {\n  key = window.event.keyCode;\n  }\n  else if (event) {\n  key = event.keyCode;\n  }\n \n  // Was the Enter or Space key pressed?\n  if (key == 13 || key == 32) {\n  return doSomething(event);\n  } \n \n\n  // The event has not been handled, so return true\n  return true;\n  }\n  \n  // This setUpActions() function must be called to set the onclick and onkeyup\n  // event handlers onto the existing div element.\n  // This function must be called after the div element with id=\"active\" \n  // has been loaded into the DOM.\n  // In this example the setUpActions() function is called from the onload event\n  // for the body element.\n  function setUpActions() {\n  \n  // get the div object\n  var active=document.getElementById(\"active\");\n \n\n  // assign the onclick handler to the object.\n  active.onclick=doSomething;\n \n\n  // assign the onkeyup handler to the object.\n  active.onkeyup=doSomethingOnEnter;\n }\n </script>\n  \n <body onload=\"setUpActions();\">\n  <p>Here is the link to modify with a javascript action:</p>\n  <div>\n  <span id=\"active\" role=\"button\" tabindex=\"0\">Do Something</span>\n  </div>\n  <div aria-live=\"polite\">\n  <div id=\"message\">Hello, world!</div>\n  </div>\n </body>"
         }
       ]
@@ -7398,7 +7486,7 @@
       "category": "SCR",
       "technique": "SCR32",
       "selectors": [
-        "body"
+        "form"
       ],
       "examples": [
         {
@@ -7426,7 +7514,7 @@
         {
           "id": "SYS_REM_100039-1",
           "name": "Example 1",
-          "description": "In this example CSS and JavaScript are used to visually present some text in a scrolling format. A link is included to pause the scrolling movement.",
+          "description": "In this example, CSS and JavaScript are used to visually present some text in a scrolling format. A link is included to pause the scrolling movement.",
           "code": "...\n <div id=\"scroller\">\n  <p id=\"tag\">This text will scroll and a Pause/Scroll link will be present \n  when JavaScript and CSS are supported and active.</p>\n </div>\n ..."
         }
       ]
@@ -7478,7 +7566,7 @@
         {
           "id": "SYS_REM_100041-2",
           "name": "Example 2: Link that runs script, but navigates to another page when script is not available",
-          "description": "This approach can be used to create sites that don't rely on script, if and only if the navigation target provides the same functionality as the script. This example is identical to the example 1, except that its href is now set to a real page, dostuff.html. The dostuff.html page must provide the same functionality as the script. The \"return false;\" at the end of the doStuff() event handling function tells the browser not to navigate to the URI. Without it, the browser would navigate to dostuff.html after the script ran.",
+          "description": "This approach can be used to create sites that do not rely on script, if and only if the navigation target provides the same functionality as the script. This example is identical to the example 1, except that its href is now set to a real page, dostuff.html. The dostuff.html page must provide the same functionality as the script. The \"return false;\" at the end of the doStuff() event handling function tells the browser not to navigate to the URI. Without it, the browser would navigate to dostuff.html after the script ran.",
           "code": "<script> \n  function doStuff() {  \n  //do stuff\n  return false;\n }\n </script>\n <a href=\"dostuff.html\" onclick=\"return doStuff();\">do stuff</a>"
         },
         {
@@ -7544,7 +7632,7 @@
         {
           "id": "SYS_REM_100043-1",
           "name": "Example 1: Content preview for links",
-          "description": "When hovering over or focusing on a link, a content preview for the link appears just above or below that link.\n  Users can move the pointer over the additional content (pop-up) so that they can fully read the additional content. Pressing the Esc\n  key dismisses (closes) the additional content.",
+          "description": "When hovering over or focusing on a link, a content preview for the link appears just above or below that link. Users can move the pointer over the additional content (pop-up) so that they can fully read the additional content. Pressing the Esc key dismisses (closes) the additional content.",
           "code": "<p>This is the \n  <a class=\"a-and-tooltip\" id=\"parent\" href=\"index.html\">trigger\n  <span id=\"popup\" role=\"tooltip\">And this additional text \n  gives additional context on the trigger term\n  </span>\n  </a>.\n  Text and popup are <strong>in one link (a)</strong> element.\n </p>"
         }
       ]
@@ -7568,7 +7656,7 @@
         {
           "id": "SYS_REM_100044-1",
           "name": "Example 1",
-          "description": "In this example structural markup (description lists) have been applied to the content. CSS has been used to style the content into columnar form. Each class absolutely positions the content into columns and the margins have been set to 0 to override the default behavior of user agents to display HTML definition lists with the dd element indented.",
+          "description": "In this example, structural markup (description lists) have been applied to the content. CSS has been used to style the content into columnar form. Each class absolutely positions the content into columns and the margins have been set to 0 to override the default behavior of user agents to display HTML definition lists with the dd element indented.",
           "code": "<div class=\"box\">\n  <dl>\n  <dt class=\"menu1\">Products</dt>\n  <dd class=\"item1\">Telephones</dd>\n  <dd class=\"item2\">Computers</dd>\n  <dd class=\"item3\">Portable MP3 Players</dd>\n  <dt class=\"menu2\">Locations</dt>\n  <dd class=\"item4\">Idaho</dd>\n  <dd class=\"item5\">Wisconsin</dd>\n  </dl>\n </div>"
         }
       ]
@@ -7584,7 +7672,7 @@
       "category": "C",
       "technique": "C7",
       "selectors": [
-        "a"
+        "body"
       ],
       "examples": [
         {
@@ -7635,7 +7723,7 @@
       "category": "C",
       "technique": "C9",
       "selectors": [
-        "body"
+        "[style*='background-image']"
       ],
       "examples": [
         {
@@ -7647,7 +7735,7 @@
         {
           "id": "SYS_REM_100047-2",
           "name": "Example 2: Background image with CSS for image rollovers",
-          "description": "The stylesheet for a web page uses the CSS background property to create a decorative rollover effects when a user hovers their mouse pointer over a link.",
+          "description": "The stylesheet for a web page uses the CSS background property to create decorative rollover effects when a user hovers their mouse pointer over a link.",
           "code": "a:hover {\n  background: #ffe url('/images/hover.gif') repeat;\n  color: #000;\n  text-decoration: none;\n }"
         }
       ]
@@ -7665,7 +7753,7 @@
       "category": "C",
       "technique": "C12",
       "selectors": [
-        "body"
+        "[style*='font-size']"
       ],
       "examples": [
         {
@@ -7689,7 +7777,7 @@
       "category": "C",
       "technique": "C13",
       "selectors": [
-        "body"
+        "[style*='font-size']"
       ],
       "examples": [
         {
@@ -7713,13 +7801,13 @@
       "category": "C",
       "technique": "C14",
       "selectors": [
-        "body"
+        "[style*='font-size']"
       ],
       "examples": [
         {
           "id": "SYS_REM_100050-1",
           "name": "Example 1: em font sizes in CSS",
-          "description": "This example defines the font size for strong element so that its text will always be larger than the surrounding text, in whatever context it is used. Assuming that headings and paragraphs use different font sizes, the strong words in this example will each be larger than their surrounding text.",
+          "description": "This example defines the font size for strong element, so that its text will always be larger than the surrounding text, in whatever context it is used. Assuming that headings and paragraphs use different font sizes, the strong words in this example will each be larger than their surrounding text.",
           "code": "<style>\n  strong {font-size: 1.6em}\n </style>\n ... \n <h1>Letting the <strong>user</strong> control text size</h1>\n <p>Since only the user can know what size text works for them, \n  it is <strong>very</strong> important to let them configure the text size.</p>\n …"
         }
       ]
@@ -7784,7 +7872,7 @@
       "category": "C",
       "technique": "C19",
       "selectors": [
-        "body"
+        "[style*='text-align']"
       ],
       "examples": [
         {
@@ -7818,13 +7906,13 @@
         {
           "id": "SYS_REM_100054-1",
           "name": "Example 1",
-          "description": "In this example the div width is set in ems in the stylesheet.",
+          "description": "In this example, the div width is set in ems in the stylesheet.",
           "code": "#main-content {max-width: 70em}"
         },
         {
           "id": "SYS_REM_100054-2",
           "name": "Example 2",
-          "description": "In this example the div width is set in percent in the stylesheet",
+          "description": "In this example, the div width is set in percent in the stylesheet",
           "code": "#main-content {width: 90%}"
         }
       ]
@@ -7840,7 +7928,7 @@
       "category": "C",
       "technique": "C21",
       "selectors": [
-        "body"
+        "[style*='line-spacing']"
       ],
       "examples": [
         {
@@ -7962,7 +8050,7 @@
       "category": "C",
       "technique": "C24",
       "selectors": [
-        "body"
+        "[style*=width]"
       ],
       "examples": []
     },
@@ -8006,7 +8094,8 @@
       "category": "C",
       "technique": "C28",
       "selectors": [
-        "body"
+        "[style*='width']",
+        "[style*='height']"
       ],
       "examples": [
         {
@@ -8067,7 +8156,10 @@
       "category": "C",
       "technique": "C31",
       "selectors": [
-        "body"
+        "[style*=\"display:flex\"]",
+        "[style*=\"display: flex\"]",
+        "[style*=\"display:inline-flex\"]",
+        "[style*=\"display: inline-flex\"]"
       ],
       "examples": [
         {
@@ -8088,7 +8180,10 @@
       "category": "C",
       "technique": "C32",
       "selectors": [
-        "body"
+        "[style*=\"display:grid\"]",
+        "[style*=\"display: grid\"]",
+        "[style*=\"display:inline-grid\"]",
+        "[style*=\"display: inline-grid\"]"
       ],
       "examples": [
         {
@@ -8199,7 +8294,7 @@
       "category": "C",
       "technique": "C37",
       "selectors": [
-        "body"
+        "img"
       ],
       "examples": [
         {
@@ -8220,7 +8315,10 @@
       "category": "C",
       "technique": "C38",
       "selectors": [
-        "body"
+        "label",
+        "input",
+        "select",
+        "textarea"
       ],
       "examples": [
         {
@@ -8247,7 +8345,7 @@
         {
           "id": "SYS_REM_100071-1",
           "name": "Example 1: 'prefers-reduced-motion' CSS Media Query",
-          "description": "Users can indicate their motion preference for interfaces in their system and the 'prefers-reduced-motion' CSS Media Query will respect that choice. CSS can then be applied to disable that motion for users that request it.",
+          "description": "Users can indicate their motion preference for interfaces in their system and the 'prefers-reduced-motion' CSS Media Query will respect that choice. CSS can then be applied to deactivate that motion for users who request it.",
           "code": "@media (prefers-reduced-motion: reduce) {\n  /* CSS to disable motion goes here */\n }"
         }
       ]
@@ -8269,7 +8367,7 @@
         {
           "id": "SYS_REM_100072-1",
           "name": "Example 1: A thick two-color indicator",
-          "description": "In this example, the indicator consists of two solid bands of color. Because each color band is 2 CSS pixels thick, either color band is large enough to meet the minimum indicator size requirement on its own. As long as one of the two colors has 3:1 change contrast with the pixels behind and around the focus indicator, the indicator will satisfy both the Focus Appearance and Non-Text Contrast success criteria.",
+          "description": "In this example, the indicator consists of two solid bands of color. Since each color band is 2 CSS pixels thick, either color band is large enough to meet the minimum indicator size requirement on its own. As long as one of the two colors has a 3:1 change contrast with the pixels behind and around the focus indicator, the indicator will satisfy both the Focus Appearance and Non-Text Contrast success criteria.",
           "code": "*:focus {\n  /* inner indicator */\n  outline: 2px #F9F9F9 solid;\n  outline-offset: 0;\n  /* outer indicator */\n  box-shadow: 0 0 0 4px #193146;\n }"
         }
       ]
@@ -8305,13 +8403,13 @@
       "category": "C",
       "technique": "C42",
       "selectors": [
-        "body"
+        "a"
       ],
       "examples": [
         {
           "id": "SYS_REM_100074-1",
           "name": "Example 1: Using a display value of inline-block, min-height, and min-width",
-          "description": "The first example shows a situation where the targets (in this case, the linked numbers in the pagination navigation) are smaller than 44 × 44 CSS pixels. However, the list items that contain them have a minimum height and width of 44 px set, so that sufficient target spacing is assured.",
+          "description": "The first example shows a situation where the targets (in this case, the linked numbers in the pagination navigation) are smaller than 44 × 44 CSS pixels. However, the list items that contain them have a minimum height and width of 44 px set, so that sufficient target spacing is ensured.",
           "code": "<nav aria-label=\"pagination\">\n  <ol class=\"pagination-1\">\n  <li><a class=\"previous\">previous</a></li>\n  <li><a aria-current=\"page\">1</li>\n  <li><a href=\"/page-2\">2</a></li>\n  <li><a href=\"/page-3\">3</a></li>\n  <li><a href=\"/page-4\">4</a></li>\n  <li><a href=\"/page-5\">5</a></li>\n  <li><a href=\"/pages-6-10\">next</a></li>\n  </ol>\n </nav>"
         },
         {
@@ -8441,7 +8539,8 @@
       "category": "G",
       "technique": "G11",
       "selectors": [
-        "blink"
+        "blink",
+        "body"
       ],
       "examples": []
     },
@@ -8456,7 +8555,16 @@
       "category": "G",
       "technique": "G13",
       "selectors": [
-        "body"
+        "input",
+        "button",
+        "select",
+        "option",
+        "optgroup",
+        "textarea",
+        "fieldset",
+        "legend",
+        "label",
+        "output"
       ],
       "examples": []
     },
@@ -8484,7 +8592,8 @@
       "category": "G",
       "technique": "G15",
       "selectors": [
-        "blink"
+        "blink",
+        "body"
       ],
       "examples": []
     },
@@ -8528,7 +8637,8 @@
       "category": "G",
       "technique": "G19",
       "selectors": [
-        "blink"
+        "blink",
+        "body"
       ],
       "examples": []
     },
@@ -8585,6 +8695,8 @@
       "category": "G",
       "technique": "G55",
       "selectors": [
+        "abbr",
+        "dfn",
         "body"
       ],
       "examples": [
@@ -8602,7 +8714,7 @@
       "criteria": [
         "1.4.7"
       ],
-      "description": "Include sound behind speech without making it too hard for people with hearing problems to understand the speech. Making sure that the foreground speech is 20 db louder than the background sound makes the speech 4 times louder than the background audio. \nFor information on Decibels (dB), see About Decibels.\n???",
+      "description": "Include sound behind speech without making it too hard for people with hearing problems to understand the speech. Making sure that the foreground speech is 20 db louder than the background sound makes the speech 4 times louder than the background audio. \nFor information on Decibels (dB), see About Decibels.",
       "category": "G",
       "technique": "G56",
       "selectors": [
@@ -8655,7 +8767,7 @@
         },
         {
           "id": "SYS_REM_100095-2",
-          "name": "Example 2: The link back to the .MOV Document in an HTML Document",
+          "name": "Example 2: The link back to the .MOV document in an HTML document",
           "description": "Code on the page olympic-wrestling-transcript.html",
           "code": "<p>Sports announcer 1: This is a great battle tonight between England's \"Will Johnson\"\n  and \"Theodore Derringo\" from Argentina.</p>\n <p>Scenery: There is a mat set out in the middle of the stadium with 500 people in the \n  stands...</p>\n <p>...more dialogue...<p>\n <p>...more scenery...</p>\n <p>...etc...</p>\n <p>Sports announcer 2: And that is all for tonight, thank you for joining us tonight\n  where Will Johnson is the new Gold Medalist. \n <a href=\"../movies/olympic-sports.html#olympic-wrestling\">Return to movie page</a></p>"
         }
@@ -8698,6 +8810,7 @@
       "category": "G",
       "technique": "G60",
       "selectors": [
+        "audio",
         "body"
       ],
       "examples": []
@@ -8728,6 +8841,8 @@
       "category": "G",
       "technique": "G62",
       "selectors": [
+        "abbr",
+        "dfn",
         "body"
       ],
       "examples": []
@@ -8830,6 +8945,8 @@
       "category": "G",
       "technique": "G70",
       "selectors": [
+        "abbr",
+        "dfn",
         "body"
       ],
       "examples": []
@@ -8850,7 +8967,7 @@
         {
           "id": "SYS_REM_1000106-1",
           "name": "Example 1",
-          "description": "The example below shows a label element that includes a help link. Including the help link within the label element allows screen reader users to have access to the help link when interacting with the input form control.",
+          "description": "The example shows a label element that includes a help link. Including the help link within the label element allows screen reader users to have access to the help link when interacting with the input form control.",
           "code": "<form>\n  <label for=\"serial-number\"><span>Serial Number</span>\n  <a href=\"help.html\" target=\"_blank\">Help</a></label>\n  <input type=\"text\" name=\"serial-number\" id=\"serial-number\">\n </form>"
         }
       ]
@@ -8932,7 +9049,7 @@
         {
           "id": "SYS_REM_1000110-1",
           "name": "Example 1: Providing a button to update content",
-          "description": "In HTML, a developer can provide a button or link that allows the user to update the content. For example, on a page with news items.",
+          "description": "In HTML, a developer can provide a button or link that allows the user to update the content—for example, on a page with news items.",
           "code": "<button type=\"button\">Update this page</button>"
         }
       ]
@@ -8968,7 +9085,7 @@
     },
     {
       "id": "SYS_REM_1000113",
-      "name": "Users can change context using a submit button ",
+      "name": "Users can change context using a Submit button ",
       "criteria": [
         "3.2.2"
       ],
@@ -9000,7 +9117,7 @@
       "criteria": [
         "1.1.1"
       ],
-      "description": "Provide useful info via text alt even if the full function of the non-text content cannot be provided. \nSometimes, a text alt cannot serve the same purpose as the original non-text content (for example an applet meant to develop two dimensional   rapid targeting skills and eye hand coordination.) In these cases this technique is used. With this technique a description of the purpose of the non-text content is provided.",
+      "description": "Provide useful info via text alt even if the full function of the non-text content cannot be provided. \nSometimes, a text alt cannot serve the same purpose as the original non-text content (for example an applet meant to develop two-dimensional rapid targeting skills and eye hand coordination.) In these cases, this technique is used. With this technique, a description of the purpose of the non-text content is provided.",
       "category": "G",
       "technique": "G82",
       "selectors": [
@@ -9238,7 +9355,7 @@
       "category": "G",
       "technique": "G93",
       "selectors": [
-        "body"
+        "video"
       ],
       "examples": []
     },
@@ -9275,7 +9392,19 @@
       "category": "G",
       "technique": "G95",
       "selectors": [
-        "body"
+        "img",
+        "picture",
+        "figure",
+        "svg",
+        "canvas",
+        "video",
+        "audio",
+        "embed",
+        "object",
+        "iframe",
+        "track",
+        "map",
+        "area"
       ],
       "examples": []
     },
@@ -9310,6 +9439,7 @@
       "category": "G",
       "technique": "G97",
       "selectors": [
+        "abbr",
         "body"
       ],
       "examples": []
@@ -9353,15 +9483,18 @@
       "technique": "G100",
       "selectors": [
         "img",
-        "object",
-        "area",
-        "input[type='image']",
-        "audio",
-        "video",
-        "embed",
-        "canvas",
+        "picture",
+        "figure",
         "svg",
-        "iframe"
+        "canvas",
+        "video",
+        "audio",
+        "embed",
+        "object",
+        "iframe",
+        "track",
+        "map",
+        "area"
       ],
       "examples": []
     },
@@ -9375,6 +9508,7 @@
       "category": "G",
       "technique": "G101",
       "selectors": [
+        "dfn",
         "body"
       ],
       "examples": []
@@ -9389,6 +9523,7 @@
       "category": "G",
       "technique": "G102",
       "selectors": [
+        "abbr",
         "body"
       ],
       "examples": []
@@ -9417,7 +9552,7 @@
       "category": "G",
       "technique": "G105",
       "selectors": [
-        "body"
+        "form"
       ],
       "examples": []
     },
@@ -9487,6 +9622,7 @@
       "category": "G",
       "technique": "G112",
       "selectors": [
+        "dfn",
         "body"
       ],
       "examples": []
@@ -9613,7 +9749,7 @@
         {
           "id": "SYS_REM_1000147-1",
           "name": "Example 4: HTML page with several blocks of navigation",
-          "description": "This example demonstrates both the use of heading elements at the beginning of each section (H69) and links that skip to the end of each section. This allows people to skip blocks of repeated content using keyboard navigation or using heading navigation, depending on the capabilities of their user agents.",
+          "description": "This example demonstrates both the use of heading elements at the beginning of each section (H69) and links that skip to the end of each section. This allows people to skip blocks of repeated content using keyboard navigation or using heading navigation, depending on the capabilities of their UA.",
           "code": "<a href=\"#content\">skip navigation</a>\n <h2><span id=\"main-label\">Main</span> Navigation</h2>\n <nav aria-labelledby=\"main-label\">\n  <ul>\n  <li><a href=\"#subnav\">Sub Navigation</a></li>\n  <li><a href=\"/a/\">Link A</a></li>\n  <li><a href=\"/b/\">Link B</a></li>\n  <li><a href=\"/c/\">Link C</a></li>\n  </ul>\n <nav>\n \n\n <h2 id=\"subnav\"><span id=\"sub-label\">Sub</span> Navigation</h2>\n <nav aria-labelledby=\"sub-label\">\n  <ul>\n  <li><a href=\"#ultranav\">Ultra Sub Navigation</a></li>\n  <li><a href=\"/suba/\">Sub A</a></li>\n  <li><a href=\"/subb/\">Sub B</a></li>\n  <li><a href=\"/subc/\">Sub C</a></li>\n  </ul>\n </nav>\n \n\n <main id=\"content\">\n  <h1>Content title</h1>\n  <p>Now that I have your attention...</p>\n </main>"
         }
       ]
@@ -9699,13 +9835,19 @@
       "category": "G",
       "technique": "G130",
       "selectors": [
-        "body"
+        "h1",
+        "h2",
+        "h3",
+        "h4",
+        "h5",
+        "h6",
+        "[role='heading']"
       ],
       "examples": [
         {
           "id": "SYS_REM_1000153-1",
           "name": "Example 1: An HTML page that describes the range of tasks for disaster preparation",
-          "description": "Note that the level 2 headings have the distinguishing information at the beginning (i.e., instead of \"Preparation for floods\", \"Preparation for fires\", etc).",
+          "description": "Note that the level 2 headings have the distinguishing information at the beginning (i.e., instead of \"Preparation for floods\", \"Preparation for fires\", etc.).",
           "code": "<h1>Disaster preparation</h1>\n <h2>Flood preparation</h2>\n <h2>Fire preparation</h2>"
         }
       ]
@@ -9737,7 +9879,7 @@
       "category": "G",
       "technique": "G133",
       "selectors": [
-        "body"
+        "form"
       ],
       "examples": []
     },
@@ -9757,7 +9899,7 @@
     },
     {
       "id": "SYS_REM_1000157",
-      "name": "Color and semantic markup is combined to convey information",
+      "name": "Color and semantic markup combine to convey information",
       "criteria": [
         "1.3.1"
       ],
@@ -9832,7 +9974,7 @@
         {
           "id": "SYS_REM_1000160-1",
           "name": "Example 1: Headings used to organize an HTML page",
-          "description": "A page on cooking techniques uses a h1 element for the overall title, and h2 elements for major sections on cooking with oil vs cooking with butter, and h3 elements for sub-sections on oil-cooking techniques.",
+          "description": "A page on cooking techniques uses an h1 element for the overall title, and h2 elements for major sections on cooking with oil vs cooking with butter, and h3 elements for sub-sections on oil-cooking techniques.",
           "code": "<!doctype html>\n <html lang=\"en\">\n  <head>\n  <title>Cooking techniques</title>\n  </head>\n  <body>\n  <h1>Cooking techniques</h1>\n  ... some text here ...\n  <h2>Cooking with oil</h2>\n  ... text of the section ...\n  <h3>Sautéeing</h3>\n  ...\n  <h3>Deep frying</h3>\n  <h2>Cooking with butter</h2>\n  ... text of the section ...\n  </body>\n </html>"
         }
       ]
@@ -10025,7 +10167,7 @@
       "category": "G",
       "technique": "G155",
       "selectors": [
-        "body"
+        "form"
       ],
       "examples": []
     },
@@ -10051,7 +10193,7 @@
       "criteria": [
         "1.2.9"
       ],
-      "description": "Use a real-time caption service to provide a text version of live audio content. Such services use a trained human operator who listens in to what is being said and uses a special keyboard to enter the text with only a small delay. They are able to capture a live event with a high degree of fidelity, and also to insert notes on any non spoken audio which is essential to understanding the event. The viewport containing the caption text is available on the same web page as the live audio content.",
+      "description": "Use a real-time caption service to provide a text version of live audio content. Such services use a trained human operator who listens in to what is being said and uses a special keyboard to enter the text with only a small delay. They are able to capture a live event with a high degree of fidelity, and also to insert notes on any non-spoken audio, essential to understanding the event. The viewport containing the caption text is available on the same web page as the live audio content.",
       "category": "G",
       "technique": "G157",
       "selectors": [
@@ -10250,7 +10392,7 @@
         {
           "id": "SYS_REM_1000186-1",
           "name": "Example 1",
-          "description": "For most technologies, simply leave out any alignment declarations. For example, the following text will be justified to the left by default in HTML where the language of the page is left to right.",
+          "description": "For most technologies, simply leave out any alignment declarations. \nFor example, the following text will be justified to the left by default in HTML where the language of the page is left to right.",
           "code": "<p>Lorem ipsum dolor sit amet, ...</p>"
         }
       ]
@@ -10279,6 +10421,7 @@
       "category": "G",
       "technique": "G171",
       "selectors": [
+        "audio",
         "body"
       ],
       "examples": []
@@ -10308,6 +10451,7 @@
       "category": "G",
       "technique": "G173",
       "selectors": [
+        "video",
         "body"
       ],
       "examples": []
@@ -10352,7 +10496,8 @@
       "category": "G",
       "technique": "G176",
       "selectors": [
-        "blink"
+        "blink",
+        "body"
       ],
       "examples": []
     },
@@ -10431,7 +10576,7 @@
       "category": "G",
       "technique": "G181",
       "selectors": [
-        "body"
+        "form"
       ],
       "examples": []
     },
@@ -10646,13 +10791,13 @@
         {
           "id": "SYS_REM_1000210-1",
           "name": "Example 1: A rating system in HTML",
-          "description": "In the following example, a rating is shown as three filled stars and two empty stars. While a text alternative could have been provided for each of the five images, the author has instead provided the rating in the form \"3 out of 5 stars\" for the first image and has marked the others using null alt text.",
+          "description": "In the following example, a rating is shown as three filled stars and two empty stars. While a text alt could have been provided for each of the five images, the author has instead provided the rating in the form \"3 out of 5 stars\" for the first image and has marked the others using null alt text.",
           "code": "<p>Rating: \n  <img src=\"star-filled\" alt=\"3 out of 5 stars\">\n  <img src=\"star-filled\" alt=\"\">\n  <img src=\"star-filled\" alt=\"\">\n  <img src=\"star-empty\" alt=\"\">\n  <img src=\"star-empty\" alt=\"\">\n </p>"
         },
         {
           "id": "SYS_REM_1000210-2",
           "name": "Example 2: Buttons created with groups of images in HTML",
-          "description": "In this example, each button has a set of images to indicate the level of conformance to WCAG being claimed. This approach makes it possible for assistive technologies to avoid announcing things like, \"Image A, Image A, Image A\" etc.",
+          "description": "In this example, each button has a set of images to indicate the level of conformance to WCAG being claimed. This approach makes it possible for AT to avoid announcing things like, \"Image A, Image A, Image A\" etc.",
           "code": "<p>Conformance Level:</p>\n <button name=\"A\" type=\"button\">\n  <img src=\"a.png\" alt=\"A\">\n </button>\n <button name=\"AA\" type=\"button\">\n  <img src=\"a.png\" alt=\"AA\">\n  <img src=\"a.png\" alt=\"\">\n </button>\n <button name=\"AAA\" type=\"button\">\n  <img src=\"a.png\" alt=\"AAA\">\n  <img src=\"a.png\" alt=\"\">\n  <img src=\"a.png\" alt=\"\">\n </button>"
         }
       ]
@@ -10700,7 +10845,7 @@
         "3.3.4",
         "4.1.3"
       ],
-      "description": "Provide consistent feedback that indicates successful completion of actions like form submissions instead if requiring users to navigate through content to discover if the action succeeded. Reduce effort for users who cannot easily scan through info to confirm their actions were successful, such as verifying that data was entered into a database, sent to a person, or added to content being edited.",
+      "description": "Provide consistent feedback that indicates successful completion of actions like form submissions instead of requiring users to navigate through content to discover if the action succeeded. Reduce effort for users who cannot easily scan through info to confirm their actions were successful, such as verifying that data was entered into a database, sent to a person, or added to content being edited.",
       "category": "G",
       "technique": "G199",
       "selectors": [
@@ -10725,13 +10870,13 @@
         {
           "id": "SYS_REM_1000214-1",
           "name": "Example 1: Including the warning in the text describing a control",
-          "description": "The name or label that describes a control can include the warning\n  about opening in a new window.",
+          "description": "The name or label that describes a control can include the warning about opening in a new window.",
           "code": "<a href=\"knitting.html\" rel=\"noopener\" target=\"_blank\">\n  All about Knitting (opens in new window)\n </a>"
         },
         {
           "id": "SYS_REM_1000214-2",
           "name": "Example 2: Using CSS to provide a warning before opening a new window",
-          "description": "The code below uses CSS to provide a warning before opening a new\n  window.",
+          "description": "The code below uses CSS to provide a warning before opening a new window.",
           "code": "<!DOCTYPE html>\n <html lang=\"en\">\n <head>\n  <meta charset=\"utf-8\">\n  <title>Link opens in new window notification</title>\n  <style>\n  body {\n  background:#fff;\n  color: #000;\n  font: 1rem/1.5 system-ui, \"Segoe UI\", Roboto, Helvetica, sans-serif;\n  }\n \n\n  [hidden] {\n  display:none;\n  }\n \n\n  .new-window-icon {\n  fill:currentColor;\n  height:0.75rem;\n  margin-inline-start:0.3em;\n  vertical-align:middle;\n  width:0.75rem;\n  }\n  </style>\n </head>\n <body>\n  <svg hidden>\n  <symbol id=\"new-window-icon\" viewBox=\"0 0 12 12\">\n  <title id=\"new-win-desc\">opens in a new window</title> \n  ...\n  </symbol>\n  </svg>\n \n\n  <h1>Link opens in new window notification</h1>\n  <p>This is an example of an \n  <a aria-describedby=\"new-win-desc\" href=\"https://example.com\" rel=\"noopener\" \n  target=\"_blank\">external link<svg class=\"new-window-icon\" aria-hidden=\"true\"\n  role=\"img\"><use href=\"#new-window-icon\"></use></svg></a></p>\n  </body>\n </html>"
         }
       ]
@@ -10839,7 +10984,7 @@
       "category": "G",
       "technique": "G208",
       "selectors": [
-        "body"
+        "label"
       ],
       "examples": []
     },
@@ -10881,7 +11026,7 @@
       "category": "G",
       "technique": "G211",
       "selectors": [
-        "body"
+        "label"
       ],
       "examples": [
         {
@@ -11087,7 +11232,7 @@
         {
           "id": "SYS_REM_1000235-2",
           "name": "Example 2",
-          "description": "A link contains an icon and text, and the site help refers to the icon. The img has a text alternative which is the name used for the icon in the site help, which describes clicking the home page icon.",
+          "description": "A link contains an icon and text, and the site help refers to the icon. The img has a text alt which is the name used for the icon in the site help, which describes clicking the home page icon.",
           "code": "<a href=\"home.html\">\n  <img src=\"house.gif\" alt=\"home page icon\">Go to the home page\n </a>"
         }
       ]
@@ -11142,7 +11287,7 @@
       "criteria": [
         "3.1.4"
       ],
-      "description": "Use the abbr element for any abbreviation (including acronyms and initialisms) to provide expansions or definitions. Combine with the title attribute on the abbr element to provide the expansion needed for a complete implementation, recognizing that this approach has limitations noted in relevant specifications.\nNote: This techniue is advisory rather than sufficient  ",
+      "description": "Use the abbr element for any abbreviation (including acronyms and initialisms) to provide expansions or definitions. Combine with the title attribute on the abbr element to provide the expansion needed for a complete implementation, recognizing that this approach has limitations noted in relevant specifications.",
       "category": "H",
       "technique": "H28",
       "selectors": [
@@ -11207,7 +11352,7 @@
         {
           "id": "SYS_REM_1000239-4",
           "name": "Example 4",
-          "description": "A site allows users to provide feedback on products by clicking on the \"Feedback\" link in a product detail page. Other users are able to provide a response to any feedback. When a response to the user's feedback is available, the feedback link displays an icon, with \"response received\" as its text alternative, after the \"Feedback\" text. The site's help document describes this icon as a speech bubble containing quotation marks and includes the icon, with its text alternative, as an example. The same text alternative is used in the product detail pages (when a response is available) to help ensure that users following the documentation can identify the image correctly as documented.",
+          "description": "A site allows users to provide feedback on products by clicking on the \"Feedback\" link in a product detail page. Other users are able to provide a response to any feedback. When a response to the user's feedback is available, the feedback link displays an icon, with \"response received\" as its text alt, after the \"Feedback\" text. The site's help document describes this icon as a speech bubble containing quotation marks and includes the icon, with its text alt, as an example. The same text alt is used in the product detail pages (when a response is available) to help ensure that users following the documentation can identify the image correctly as documented.",
           "code": "<a href=\"prod_123_feedback.html\">\n  Feedback \n  <img src=\"response.gif\" width=\"15\" height=\"15\" alt=\"response received\">\n </a>"
         },
         {
@@ -11239,7 +11384,7 @@
       "examples": [
         {
           "id": "SYS_REM_1000240-1",
-          "name": "Example 1: A basic example of a form with a submit button",
+          "name": "Example 1: A basic example of a form with a Submit button",
           "code": "<form action=\"/subscribe\" method=\"post\">\n  <p>Enter your email address to subscribe to our mailing list.</p>\n  <label for=\"address\">Your email address:</label>\n  <input autocomplete=\"email\" id=\"address\" name=\"address\" type=\"text\"> \n  <input type=\"submit\" value=\"Subscribe\">\n </form>"
         }
       ]
@@ -11281,7 +11426,7 @@
     },
     {
       "id": "SYS_REM_1000243",
-      "name": "Images used as submit buttons have alt attributes",
+      "name": "Images used as Submit buttons have alt attributes",
       "criteria": [
         "1.1.1"
       ],
@@ -11315,7 +11460,7 @@
         {
           "id": "SYS_REM_1000244-1",
           "name": "Example 1",
-          "description": "An image on a Website provides a link to a free newsletter. The image contains the\n  text \"Free newsletter. Get free recipes, news, and more. Learn more.\" The alt text\n  matches the text in the image.",
+          "description": "An image on a Website provides a link to a free newsletter. The image contains the text \"Free newsletter. Get free recipes, news, and more. Learn more.\" The alt text matches the text in the image.",
           "code": "<img src=\"newsletter.gif\" alt=\"Free newsletter. \n  Get free recipes, news, and more. Learn more.\">"
         }
       ]
@@ -11330,7 +11475,8 @@
       "category": "H",
       "technique": "H39",
       "selectors": [
-        "body"
+        "caption",
+        "table"
       ],
       "examples": [
         {
@@ -11373,7 +11519,12 @@
       "category": "H",
       "technique": "H42",
       "selectors": [
-        "body"
+        "h1",
+        "h2",
+        "h3",
+        "h4",
+        "h5",
+        "h6"
       ],
       "examples": [
         {
@@ -11400,7 +11551,8 @@
       "category": "H",
       "technique": "H43",
       "selectors": [
-        "body"
+        "td[headers]",
+        "td"
       ],
       "examples": [
         {
@@ -11423,7 +11575,16 @@
       "category": "H",
       "technique": "H44",
       "selectors": [
-        "body"
+        "input",
+        "button",
+        "select",
+        "option",
+        "optgroup",
+        "textarea",
+        "fieldset",
+        "legend",
+        "label",
+        "output"
       ],
       "examples": [
         {
@@ -11440,7 +11601,7 @@
         {
           "id": "SYS_REM_1000249-3",
           "name": "Example 3: A group of radio buttons",
-          "description": "A small, related group of radio buttons with a clear description and labels for each individual element.",
+          "description": "A small, related group of radio buttons with a clear desc and labels for each individual element.",
           "code": "<h1>Doughnut Selection</h1>\n <form action=\"/buy-doughnuts\" method=\"post\">\n  <fieldset>\n  <legend>Pick the doughnut you would like</legend>\n  <input id=\"dn-choc\" name=\"flavor\" type=\"radio\" value=\"chocolate\">\n  <label for=\"dn-choc\">Chocolate</label>\n  <input id=\"dn-cream\" name=\"flavor\" type=\"radio\" value=\"cream\">\n  <label for=\"dn-cream\">Cream Filled</label>\n  <input id=\"dn-raspberry\" name=\"flavor\" type=\"radio\" value=\"raspberry\">\n  <label for=\"dn-raspberry\">Raspberry Filled</label>\n  </fieldset>\n  <input type=\"submit\" value=\"Purchase Your Doughnut\">\n </form>"
         }
       ]
@@ -11455,7 +11616,9 @@
       "category": "H",
       "technique": "H48",
       "selectors": [
-        "body"
+        "ol",
+        "ul",
+        "dl"
       ],
       "examples": [
         {
@@ -11473,7 +11636,7 @@
         {
           "id": "SYS_REM_1000250-3",
           "name": "Example 3: A word and its definition",
-          "description": "This example uses a description list to group a definition with the term that is being defined.",
+          "description": "This example uses a desc list to group a definition with the term that is being defined.",
           "code": "<dl>\n  <dt>blink</dt>\n  <dd>turn on and off between 0.5 and 3 times per second</dd>\n </dl>"
         },
         {
@@ -11485,7 +11648,7 @@
         {
           "id": "SYS_REM_1000250-5",
           "name": "Example 5: Using lists to group links",
-          "description": "In this example the links are grouped using the ul and li elements.",
+          "description": "In this example, the links are grouped using the ul and li elements.",
           "code": "<h2 id=\"product-categories\">Product Categories</h2>\n <nav aria-labelledby=\"product-categories\">\n  <ul>\n  <li><a href=\"kitchen.html\">Kitchen</a></li>\n  <li><a href=\"bedbath.html\">Bed &amp; Bath</a></li>\n  <li><a href=\"dining.html\">Fine Dining</a></li>\n  <li><a href=\"lighting.html\">Lighting</a></li>\n  <li><a href=\"storage.html\">Storage</a><li>\n  </ul>\n </nav>"
         }
       ]
@@ -11500,7 +11663,7 @@
       "category": "H",
       "technique": "H51",
       "selectors": [
-        "body"
+        "table"
       ],
       "examples": [
         {
@@ -11523,12 +11686,12 @@
       "category": "H",
       "technique": "H53",
       "selectors": [
-        "body"
+        "object"
       ],
       "examples": [
         {
           "id": "SYS_REM_1000252-1",
-          "name": "Example 1: An object includes a long description that describes it",
+          "name": "Example 1: An object includes a long desc that describes it",
           "code": "<object classid=\"https://www.example.com/analogclock.py\">\n  <p>Here is some text that describes the object and its operation.</p>\n </object>"
         },
         {
@@ -11538,7 +11701,7 @@
         },
         {
           "id": "SYS_REM_1000252-3",
-          "name": "Example 3: The image object has content that provides a brief description of the function of the image",
+          "name": "Example 3: The image object has content that provides a brief desc of the function of the image",
           "code": "<object data=\"companylogo.gif\" type=\"image/gif\">\n  <p>Company Name</p>\n </object>"
         },
         {
@@ -11579,6 +11742,7 @@
       "category": "H",
       "technique": "H56",
       "selectors": [
+        "[dir]",
         "body"
       ],
       "examples": [
@@ -11600,7 +11764,7 @@
       "category": "H",
       "technique": "H57",
       "selectors": [
-        "body"
+        "html[lang]"
       ],
       "examples": [
         {
@@ -11649,13 +11813,13 @@
         {
           "id": "SYS_REM_1000257-1",
           "name": "Example 1: Ruby markup providing pronunciation information for an initialism",
-          "description": "This example uses Ruby annotation to give the pronunciation of the initialism (acronym) formed by the first letters of the words Web Content Accessibility Guidelines. The letters WCAG are the base (the rb element), and the pronunciation information is shown by the Ruby text (the rt element). The Ruby parenthesis element rp is used for user agents that do not support Ruby annotations to indicate that the text in the rt element provides the pronunciation information. The pronunciation information is rendered in parentheses immediately following the base text. (User agents that support Ruby do not show the parentheses.)",
+          "description": "This example uses Ruby annotation to give the pronunciation of the initialism (acronym) formed by the first letters of the words Web Content Accessibility Guidelines. The letters WCAG are the base (the rb element), and the pronunciation info is shown by the Ruby text (the rt element). The Ruby parenthesis element rp is used for UAs that do not support Ruby annotations to indicate that the text in the rt element provides the pronunciation info. The pronunciation info is rendered in parentheses immediately following the base text. (UAs that support Ruby do not show the parentheses.)",
           "code": "<p>When we talk about these guidelines, we often just call them\n  <ruby>\n  <rb>WCAG</rb>\n  <rp>(</rp>\n  <rt>Wuh-KAG</rt>\n  <rp>)</rp>\n  </ruby>.\n </p>"
         },
         {
           "id": "SYS_REM_1000257-2",
           "name": "Example 2: Ruby annotation for Japanese",
-          "description": "The following is an example in Japanese. For Japanese, the Ruby is used to give the reading of Han characters (Kanji). the Ruby parenthesis element rp is used for user agents that do not support Ruby annotations to indicate that the text in the rt element provides the pronunciation information. The pronunciation information is rendered in parentheses immediately following the base text. (User agents that support Ruby do not show the parentheses.)",
+          "description": "The following is an example in Japanese. For Japanese, Ruby is used to give the reading of Han characters (Kanji). The Ruby parenthesis element rp is used for UAs that do not support Ruby annotations to indicate that the text in the rt element provides the pronunciation information. The pronunciation info is rendered in parentheses immediately following the base text. (UAs that support Ruby do not show the parentheses.)",
           "code": "<p>\n  <ruby>\n  <rb>慶應大学</rb>\n  <rp>(</rp>\n  <rt>けいおうだいがく</rt>\n  <rp>)</rp>\n  </ruby>\n </p>"
         }
       ]
@@ -11670,7 +11834,8 @@
       "category": "H",
       "technique": "H63",
       "selectors": [
-        "body"
+        "th[scope]",
+        "td[headers]"
       ],
       "examples": [
         {
@@ -11722,7 +11887,7 @@
         {
           "id": "SYS_REM_1000260-1",
           "name": "Example 1: A pulldown menu that limits the scope of a search",
-          "description": "A search form uses a pulldown menu to limit the scope of the search. The pulldown menu is immediately adjacent to the text field used to enter the search term. The relationship between the search field and the pulldown menu is clear to users who can see the visual design, which does not have room for a separate visible label. The title attribute is used to identify the select menu. The title attribute can be spoken by screen readers or displayed as a tool tip for people using screen magnifiers. There must be visual information on the page which allows sighted users to understand the purpose of the form controls and user agents.",
+          "description": "A search form uses a pulldown menu to limit the scope of the search. The pulldown menu is immediately adjacent to the text field used to enter the search term. The relationship between the search field and the pulldown menu is clear to users who can see the visual design, which does not have room for a separate visible label. The title attribute is used to identify the select menu. The title attribute can be spoken by screen readers or displayed as a tool tip for people using screen magnifiers. There must be visual info on the page which allows sighted users to understand the purpose of the form controls and UA.",
           "code": "<label for=\"search-term\">Search for:</label>\n <input id=\"search-term\" name=\"search-term\" type=\"text\" value=\"\">\n <select title=\"Search in\" id=\"scope\">\n  ...\n </select>"
         },
         {
@@ -11941,7 +12106,7 @@
         {
           "id": "SYS_REM_1000268-1",
           "name": "Example 1: Blocks of information on hotels",
-          "description": "The information for each hotel consists of the hotel name, a description and a series of links to a map, photos, directions, guest reviews and a booking form.",
+          "description": "The info for each hotel consists of the hotel name, a description, and a series of links to a map, photos, directions, guest reviews, and a booking form.",
           "code": "<h2><a href=\"royal_palm_hotel.html\" id=\"royal-heading\">Royal Palm Hotel</a></h2>\n <nav aria-labelledby=\"royal-heading\">\n  <ul>\n  <li><a href=\"royal-palm-hotel_map.html\">Map</a></li>\n  <li><a href=\"royal-palm-hotel-photos.html\">Photos</a></li>\n  <li><a href=\"hroyal-palm-hotel-directions.html\">Directions</a></li>\n  <li><a href=\"royal-palm-hotel-reviews.html\">Guest reviews</a></li>\n  <li><a href=\"royal-palm-hotel-book.html\">Book now</a></li>\n  </ul>\n </nav> \n \n\n <h2><a href=\"hotel-three-rivers.html\" id=\"rivers-heading\">Hotel Three Rivers</a></h2>\n <nav aria-labelledby=\"rivers-heading\">\n  <ul>\n  <li><a href=\"hotel-three-rivers-map.html\">Map</a></li>\n  <li><a href=\"hotel-three-rivers-photos.html\">Photos</a></li>\n  <li><a href=\"hotel-three-rivers-directions.html\">Directions</a></li>\n  <li><a href=\"hotel-three-rivers-reviews.html\">Guest reviews</a></li>\n  <li><a href=\"hotel-three-rivers-book.html\">Book now</a></li>\n  </ul>\n </nav>"
         },
         {
@@ -11978,7 +12143,7 @@
         {
           "id": "SYS_REM_1000269-2",
           "name": "Example 2: Blocks of information about hotels",
-          "description": "The information for each hotel consists of the hotel name, a description and a series of links to a map, photos, directions, guest reviews and a booking form.",
+          "description": "The info for each hotel consists of the hotel name, a description, and a series of links to a map, photos, directions, guest reviews, and a booking form.",
           "code": "<nav>\n  <ul>\n  <li><a href=\"royal-palm-hotel.html\">Royal Palm Hotel</a>\n  <ul>\n  <li><a href=\"royal-palm-hotel-map.html\">Map</a></li>\n  <li><a href=\"royal-palm-hotel-photos.html\">Photos</a></li>\n  <li><a href=\"royal-palm-hotel-directions.html\">Directions</a></li>\n  <li><a href=\"royal-palm-hotel-reviews.html\">Guest reviews</a></li>\n  <li><a href=\"royal-palm-hotel-book.html\">Book now</a></li>\n  </ul>\n  </li>\n  <li><a href=\"hotel-three-rivers.html\">Hotel Three Rivers</a>\n  <ul>\n  <li><a href=\"hotel-three-rivers-map.html\">Map</a></li>\n  <li><a href=\"hotel-three-rivers-photos.html\">Photos</a></li>\n  <li><a href=\"hotel-three-rivers-directions.html\">Directions</a></li>\n  <li><a href=\"hotel-three-rivers-reviews.html\">Guest reviews</a></li>\n  <li><a href=\"hotel-three-rivers-book.html\">Book now</a></li>\n  </ul>\n  </li>\n  </ul>\n </nav>"
         }
       ]
@@ -12040,7 +12205,10 @@
       "category": "H",
       "technique": "H85",
       "selectors": [
-        "body"
+        "select",
+        "option",
+        "optgroup",
+        "datalist"
       ],
       "examples": [
         {
@@ -12126,19 +12294,19 @@
       "category": "H",
       "technique": "H89",
       "selectors": [
-        "body"
+        "[title]"
       ],
       "examples": [
         {
           "id": "SYS_REM_1000275-1",
           "name": "Example 1",
-          "description": "A mapping application provides a form consisting of a label \"Address:\", an input component and a submit button with value \"Find map\". The input component has a title attribute value with an example of the address format the user should enter.",
+          "description": "A mapping application provides a form consisting of a label \"Address:\", an input component and a Submit button with value \"Find map\". The input component has a title attribute value with an example of the address format the user should enter.",
           "code": "<label for=\"search-address\">Address:</label>\n <input id=\"search-address\" name=\"search-address\" size=\"30\"\n  title=\"Address example: 101 Collins St, Melbourne, Australia\" type=\"text\" value=\"\">"
         },
         {
           "id": "SYS_REM_1000275-2",
           "name": "Example 2",
-          "description": "A form that allows users to pay their bill online requires the user to enter their account number. The input component associated with the \"Account number\" label has a title attribute providing information on locating the account number.",
+          "description": "A form that allows users to pay their bill online requires the user to enter their account number. The input component associated with the \"Account number\" label has a title attribute providing info on locating the account number.",
           "code": "<label for=\"acc-num1\">Account number:</label>\n <input id=\"acc-num1\" size=\"10\"\n  title=\"Your account number can be found in the top right-hand corner of your bill\"\n  type=\"text\" value=\"\">"
         }
       ]
@@ -12153,7 +12321,7 @@
       "category": "H",
       "technique": "H90",
       "selectors": [
-        "body"
+        "form"
       ],
       "examples": [
         {
@@ -12165,7 +12333,7 @@
         {
           "id": "SYS_REM_1000276-2",
           "name": "Example 2: Using an asterisk to indicate required state",
-          "description": "The text field in the example below has an explicit label that includes an asterisk to indicate the control is required. It is important that the asterisk meaning is defined at the start of the form. In this example, the asterisk is contained within a abbr element to allow for the asterisk character to be styled so that it is larger than the default asterisk character, since the asterisk character can be difficult to see for those with impaired vision.",
+          "description": "The text field in the example below has an explicit label that includes an asterisk to indicate the control is required. It is important that the asterisk meaning is defined at the start of the form. In this example, the asterisk is contained within an abbr element to allow for the asterisk character to be styled so that it is larger than the default asterisk character, since the asterisk character can be difficult to see for those with impaired vision.",
           "code": ".req {font-size: 150%}"
         },
         {
@@ -12177,7 +12345,7 @@
         {
           "id": "SYS_REM_1000276-4",
           "name": "Example 4: Indicating required state for groups of radio buttons or check box controls",
-          "description": "Radio buttons and checkboxes are treated differently than other interactive controls since individual radio buttons and checkboxes are not required but indicates that a response for the group is required. The methods used in examples 1-3 apply to radio buttons and checkboxes, but the indication of the required state should be placed in the legend element instead of the label element.",
+          "description": "Radio buttons and checkboxes are treated differently than other interactive controls since individual radio buttons and checkboxes are not required, but indicate that a response for the group is required. The methods used in examples 1-3 apply to radio buttons and checkboxes, but the indication of the required state should be placed in the legend element instead of the label element.",
           "code": "<fieldset>\n  <legend>I am interested in the following (Required):</legend>\n  <div>\n  <input id=\"photo\" name=\"interests\" type=\"checkbox\" value=\"ph\">\n  <label for=\"photo\">Photography</label>\n  </div>\n  <div>\n  <input checked id=\"watercol\" name=\"interests\" type=\"checkbox\" value=\"wa\">\n  <label for=\"watercol\">Watercolor</label>\n  </div>\n  <div>\n  <input checked id=\"acrylic\" name=\"interests\" type=\"checkbox\" value=\"ac\">\n  <label for=\"acrylic\">Acrylic</label>\n  </div>\n  ...\n </fieldset>"
         }
       ]
@@ -12199,7 +12367,7 @@
         {
           "id": "SYS_REM_1000277-1",
           "name": "Example 1: Links",
-          "description": "User agents provide mechanisms to navigate to and select links. In each of the following examples, the role is \"link\" because the a element has an href attribute. An a element without an href isn't a link. The link's value is the URI in the href attribute.",
+          "description": "UAs provide mechanisms to navigate to and select links. In each of the following examples, the role is \"link\" because the a element has an href attribute. An a element without an href is not a link. The link's value is the URI in the href attribute.",
           "code": "<a href=\"https://example.com\">Example Site</a>"
         },
         {
@@ -12246,7 +12414,7 @@
       "criteria": [
         "1.2.2"
       ],
-      "description": "Use the HTML track element with kind=\"captions\" to specify a captions timed text track for video elements (that includes transcription or translation of dialogue, sound effects, musical cues, and other relevant audio info). Set the src attribute to the URL of the text track data and ensure captions tracks contain all important audio info since subtitles contain only dialogue and will not be sufficient if other audio elements are important for understanding the video.",
+      "description": "Use the HTML track element with kind=\"captions\" to specify a captions-timed text track for video elements (that includes transcription or translation of dialogue, sound effects, musical cues, and other relevant audio info). Set the src attribute to the URL of the text track data and ensure captions tracks contain all important audio info since subtitles contain only dialogue and will not be sufficient if other audio elements are important for understanding the video.",
       "category": "H",
       "technique": "H95",
       "selectors": [
@@ -12280,19 +12448,20 @@
       "category": "H",
       "technique": "H96",
       "selectors": [
-        "body"
+        "audio",
+        "video"
       ],
       "examples": [
         {
           "id": "SYS_REM_1000279-1",
-          "name": "Example 1: Audio description in one language",
-          "description": "A video element for a video in the English language. The audio descriptions are provided in the WebVTT format.",
+          "name": "Example 1: Audio desc in one language",
+          "description": "A video element for a video in the English language. The audio descs are provided in the WebVTT format.",
           "code": "<video poster=\"myvideo.png\" controls>\n  <source src=\"myvideo.mp4\" srclang=\"en\" type=\"video/mp4\">\n  <track kind=\"descriptions\" label=\"English\" src=\"myvideo-en.vtt\" srclang=\"en\">\n </video>"
         },
         {
           "id": "SYS_REM_1000279-2",
           "name": "Example 2: Audio description in multiple languages",
-          "description": "A video element for a video with both an English and French language source element, and with an English and a French audio description track using the WebVTT file format.",
+          "description": "A video element for a video with both an English and French language source element, and with an English and a French audio desc track using the WebVTT file format.",
           "code": "<video poster=\"myvideo.png\" controls>\n  <source src=\"myvideo.mp4\" srclang=\"en\" type=\"video/mp4\">\n  <source src=\"myvideo.webm\" srclang=\"fr\" type=\"video/webm\">\n  <track kind=\"descriptions\" label=\"English\" src=\"myvideo-en.vtt\" srclang=\"en\">\n  <track kind=\"descriptions\" label=\"Français\" src=\"myvideo-fr.vtt\" srclang=\"fr\">\n </video>"
         }
       ]
@@ -12348,7 +12517,7 @@
         {
           "id": "SYS_REM_1000281-1",
           "name": "Example 1: A user's credit card information",
-          "description": "This is a simple form that collects contact and credit card information from the user.",
+          "description": "This is a simple form that collects contact and credit card info from the user.",
           "code": "<form method=\"post\" action=\"step2\">\n  <div>\n  <label for=\"fname\">First Name</label>\n  <input autocomplete=\"given-name\" id=\"fname\" type=\"text\">\n  </div>\n  <div>\n  <label for=\"lname\">Last Name</label>\n  <input autocomplete=\"family-name\" id=\"lname\" type=\"text\">\n  </div>\n  <div>\n  <label for=\"cc-num\">Credit card number:</label>\n  <input autocomplete=\"cc-number\" id=\"cc-num\" type=\"text\">\n  </div>\n  <div>\n  <label for=\"exp-date\">Expiry Date:</label>\n  <input autocomplete=\"cc-exp\" id=\"exp-date\" type=\"month\">\n  </div>\n  <div>\n  <input type=\"submit\" value=\"Continue\">\n  </div>\n </form>"
         }
       ]
@@ -12386,13 +12555,14 @@
       "category": "H",
       "technique": "H102",
       "selectors": [
+        "dialog",
         "body"
       ],
       "examples": [
         {
           "id": "SYS_REM_1000283-1",
           "name": "Example 1: A dialog to sign up to a mailing list",
-          "description": "This is an example of using a modal dialog element to show a mailing-list sign-up form to a user. The main part of the page contains a button element that, when activated, invokes the modal dialog. The button uses the type attribute to tell the browser that this isn't a submit button.",
+          "description": "This is an example of using a modal dialog element to show a mailing-list sign-up form to a user. The main part of the page contains a button element that, when activated, invokes the modal dialog. The button uses the type attribute to tell the browser that this is not a Submit button.",
           "code": "<!doctype html>\n <html lang=\"en\">\n  <head>\n  <meta charset=\"utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width,\n  initial-scale=1, shrink-to-fit=no\">\n  <title>Turbo Encabulator News</title>\n  </head>\n  <body>\n  <main>\n  <h1>All The News About Turbo Encabulators</h1>\n  <button class=\"open-modal\" type=\"button\">Sign up to our mailing list!</button>\n  </main>\n  <dialog aria-labelledby=\"dialog-heading\" id=\"mailing-list-dialog\">\n  <h1 id=\"dialog-heading\" tabindex=\"-1\">Sign up to our mailing list</h1>\n  <form>\n  <p class=\"req-note\">All form fields are required.</p>\n  <div>\n  <label for=\"fname\">First Name</label>\n  <input aria-required=\"true\" autocomplete=\"given-name\" id=\"fname\" type=\"text\">\n  </div>\n  <div>\n  <label for=\"lname\">Last Name</label>\n  <input aria-required=\"true\" autocomplete=\"family-name\" id=\"lname\" type=\"text\">\n  </div>\n  <div>\n  <label for=\"email\">Email address</label>\n  <input aria-required=\"true\" autocomplete=\"email\" id=\"email\" type=\"text\">\n  </div>\n  <button class=\"sign-up\" type=\"submit\">Sign up</button>\n  </form>\n  <form method=\"dialog\">\n  <button aria-label=\"close\" class=\"close-modal\">&times;</button>\n  </form>\n  </dialog>\n  </body>\n </html>"
         }
       ]
@@ -12434,7 +12604,7 @@
         {
           "id": "SYS_REM_1000285-1",
           "name": "Example 4: Creating bookmarks with the outline hierarchy",
-          "description": "The following code fragment illustrates part of an outline hierarchy used to create bookmarks This is typically accomplished by an authoring tool.",
+          "description": "The following code fragment illustrates part of an outline hierarchy used to create bookmarks. This is typically accomplished by an authoring tool.",
           "code": "121 0 obj\n  << /Type /Outlines\n  /First 22 0 R\n  /Last 29 0 R\n  /Count 6\n  >>\n endobj\n 22 0 obj\n  << /Title (Applying Guerrilla Tactics to Usability Testing by People with Disabilities)\n  /Parent 21 0 R\n  /Next 29 0 R\n  /First 25 0 R\n  /Last 28 0 R\n  /Count 4\n  /Dest [3 0 R /XYZ 0 792 0]\n  >>\n endobj\n 25 0 obj\n  << /Title (Getting started)\n  /Parent 22 0 R\n  /Next 26 0 R\n  /Dest [3 0 R /XYZ null 701 null]\n  >>\n endobj"
         }
       ]
@@ -12447,7 +12617,7 @@
         "2.1.1",
         "2.4.3"
       ],
-      "description": "Ensure logical reading and tab order in PDF documents that matches the meaning of content by creating proper document structure in authoring tools before converting to tagged PDF and using repair tools for complex layouts. Establish tab order through elements suh as interactive elements, with content order within tags determined by the PDF's content tree structure and reading prevent issues.",
+      "description": "Ensure logical reading and tab order in PDF documents that matches the meaning of content by creating proper document structure in authoring tools before converting to tagged PDF and using repair tools for complex layouts. Establish tab order through elements such as interactive elements, with content order within tags determined by the PDF's content tree structure and reading prevent issues.",
       "category": "PDF",
       "technique": "PDF3",
       "selectors": [
@@ -12545,6 +12715,8 @@
       "category": "PDF",
       "technique": "PDF8",
       "selectors": [
+        "abbr",
+        "dfn",
         "body"
       ],
       "examples": [
@@ -12573,13 +12745,13 @@
       "category": "PDF",
       "technique": "PDF9",
       "selectors": [
-        "body"
+        "pdf"
       ],
       "examples": []
     },
     {
       "id": "SYS_REM_1000293",
-      "name": "Form control labels are accessible",
+      "name": "PDF form control labels are accessible",
       "criteria": [
         "1.3.1",
         "3.3.2",
@@ -12589,13 +12761,13 @@
       "category": "PDF",
       "technique": "PDF10",
       "selectors": [
-        "body"
+        "pdf"
       ],
       "examples": [
         {
           "id": "SYS_REM_1000293-1",
           "name": "Example 2: Adding a tooltip to interactive form controls",
-          "description": "The following code fragment illustrates the use of the TU entry to\n  provide a tooltip (or programmatically associated text label) for a\n  form field. This is typically accomplished by an authoring tool.",
+          "description": "The following code fragment illustrates the use of the TU entry to provide a tooltip (or programmatically associated text label) for a form field. This is typically accomplished by an authoring tool.",
           "code": "<< /AP -dict- \n  /DA /Helv 0 Tf 0 g\n  /DR -dict-\n  /F 0x4\n  /FT Tx % FT key set to Tx for Text Field\n  /P -dict-\n  /Rect -array-\n  /StructParent 0x1\n  /Subtype Widget\n  /T Date you are available  % Partial field name Date\n  /TU Date you are available: use MM/DD/YYYY format % TU tool tip serves as description\n  /Type Annot\n  /V Pat Jones\n >>\n ...\n <Start Stream>\n  BT\n  /P <</MCID 0 >>BDC\n  /CS0 cs 0 scn \n  /TT0 1 Tf\n  -0.001 Tc 0.003 Tw 11.04 0 0 11.04 72 709.56 Tm\n  [(P)-6(le)-3(as)10(e)-3( )11(P)-6(rin)2(t)-3( Y)8(o)-7(u)2(r N)4(a)11(m)-6(e)]TJ\n  0 Tc 0 Tw 9.533 0 Td\n  ( )Tj\n  -0.004 Tc 0.004 Tw 0.217 0 Td\n  [(\\()-5(R)-4(e)5(q)-1(u)-1(i)-3(r)-3(e)-6(d)-1(\\))]TJ\n  EMC\n  /P <</MCID 1 >>BDC\n  0 Tc 0 Tw 4.283 0 Td\n  [( )-2( )]TJ\n  EMC\n  /ArtifactSpan <</MCID 2 >>BDC\n  0.002 Tc -0.002 Tw 0.456 0 Td\n  [(__)11(___)11(___)11(___)11(___)11(_)11(____)11(___)11(___)11(__)]TJ\n  0 Tc 0 Tw 13.391 0 Td\n  ( )Tj\n  EMC\n  ET\n <End Stream>"
         }
       ]
@@ -12613,13 +12785,13 @@
       "category": "PDF",
       "technique": "PDF11",
       "selectors": [
-        "body"
+        "pdf"
       ],
       "examples": [
         {
           "id": "SYS_REM_1000294-1",
           "name": "Example 4: Marking up link text using a /Link structure element",
-          "description": "Link annotations in PDF documents are associated with a geometric\n  region of a page rather than a particular object in a content stream.\n  For this reason, link annotations alone are not useful for users with\n  visual impairments, or to applications that must determine which content\n  can be activated to invoke a hypertext link.",
+          "description": "Link annotations in PDF documents are associated with a geometric region of a page rather than a particular object in a content stream. For this reason, link annotations alone are not useful for users with visual impairments, or to applications that must determine which content can be activated to invoke a hypertext link.",
           "code": "<p>Here is some text <a href=\"https://www.w3.org/WAI/\">with a link</a> inside.</p>"
         }
       ]
@@ -12635,7 +12807,7 @@
       "category": "PDF",
       "technique": "PDF12",
       "selectors": [
-        "body"
+        "pdf"
       ],
       "examples": [
         {
@@ -12657,7 +12829,7 @@
       "category": "PDF",
       "technique": "PDF13",
       "selectors": [
-        "body"
+        "pdf"
       ],
       "examples": [
         {
@@ -12675,11 +12847,11 @@
         "2.4.8",
         "3.2.3"
       ],
-      "description": "Provide running headers and footers via pagination artifacts using PDF authoring tools to help users locate themselves within documents by including location information like page numbers, chapter titles, or section headings. Implement this techique either during authoring the document or later using repair tools like Adobe Acrobat Pro's Header & Footer tools.",
+      "description": "Provide running headers and footers via pagination artifacts using PDF authoring tools to help users locate themselves within documents by including location information like page numbers, chapter titles, or section headings. Implement this technique either during authoring the document or later using repair tools like Adobe Acrobat Pro's Header & Footer tools.",
       "category": "PDF",
       "technique": "PDF14",
       "selectors": [
-        "body"
+        "pdf"
       ],
       "examples": []
     },
@@ -12693,7 +12865,7 @@
       "category": "PDF",
       "technique": "PDF15",
       "selectors": [
-        "body"
+        "pdf"
       ],
       "examples": []
     },
@@ -12707,7 +12879,7 @@
       "category": "PDF",
       "technique": "PDF16",
       "selectors": [
-        "body"
+        "pdf"
       ],
       "examples": [
         {
@@ -12730,7 +12902,7 @@
       "category": "PDF",
       "technique": "PDF17",
       "selectors": [
-        "body"
+        "pdf"
       ],
       "examples": [
         {
@@ -12751,7 +12923,7 @@
       "category": "PDF",
       "technique": "PDF18",
       "selectors": [
-        "body"
+        "pdf"
       ],
       "examples": [
         {
@@ -12769,11 +12941,11 @@
         "3.1.1",
         "3.1.2"
       ],
-      "description": "Specify the language of passages, phrases, or words using the /Lang entry so UAs can present content correctly, typically accomplished using PDF authoring tools. Enable AT and conventional Uas to render text more accurately by allowing screen readers to load correct pronunciation rules.",
+      "description": "Specify the language of passages, phrases, or words using the /Lang entry so UAs can present content correctly, typically accomplished using PDF authoring tools. Enable AT and conventional UAs to render text more accurately by allowing screen readers to load correct pronunciation rules.",
       "category": "PDF",
       "technique": "PDF19",
       "selectors": [
-        "body"
+        "pdf"
       ],
       "examples": [
         {
@@ -12794,7 +12966,7 @@
       "category": "PDF",
       "technique": "PDF20",
       "selectors": [
-        "body"
+        "pdf"
       ],
       "examples": [
         {
@@ -12815,7 +12987,7 @@
       "category": "PDF",
       "technique": "PDF21",
       "selectors": [
-        "body"
+        "pdf"
       ],
       "examples": []
     },
@@ -12830,7 +13002,7 @@
       "category": "PDF",
       "technique": "PDF22",
       "selectors": [
-        "body"
+        "pdf"
       ],
       "examples": [
         {
@@ -12851,7 +13023,7 @@
       "category": "PDF",
       "technique": "PDF23",
       "selectors": [
-        "body"
+        "pdf"
       ],
       "examples": [
         {
@@ -12946,8 +13118,8 @@
       "examples": [
         {
           "id": "SYS_REM_1000309-1",
-          "name": "Example 1: SMIL 1.0 Video with audio descriptions that pause the main media in 4 locations to allow extended audio description",
-          "description": "The markup above is broken into five par segments. In each, there is a video and an audio tag (the last par has no <audio> tag intentionally). The convention with extended audio descriptions is that the main media pauses during the description. The way to make this happen in SMIL 1.0 is to set a clip-begin and clip-end which dictate the start and end of the video clip, and to set a duration for the clip that is longer than what is defined by the clip-begin and clip-end. The fill=\"freeze\" holds the last frame of the video during the extended description. The audio tag has a begin attribute with a value that is equal to the clip-end value of the preceding video tag.",
+          "name": "Example 1: SMIL 1.0 Video with audio descs that pause the main media in 4 locations to allow extended audio desc",
+          "description": "The markup above is broken into five par segments. In each, there is a video and an audio tag (the last par has no <audio> tag intentionally). The convention with extended audio descs is that the main media pauses during the desc. The way to make this happen in SMIL 1.0 is to set a clip-begin and clip-end which dictate the start and end of the video clip, and to set a duration for the clip that is longer than what is defined by the clip-begin and clip-end. The fill=\"freeze\" holds the last frame of the video during the extended desc. The audio tag has a begin attribute with a value that is equal to the clip-end value of the preceding video tag.",
           "code": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n <smil xmlns:qt=\"http://www.apple.com/quicktime/resources/smilextensions\" \n  xmlns=\"https://www.w3.org/TR/REC-smil\" qt:time-slider=\"true\">\n  <head>\n  <layout>\n  <root-layout background-color=\"black\" height=\"266\" width=\"320\"/>\n  <region id=\"videoregion\" background-color=\"black\" top=\"26\" left=\"0\" \n  height=\"144\" width=\"320\"/>\n  </layout>\n  </head>\n  <body>\n  <par>\n  <seq>\n  <par>\n  <video src=\"video.rm\" region=\"videoregion\" clip-begin=\"0s\" clip-end=\"5.4\" \n  dur=\"8.7\" fill=\"freeze\" alt=\"videoalt\"/> \n  <audio src=\"no1.wav\" begin=\"5.4\" alt=\"audio alt\"/>\n  </par>\n  <par>\n  <video src=\"video.rm\" region=\"videoregion\" clip-begin=\"5.4\" clip-end=\"24.1\" \n  dur=\"20.3\" fill=\"freeze\" alt=\"videoalt\"/>\n  <audio src=\"no2.wav\" begin=\"18.7\" alt=\"audio alt\"/>\n  </par>\n  <par>\n  <video src=\"video.rm\" region=\"videoregion\" clip-begin=\"24.1\" clip-end=\"29.6\" \n  dur=\"7.7\" fill=\"freeze\" alt=\"videoalt\"/>\n  <audio src=\"no3.wav\" begin=\"5.5\" alt=\"audio alt\"/>\n  </par>\n  <par>\n  <video src=\"video.rm\" region=\"videoregion\" clip-begin=\"29.6\" clip-end=\"34.5\" \n  dur=\"5.7\" fill=\"freeze\" alt=\"videoalt\"/>\n  <audio src=\"no4.wav\" begin=\"4.9\" alt=\"audio alt\"/>\n  </par>\n  <par>\n  <video src=\"video.rm\" region=\"videoregion\" clip-begin=\"77.4\" alt=\"video alt\"/>\n  </par>\n  </seq>\n  </par>\n  </body>\n </smil>"
         }
       ]
@@ -12969,7 +13141,7 @@
       "examples": [
         {
           "id": "SYS_REM_1000310-1",
-          "name": "Example 1: Video with extended audio description",
+          "name": "Example 1: Video with extended audio desc",
           "code": "<smil xmlns=\"https://www.w3.org/2001/SMIL20/Language\"> \n <head>\n  <layout> \n  <root-layout backgroundColor=\"black\" height=\"266\" width=\"320\"/> \n  <region id=\"video\" backgroundColor=\"black\" top=\"26\" left=\"0\" \n  height=\"144\" width=\"320\"/> \n  </layout> \n </head> \n <body>  \n  <excl> \n  <priorityClass peers=\"pause\"> \n  <video src=\"movie.rm\" region=\"video\" title=\"video\" alt=\"video\" /> \n  <audio src=\"desc1.rm\" begin=\"12.85s\" alt=\"Description 1\" /> \n  <audio src=\"desc2.rm\" begin=\"33.71s\" alt=\"Description 2\" /> \n  <audio src=\"desc3.rm\" begin=\"42.65s\" alt=\"Description 3\" /> \n  <audio src=\"desc4.rm\" begin=\"59.80s\" alt=\"Description 4\" /> \n  </priorityClass> \n  </excl> \n </body> \n </smil>"
         }
       ]
@@ -12990,7 +13162,7 @@
       "examples": [
         {
           "id": "SYS_REM_1000311-1",
-          "name": "Example 1: SMIL 1.0 audio description sample for QuickTime player",
+          "name": "Example 1: SMIL 1.0 audio desc sample for QuickTime player",
           "code": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n <smil xmlns:qt=\"http://www.apple.com/quicktime/resources/smilextensions\" \n  xmlns=\"https://www.w3.org/TR/REC-smil\" qt:time-slider=\"true\">\n <head>\n  <layout>\n  <root-layout background-color=\"black\" height=\"266\" width=\"320\"/>\n  <region id=\"videoregion\" background-color=\"black\" top=\"26\" left=\"0\" \n  height=\"144\" width=\"320\"/>\n  </layout>\n </head>\n <body>\n  <par>\n  <video dur=\"0:01:20.00\" region=\"videoregion\" src=\"salesdemo.mov\" \n  alt=\"Sales Demo\"/>\n  <audio dur=\"0:01:20.00\" src=\"salesdemo_ad.mp3\" \n  alt=\"Sales Demo Audio Description\"/>\n  </par>\n </body>\n </smil>"
         }
       ]
@@ -13011,7 +13183,7 @@
       "examples": [
         {
           "id": "SYS_REM_1000312-1",
-          "name": "Example 1: SMIL 2.0 audio description sample for RealMedia player",
+          "name": "Example 1: SMIL 2.0 audio desc sample for RealMedia player",
           "description": "The example shows a par segment containing an audio and a video tag. The audio stream is not started immediately.",
           "code": "<smil xmlns=\"https://www.w3.org/2001/SMIL20/Language\">\n <head>\n  <layout>\n  <root-layout backgroundColor=\"black\" height=\"266\" width=\"320\"/>\n  <region id=\"video\" backgroundColor=\"black\" top=\"26\" left=\"0\" \n  height=\"144\" width=\"320\"/>\n  </layout>\n  </head>\n  <body>\n  <par>\n  <video src=\"salesdemo.mpg\" region=\"video\" title=\"Sales Demo\" \n  alt=\"Sales Demo\"/>\n  <audio src=\"salesdemo_ad.mp3\" begin=\"33.71s\" title=\"audio description\" \n  alt=\"Sales Demo Audio Description\"/>\n  </par>\n  </body>\n </smil>"
         }
@@ -13102,7 +13274,7 @@
         {
           "id": "SYS_REM_1000316-1",
           "name": "Example 1: SMIL 2.0 sign-language video sample for RealMedia player",
-          "description": "The example shows a par segment containing\n  two video tags. The systemCaptions attribute indicates that the sign language video should be displayed when the user's player setting for captions indicates the preference for captions to be displayed. The layout section defines the regions used for the main video and the sign language interpretation video.",
+          "description": "The example shows a par segment containing two video tags. The systemCaptions attribute indicates that the sign language video should be displayed when the user's player setting for captions indicates the preference for captions to be displayed. The layout section defines the regions used for the main video and the sign language interpretation video.",
           "code": "<smil xmlns=\"https://www.w3.org/2001/SMIL20/Language\">\n <head>\n  <layout>\n  <root-layout backgroundColor=\"black\" height=\"310\" width=\"330\"/>\n  <region id=\"video\" backgroundColor=\"black\" top=\"5\" left=\"5\" \n  height=\"240\" width=\"320\"/>\n  <region id=\"signing\" backgroundColor=\"black\" top=\"250\" \n  height=\"60\" left=\"5\" width=\"320\"/>\n  </layout>\n </head>\n <body>\n  <par>\n  <video src=\"salesdemo.mpg\" region=\"video\" title=\"Sales Demo\" \n  alt=\"Sales Demo\"/>\n  <video src=\"salesdemo_signing.mpg\" \n  region=\"signing\" systemCaptions=\"on\" \n  title=\"sign language interpretation\" \n  alt=\"Sales Demo Sign Language Interpretation\"/>\n  </par>\n </body>\n </smil>"
         }
       ]
@@ -13117,14 +13289,14 @@
       "category": "T",
       "technique": "T1",
       "selectors": [
-        "body"
+        "p"
       ],
       "examples": [
         {
           "id": "SYS_REM_1000317-1",
           "name": "Example 1",
           "description": "Two paragraphs. Each starts and ends with a blank line.",
-          "code": "This is the first sentence in this\n paragraph. Paragraphs may be long\n or short.\n  \n  In this paragraph the first line is\n indented. Indented and non-indented\n sentences are allowed. White space within\n the paragraph lines is ignored in\n defining paragraphs. Only completely blank\n lines are significant."
+          "code": "This is the first sentence in this paragraph. Paragraphs may be long or short.\n  \nIn this paragraph the first line is indented. Indented and non-indented sentences are allowed. White space within the paragraph lines is ignored in defining paragraphs. Only completely blank lines are significant."
         }
       ]
     },
@@ -13138,7 +13310,9 @@
       "category": "T",
       "technique": "T2",
       "selectors": [
-        "body"
+        "ul",
+        "ol",
+        "dl"
       ],
       "examples": [
         {

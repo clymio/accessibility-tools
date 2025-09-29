@@ -187,7 +187,7 @@ const CoreSelect = forwardRef(({
                   ))
                 )
               : (
-                <Typography color='textSecondary'>{placeHolder}</Typography>
+                <Typography color='textSecondary' className={styles.placeholder}>{placeHolder}</Typography>
                 );
           }
           return options.find(o => o.value === selected)?.label || selected || <Typography color='textSecondary'>{placeHolder}</Typography>;

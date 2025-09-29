@@ -2,6 +2,9 @@
 
 .projects {
   height: 100%;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+  padding-right: 0.5rem;
 
   .pageHeading {
     font-size: 24px;
@@ -38,7 +41,7 @@
 
       svg {
         margin-left: 8px;
-        fill:$palette-button-main;
+        fill: $palette-button-main;
         stroke: $palette-button-main;
       }
 

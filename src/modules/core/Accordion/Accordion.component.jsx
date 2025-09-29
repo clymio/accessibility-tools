@@ -1,4 +1,6 @@
 'use strict';
+import { chevronUp } from '@/assets/icons';
+import Icon from '@/modules/core/Icon';
 import { Chip } from '@mui/material';
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -8,8 +10,6 @@ import classNames from 'classnames';
 import { useEffect, useState } from 'react';
 import { BulletCell } from '../Cell';
 import styles from './Accordion.module.scss';
-import { chevronDown } from '@/assets/icons';
-import Icon from '@/modules/core/Icon';
 
 export default function CoreAccordion({
   title,
@@ -59,10 +59,14 @@ export default function CoreAccordion({
     >
       <AccordionSummary
         ref={summaryRef}
-        className={classNames(styles.summary, {
-          [styles.isChildAccordion]: isChildAccordion
-        }, summaryClassName)}
-        expandIcon={rightIcon ? <Icon className={classNames('clym-contrast-exclude', styles.icon)} icon={chevronDown} /> : undefined}
+        className={classNames(
+          styles.summary,
+          {
+            [styles.isChildAccordion]: isChildAccordion
+          },
+          summaryClassName
+        )}
+        expandIcon={rightIcon ? <Icon className={classNames('clym-contrast-exclude', styles.icon)} icon={chevronUp} /> : undefined}
         onClick={disableSummaryClick ? e => e.stopPropagation() : undefined}
       >
         {titleComponent || (

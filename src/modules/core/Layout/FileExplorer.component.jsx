@@ -65,14 +65,12 @@ function TestSelector({ tests }) {
 }
 
 const renderAuditMode = () => {
-  const { audit, selectedCriterion, setSelectedCriterion } = useAuditStore();
+  const { audit, selectedCriterion, setSelectedCriterion, auditStats, setAuditStats, getAuditStats } = useAuditStore();
   const { project } = useProjectStore();
   const { testsFilter, setTestsFilter } = useTerminalStore(state => ({
     testsFilter: state.tests.filter,
     setTestsFilter: state.tests.setFilter
   }));
-
-  const [auditStats, setAuditStats] = useState({});
   const parentSummaryRefs = useRef({});
 
   const handleCriteriaClick = (item) => {
@@ -84,29 +82,7 @@ const renderAuditMode = () => {
   useEffect(() => {
     if (!audit?.id) return;
 
-    const getAuditStats = async () => {
-      const fetchedStats = await window.api.audit.getStats({ id: audit.id });
-
-      const namedStats = fetchedStats.items.map((stat) => {
-        const section = audit.sections.find(section => section.id === stat.id);
-        const name = section?.name ?? 'Unknown';
-        return {
-          ...stat,
-          name
-        };
-      });
-
-      const title = ((audit.system_audit_type_version_id ?? audit.system_audit_type_id) || '').replace(/_/g, ' ');
-
-      setAuditStats({
-        title,
-        total: fetchedStats.total,
-        updated: fetchedStats.updated,
-        items: namedStats
-      });
-    };
-
-    getAuditStats();
+    getAuditStats(audit);
 
     return () => {
       setAuditStats(undefined);
@@ -209,7 +185,7 @@ const renderAuditMode = () => {
 
 export default function FileExplorer({ id }) {
   const isAuditPage = typeof window !== 'undefined' && window.location.pathname.includes('/audit');
-  const { project, tests, selectedTest, setSelectedPage } = useProjectStore();
+  const { project, tests, selectedTest, setSelectedPage, testStats, setTestStats, getTestStats } = useProjectStore();
   const { audit, selectedCriterion, setSelectedCriterion } = useAuditStore();
   const { filter, setFilter, fetchData, setPageId, setTestId, setIsAudit, testsFilter, setTestsFilter, setHideTerminal } = useTerminalStore(state => ({
     testsFilter: state.tests.filter,
@@ -228,7 +204,6 @@ export default function FileExplorer({ id }) {
   const { width } = useUiStore(({ editor }) => ({ width: editor.width }));
   const [sitemap, setSitemap] = useState([]);
   const [selectedTab, setSelectedTab] = useState(0);
-  const [testStats, setTestStats] = useState();
   const [isDownloadLoading, setIsDownloadLoading] = useState(false);
   const [isAutomatedTestFinished, setIsAutomatedTestFinished] = useState(false);
 
@@ -260,10 +235,6 @@ export default function FileExplorer({ id }) {
     if (!selectedTest) {
       return;
     }
-    const getTestStats = async () => {
-      const newTestStats = await window.api.environmentTest.getStats({ id: selectedTest.id });
-      setTestStats(newTestStats);
-    };
     const isTestFinished = async () => {
       const environmentTest = await window.api.environmentTest.read({
         id: selectedTest.id
@@ -275,9 +246,9 @@ export default function FileExplorer({ id }) {
       if (finished) {
         setIsAutomatedTestFinished(true);
         clearInterval(interval);
-        getTestStats();
+        getTestStats(selectedTest.id);
       } else {
-        getTestStats();
+        getTestStats(selectedTest.id);
       }
     }, 1000);
 
@@ -362,7 +333,9 @@ export default function FileExplorer({ id }) {
                   titleComponent={(
                     <Box className={style.accordionTitle}>
                       <Box className={style.titleSummary}>
-                        <Typography className={style.name}>{selectedTest.name}</Typography>
+                        <Tooltip title={selectedTest.name} placement='top'>
+                          <Typography className={style.name}>{selectedTest.name}</Typography>
+                        </Tooltip>
                         <Typography className={style.counter}>
                           {testStats.completed?.toLocaleString()} / {testStats.total?.toLocaleString()}
                         </Typography>

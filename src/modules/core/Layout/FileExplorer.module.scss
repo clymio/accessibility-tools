@@ -45,14 +45,14 @@
   &.auditAccordion {
     overflow: auto;
     height: 100%;
-    >:global(.MuiAccordion-heading) {
+    > :global(.MuiAccordion-heading) {
       cursor: default;
       :global(.MuiAccordionSummary-root) {
         cursor: default;
       }
     }
-    >:global(.MuiCollapse-root) {
-      max-height:inherit;
+    > :global(.MuiCollapse-root) {
+      max-height: inherit;
       overflow: auto;
     }
     :global(.MuiAccordionSummary-root) {
@@ -116,8 +116,12 @@
       align-items: center;
       justify-content: space-between;
       width: 100%;
+      gap: 8px;
       .name {
         font-weight: 600;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
       }
     }
     .caption {
@@ -185,13 +189,13 @@
     .statTitle {
       display: flex;
       justify-content: space-between;
-      margin-bottom: .5rem;
+      margin-bottom: 0.5rem;
       .statName {
         flex-shrink: 1;
         white-space: nowrap;
         overflow: hidden;
         color: $palette-primary-main-3;
-        margin-right: .5rem;
+        margin-right: 0.5rem;
       }
       .statNumbers {
         white-space: nowrap;
@@ -206,7 +210,8 @@
 
   @media (prefers-color-scheme: dark) {
     background-color: $palette-dark-background-2;
-    p, span {
+    p,
+    span {
       color: $palette-dark-primary-text-2 !important;
     }
 
@@ -233,7 +238,6 @@
         }
       }
     }
-
   }
 }
 
@@ -253,7 +257,7 @@
 .auditItem {
   font-size: 0.875rem;
   line-height: 1.25rem;
-  padding: 0.25rem 0 0.25rem .75rem;
+  padding: 0.25rem 0 0.25rem 0.75rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -261,7 +265,7 @@
 }
 
 .chipWrapper {
-  position:absolute;
+  position: absolute;
   right: 0;
 
   :global(.MuiChip-root) {

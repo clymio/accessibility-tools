@@ -9,7 +9,8 @@ const initialState = {
   },
   tests: [],
   selectedTest: null,
-  isPageLoading: false
+  isPageLoading: false,
+  testStats: null
 };
 
 export const useProjectStore = create(set => ({
@@ -19,5 +20,10 @@ export const useProjectStore = create(set => ({
   setIsPageLoading: isLoading => set({ isPageLoading: isLoading }),
   setTests: tests => set({ tests }),
   setSelectedTest: test => set({ selectedTest: test }),
+  setTestStats: testStats => set({ testStats }),
+  getTestStats: async (testId) => {
+    const newTestStats = await window.api.environmentTest.getStats({ id: testId });
+    set({ testStats: newTestStats });
+  },
   reset: () => set(initialState)
 }));

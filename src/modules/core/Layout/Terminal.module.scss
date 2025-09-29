@@ -44,7 +44,7 @@
     .formField {
       margin-top: 0;
       max-width: 300px;
-      min-width: 150px;
+      min-width: 160px;
     }
     .chip {
       height: 20px;
@@ -58,9 +58,10 @@
       background-color: $palette-primary-contrastText;
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 12px;
       padding: 8px;
       width: 100%;
+      font-weight: 400;
       &:not(:disabled) {
         color: $palette-primary-main-3;
       }
@@ -69,7 +70,7 @@
         background-color: darken($palette-primary-contrastText, 5);
       }
       p {
-        color: inherit;
+        font-size: 16px;
       }
 
       @media (prefers-color-scheme: dark) {

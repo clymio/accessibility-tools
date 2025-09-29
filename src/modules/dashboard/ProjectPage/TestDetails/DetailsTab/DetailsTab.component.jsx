@@ -1,16 +1,14 @@
 import Select from '@/modules/core/Select';
 import TestCaseInfo from '@/modules/dashboard/TestCasesPage/TestCaseInfo.component';
-import { useTerminalStore } from '@/stores';
+import { useProjectStore, useTerminalStore } from '@/stores';
 import { useTestDetailsStore } from '@/stores/useTestDetailsStore';
 import { Box, Button, TextField, Typography } from '@mui/material';
 import classNames from 'classnames';
 import style from '../TestDetails.module.scss';
-import Icon from '@/modules/core/Icon';
-import { info } from '@/assets/icons';
 
 const TestDetailsTab = ({ onFormSubmit = () => {} }) => {
   const { formSaved, status, notes, remediation, remediationOptions, setFormSaved, setNotes, setRemediation, handleFormSubmit, handleStatusChange } = useTestDetailsStore();
-
+  const { getTestStats } = useProjectStore();
   const { clickedTargetContext } = useTerminalStore();
 
   const currentTargetNode = clickedTargetContext.curr;
@@ -24,6 +22,13 @@ const TestDetailsTab = ({ onFormSubmit = () => {} }) => {
     await handleFormSubmit();
     setFormSaved(true);
     onFormSubmit();
+  };
+
+  const onStatusChange = (val) => {
+    const currentTargetNode = clickedTargetContext.curr;
+    if (!currentTargetNode) return;
+    handleStatusChange(val);
+    getTestStats(currentTargetNode.test.environment_test_id);
   };
 
   return (
@@ -47,10 +52,10 @@ const TestDetailsTab = ({ onFormSubmit = () => {} }) => {
         <Box className={classNames(style.formWrapper, { [style.open]: status === 'INCOMPLETE' || status === 'MANUAL' || (status === 'FAIL' && !formSaved) })}>
           {(status === 'INCOMPLETE' || status === 'MANUAL') && (
             <Box className={style.buttonWrapper}>
-              <Button className={classNames(style.fullWidth, style.cancel)} variant='contained' color='secondary' onClick={() => handleStatusChange('FAIL')}>
+              <Button className={classNames(style.fullWidth, style.cancel)} variant='contained' color='secondary' onClick={() => onStatusChange('FAIL')}>
                 <Typography variant='body2'>Failed</Typography>
               </Button>
-              <Button className={style.fullWidth} variant='contained' onClick={() => handleStatusChange('PASS')}>
+              <Button className={style.fullWidth} variant='contained' onClick={() => onStatusChange('PASS')}>
                 <Typography>Passed</Typography>
               </Button>
             </Box>
@@ -82,7 +87,7 @@ const TestDetailsTab = ({ onFormSubmit = () => {} }) => {
                 </Box>
               )}
               <Box className={style.buttonWrapper}>
-                <Button className={style.cancel} variant='contained' onClick={() => handleStatusChange('INCOMPLETE')}>
+                <Button className={style.cancel} variant='contained' onClick={() => onStatusChange('INCOMPLETE')}>
                   <Typography>Cancel</Typography>
                 </Button>
                 <Button variant='contained' onClick={handleFormSave}>
