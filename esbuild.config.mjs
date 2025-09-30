@@ -13,7 +13,10 @@ const watch = process.argv.includes('--watch');
     format: 'cjs',
     bundle: true,
     platform: 'node',
-    loader: { '.json': 'copy', '.svg': 'file' }
+    loader: { '.json': 'copy', '.svg': 'file' },
+    define: {
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production')
+    }
   });
 
   if (watch) {
