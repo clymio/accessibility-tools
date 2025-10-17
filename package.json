@@ -2,7 +2,7 @@
   "name": "a11y",
   "productName": "Accessibility Tools",
   "description": "Accessibility Dev Tools",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "author": {
     "name": "Clym Inc",
     "url": "https://clym.io/",
@@ -19,15 +19,18 @@
     "next:lint": "next lint",
     "postinstall": "electron-builder install-app-deps",
     "build": "run-s next:build electron:build",
+    "build:release": "run-s next:build electron:build:release",
     "predist": "rimraf dist && npm run electron:rebuild",
     "dist": "run-s next:build electron:dist",
     "dist:win": "run-s predist build electron:dist:win postdist",
-    "dist:win:release": "cross-env NODE_ENV='production' run-s predist build electron:dist:win postdist",
+    "dist:win:release": "run-s predist build:release electron:dist:win postdist",
     "dist:mac": "run-s predist build electron:dist:mac postdist",
-    "dist:mac:release": "cross-env NODE_ENV='production' run-s predist build electron:dist:mac postdist",
+    "dist:mac:release": "run-s predist build:release electron:dist:mac postdist",
+    "dist:linux": "run-s predist build electron:dist:linux postdist",
+    "dist:linux:release": "run-s predist build:release electron:dist:linux postdist",
     "postdist": "run-s electron:dist:clean electron:rebuild",
     "dev": "npm-run-all --parallel electron:dev next:dev",
-    "electron:dist": "run-s electron:dist:win electron:dist:mac",
+    "electron:dist": "run-s electron:dist:win electron:dist:mac electron:dist:linux",
     "electron:dist:clean": "rimraf --glob dist/*-unpacked dist/mac-arm64 dist/mac dist/mac-universal dist/builder-*",
     "electron:dist:mac": "run-s electron:rebuild electron:dist:mac:run",
     "electron:dist:mac:run": "electron-builder --mac --universal --publish never --config electron-builder.config.js",
@@ -35,7 +38,8 @@
     "electron:dist:linux:run": "electron-builder --linux --x64 --publish never --config electron-builder.config.js",
     "electron:dist:win": "run-s electron:dist:win:run",
     "electron:dist:win:run": "electron-builder --win --x64 --publish never --config electron-builder.config.js",
-    "electron:build": "node esbuild.config.mjs",
+    "electron:build": "cross-env NODE_ENV='development' node esbuild.config.mjs",
+    "electron:build:release": "cross-env NODE_ENV='production' node esbuild.config.mjs",
     "electron:build_watch": "node esbuild.config.mjs --watch",
     "electron:dev": "npm-run-all --parallel electron:build_watch electron:watch",
     "electron:watch": "cross-env NODE_ENV='development' npx electronmon . --trace-deprecation",
@@ -43,7 +47,7 @@
     "electron:rebuild": "npx electron-rebuild"
   },
   "dependencies": {
-    "@electron-toolkit/utils": "^3.0.0",
+    "@electron-toolkit/utils": "^4.0.0",
     "@emotion/cache": "^11.13.1",
     "@emotion/react": "^11.13.3",
     "@emotion/server": "^11.11.0",
@@ -78,14 +82,14 @@
     "zustand": "^4.5.5"
   },
   "devDependencies": {
-    "@electron/notarize": "^3.0.1",
+    "@electron/notarize": "^3.1.0",
     "@stylistic/eslint-plugin": "^1.6.1",
     "@stylistic/eslint-plugin-js": "^1.6.1",
     "@stylistic/eslint-plugin-jsx": "^1.6.1",
     "@svgr/webpack": "^8.1.0",
     "axe-core": "^4.10.2",
     "cross-env": "^7.0.3",
-    "electron": "^37.2.5",
+    "electron": "^38.2.0",
     "electron-builder": "^26.0.12",
     "electronmon": "^2.0.3",
     "esbuild": "^0.25.8",
@@ -106,5 +110,8 @@
       "!bin/**/*",
       "!archives/**/*"
     ]
+  },
+  "overrides": {
+    "node-abi": "^4.12.0"
   }
 }

@@ -66,9 +66,11 @@ module.exports = {
     createStartMenuShortcut: true
   },
   linux: {
-    target: ['default'],
+    target: ['AppImage'],
     category: 'Development',
-    icon: 'public/assets/icons/'
+    icon: 'public/assets/icons',
+    artifactName: ARTIFACT_NAME,
+    executableName: 'accessibility-tools'
   },
   mac: {
     target: ['default'],

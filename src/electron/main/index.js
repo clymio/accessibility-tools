@@ -233,13 +233,22 @@ function registerCustomProtocol() {
   });
 }
 
+function checkForUpdates() {
+  try {
+    autoUpdater.checkForUpdates();
+  } catch (e) {
+    log.error('Auto updater error');
+    log.debug(e);
+  }
+}
+
 function initAutoUpdater(win) {
   autoUpdater.setFeedURL({
     provider: 'generic',
     url: BUCKET_URL
   });
 
-  autoUpdater.checkForUpdates();
+  checkForUpdates();
 
   autoUpdater.on('download-progress', () => {
     isDownloading = true;
@@ -284,7 +293,7 @@ function initAutoUpdater(win) {
 
   setInterval(() => {
     log.info('Performing scheduled update check...');
-    autoUpdater.checkForUpdates();
+    checkForUpdates();
   }, CHECK_UPDATE_INTERVAL);
 }
 
@@ -298,7 +307,7 @@ function checkForManualUpdates() {
     });
   } else {
     manualUpdateCheck = true;
-    autoUpdater.checkForUpdates();
+    checkForUpdates();
   }
 }
 
