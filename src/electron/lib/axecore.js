@@ -25,7 +25,7 @@ class AxeCoreLib {
    */
   static async getRunScript() {
     return `(async () => {
-        if (axe._running) {
+        if (!axe || axe._running) {
           return;
         }
         const results = await axe.run();
