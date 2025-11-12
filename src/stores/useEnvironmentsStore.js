@@ -22,7 +22,7 @@ export const useEnvironmentsStore = create(set => ({
   removeSelectedEnvironment: id => set(state => ({ selectedEnvironments: state.selectedEnvironments.filter(r => r.id !== id) })),
   setSort: sort => set({ sort }),
   setFilter: filter => set({ filter }),
-  setPagination: pagination => set({ pagination }),
+  setPagination: newPagination => set(state => ({ pagination: { ...state.pagination, ...newPagination } })),
   setMeta: meta => set({ meta }),
   setCheckedFilters: checkedFilters => set({ checkedFilters }),
   setOpenFilterItems: openFilterItems => set({ openFilterItems })

@@ -1,5 +1,5 @@
 import Icon from '@/modules/core/Icon';
-import { plus, xIcon } from '@/assets/icons';
+import { plus, xIcon, minus, checkboxBlank, checkboxChecked } from '@/assets/icons';
 import { Box, Button, Checkbox, Collapse, Drawer, IconButton, List, ListItem, ListItemButton, ListItemText, Typography } from '@mui/material';
 import { Fragment, useEffect, useState } from 'react';
 import style from './DrawerFilter.module.scss';
@@ -131,7 +131,18 @@ const DrawerFilter = ({
     return (
       <ListItem
         key={value}
-        secondaryAction={<Checkbox tabIndex={item.children && item.children.length > 0 ? 0 : -1} edge='end' onChange={e => handleToggle(e, item)} checked={isChecked} inputProps={{ 'aria-labelledby': labelId }} className={style.checkbox} />}
+        secondaryAction={(
+          <Checkbox
+            tabIndex={item.children && item.children.length > 0 ? 0 : -1}
+            edge='end'
+            onChange={e => handleToggle(e, item)}
+            checked={isChecked}
+            inputProps={{ 'aria-labelledby': labelId }}
+            className={style.checkbox}
+            icon={<Icon className={classNames('clym-contrast-exclude', style.icon)} icon={checkboxBlank} />}
+            checkedIcon={<Icon className={classNames('clym-contrast-exclude', style.icon, style.checked)} icon={checkboxChecked} />}
+          />
+        )}
         disablePadding
         className={style.listItem}
       >
@@ -146,7 +157,7 @@ const DrawerFilter = ({
                 className={style.expandButton}
                 tabIndex={-1}
               >
-                {isOpen ? <Icon className={classNames('clym-contrast-exclude', style.icon)} icon={xIcon} /> : <Icon className={classNames('clym-contrast-exclude', style.icon)} icon={plus} />}
+                {isOpen ? <Icon className={classNames('clym-contrast-exclude', style.icon)} icon={minus} /> : <Icon className={classNames('clym-contrast-exclude', style.icon)} icon={plus} />}
               </IconButton>
               )
             : null}
@@ -203,7 +214,7 @@ const DrawerFilter = ({
                         className={style.expandButton}
                         tabIndex={-1}
                       >
-                        {isOpen ? <Icon className={classNames('clym-contrast-exclude', style.icon)} icon={xIcon} /> : <Icon className={classNames('clym-contrast-exclude', style.icon)} icon={plus} />}
+                        {isOpen ? <Icon className={classNames('clym-contrast-exclude', style.icon)} icon={minus} /> : <Icon className={classNames('clym-contrast-exclude', style.icon)} icon={plus} />}
                       </IconButton>
                       <ListItemText primary={<Typography variant='h3'>{item.heading}</Typography>} sx={{ pr: 5 }} />
                     </ListItemButton>

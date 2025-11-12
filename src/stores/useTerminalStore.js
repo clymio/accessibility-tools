@@ -16,9 +16,13 @@ const createSlice
         set({
           [key]: { ...get()[key], data }
         }),
-      setFilter: filter =>
+      setFilter: newFilter =>
         set({
-          [key]: { ...get()[key], filter, pagination: {} }
+          [key]: {
+            ...get()[key],
+            filter: newFilter,
+            pagination: { ...get()[key].pagination, page: 1 }
+          }
         }),
       setSort: sort =>
         set({
@@ -55,8 +59,8 @@ export const useTerminalStore = create((set, get) => ({
   setClickedTargetContext: clickedTargetContext => set({ clickedTargetContext }),
   setFilter: (filter) => {
     const { tests, remediations } = get();
-    const newTests = { ...tests, pagination: {} };
-    const newRemediations = { ...remediations, pagination: {} };
+    const newTests = { ...tests, pagination: { ...tests.pagination, page: 1 } };
+    const newRemediations = { ...remediations, pagination: { ...remediations.pagination, page: 1 } };
     set({ filter, tests: newTests, remediations: newRemediations });
   },
   setPageId: page_id => set({ page_id }),

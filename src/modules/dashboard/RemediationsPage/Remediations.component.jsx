@@ -256,6 +256,10 @@ const remediations = () => {
 
   const rows = remediations.map((remediation) => {
     const testCaseIds = remediation.test_cases.map(tc => tc.id);
+    let criteria = remediation.criteria;
+    if (sort.field === 'criteria' && sort.direction === 'desc') {
+      criteria = remediation.criteria.sort((a, b) => b.id.localeCompare(a.id));
+    }
     return {
       id: remediation.id,
       isSelected: remediation.is_selected,
@@ -265,10 +269,10 @@ const remediations = () => {
         { label: remediation.category.name },
         {
           label: getArrayTruncatedLabel(
-            remediation.criteria.map(c => `${c.id}: ${c.name}`),
+            criteria.map(c => `${c.id}: ${c.name}`),
             1
           ),
-          tooltip: remediation.criteria.map(c => `${c.id}: ${c.name}`).join(', ')
+          tooltip: criteria.map(c => `${c.id}: ${c.name}`).join(', ')
         },
         { label: getArrayTruncatedLabel(testCaseIds), tooltip: testCaseIds.join(', ') }
       ]

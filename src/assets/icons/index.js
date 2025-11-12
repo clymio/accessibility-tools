@@ -8,6 +8,8 @@ export { default as brightness } from './brightness.svg';
 export { default as chevronDown } from './chevron-down.svg';
 export { default as chevronUp } from './chevron-up.svg';
 export { default as check } from './check.svg';
+export { default as checkboxBlank } from './checkbox-blank.svg';
+export { default as checkboxChecked } from './checkbox-checked.svg';
 export { default as circlePlus } from './circle-plus.svg';
 export { default as clipboard } from './clipboard.svg';
 export { default as clipboardCheck } from './clipboard-check.svg';

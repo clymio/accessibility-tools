@@ -99,9 +99,25 @@
             }
           }
         }
+        :global(.MuiListItemSecondaryAction-root) {
+          top: 35%;
+        }
         .checkbox {
           padding: 0;
           margin: 0;
+          input {
+            pointer-events: auto;
+          }
+          svg {
+            font-size: 1rem;
+            overflow: visible;
+            color: $palette-secondary-main;
+
+            &.checked {
+              color: $palette-primary-main;
+              background-color: $palette-table-checkbox-selected-background;
+            }
+          }
         }
       }
     }

@@ -22,7 +22,7 @@ export const useTestCasesStore = create(set => ({
   removeSelectedTestCase: id => set(state => ({ selectedTestCases: state.selectedTestCases.filter(t => t.id !== id) })),
   setSort: sort => set({ sort }),
   setFilter: filter => set({ filter }),
-  setPagination: pagination => set({ pagination }),
+  setPagination: newPagination => set(state => ({ pagination: { ...state.pagination, ...newPagination } })),
   setMeta: meta => set({ meta }),
   setCheckedFilters: checkedFilters => set({ checkedFilters }),
   setOpenFilterItems: openFilterItems => set({ openFilterItems })

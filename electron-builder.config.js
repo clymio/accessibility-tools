@@ -1,11 +1,13 @@
 const { BUCKET_URL } = require('./config/bucket.js');
 
 const ARTIFACT_NAME = '${name}_setup.${ext}';
+const IS_DEV = process.env.NODE_ENV !== 'production';
 
 module.exports = {
   asar: true,
-  executableName: 'Accessibility Tools',
-  appId: 'io.clym.dev-tools',
+  executableName: `Accessibility Tools${IS_DEV ? ' Dev' : ''}`,
+  appId: `io.clym.dev-tools${IS_DEV ? '.dev' : ''}`,
+  productName: `Accessibility Tools${IS_DEV ? ' Dev' : ''}`,
   publish: {
     provider: 'generic',
     url: BUCKET_URL
@@ -84,7 +86,7 @@ module.exports = {
     gatekeeperAssess: false,
     notarize: false
   },
-  ...(process.env.NODE_ENV === 'production'
+  ...(!IS_DEV
     ? {
         afterSign: './config/notarize.js'
       }

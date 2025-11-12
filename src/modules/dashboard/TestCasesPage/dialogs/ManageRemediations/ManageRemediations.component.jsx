@@ -36,9 +36,19 @@ export default function ManageRemediations({ open, onClose, testCaseId }) {
       setTestCaseRemediations(hasValidRemediations ? testCaseRemediations : [{ id: 0, value: '', label: '', description: '' }]);
       newRemediationId.current = testCaseRemediations.length;
 
-      const remediationData = await window.api.remediation.find({ selectors: testCase.selectors.split('\n'), limit: false });
+      const remediationData = await window.api.remediation.find({
+        selectors: testCase.selectors && testCase.selectors.length > 0 ? testCase.selectors.split('\n') : undefined,
+        limit: false
+      });
+      let remediations = remediationData.result;
+      if (remediations.length === 0) {
+        const remediationData = await window.api.remediation.find({
+          limit: false
+        });
+        remediations = remediationData.result;
+      }
       setRemediations(
-        remediationData.result.map(r => ({
+        remediations.map(r => ({
           value: r.id,
           label: r.name,
           description: r.description

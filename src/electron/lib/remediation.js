@@ -214,12 +214,23 @@ class RemediationLib {
       if (hasSort) {
         const { field, direction } = data.sort;
         if (field === 'category') {
-          order.push([{ model: getModel('systemCategory'), as: 'category' }, 'name', direction]);
-        } else if (field === 'category') {
-          order.push([{ model: getModel('systemCategory'), as: 'category' }, 'name', direction]);
+          order.push([sequelize.literal(`(SELECT name FROM ${getModel('systemCategory').tableName} WHERE id = 'remediation'.system_category_id)`), direction]);
+        } else if (field === 'criteria') {
+          order.push([
+            sequelize.literal(`(
+              SELECT "criteria"."id"
+              FROM "system_standard_criteria" AS "criteria"
+              INNER JOIN "remediation_criteria" AS "rc" ON "rc"."system_standard_criteria_id" = "criteria"."id"
+              WHERE "rc"."remediation_id" = "remediation"."id"
+              ORDER BY "criteria"."id" ${direction}
+              LIMIT 1
+            )`),
+            direction
+          ]);
         } else if (field === 'testCase') {
           order.push([{ model: getModel('testCase'), as: 'test_cases' }, 'name', direction]);
         } else if (data.sort.field === 'id') {
+          order.push([sequelize.literal('CASE WHEN `remediation`.id LIKE "USR%" THEN 0 ELSE 1 END'), data.sort.direction]);
           order.push([sequelize.literal('CAST(SUBSTRING(`remediation`.id, 9) AS UNSIGNED)'), data.sort.direction]);
         } else {
           order.push([field, direction]);
@@ -248,7 +259,6 @@ class RemediationLib {
           attributes: ['id', 'name', 'type', 'steps', 'result', 'instruction', 'is_selected'],
           through: { attributes: [] },
           where: testCaseWhere,
-          order: [['id', 'ASC']],
           required: false
         });
       }

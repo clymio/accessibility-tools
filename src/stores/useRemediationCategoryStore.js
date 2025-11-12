@@ -18,6 +18,6 @@ export const useRemediationCategoryStore = create(set => ({
   setSelectedCategories: selectedCategories => set({ selectedCategories }),
   addSelectedCategory: category => set(state => ({ selectedCategories: [...state.selectedCategories, category] })),
   removeSelectedCategory: id => set(state => ({ selectedCategories: state.selectedCategories.filter(c => c.id !== id) })),
-  setPagination: pagination => set({ pagination }),
+  setPagination: newPagination => set(state => ({ pagination: { ...state.pagination, ...newPagination } })),
   setMeta: meta => set({ meta })
 }));

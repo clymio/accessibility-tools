@@ -273,15 +273,16 @@ class TestCaseLib {
           order.push([secondPartOrder, data.sort.direction]);
           order.push([thirdPartOrder, data.sort.direction]);
         } else if (data.sort.field === 'id') {
-          order.push([sequelize.literal('CAST(SUBSTRING(`testCase`.id, 11) AS UNSIGNED)'), data.sort.direction]);
+          order.push([sequelize.literal('CASE WHEN `testCase`.id LIKE "USR%" THEN 0 ELSE 1 END'), data.sort.direction]);
+          order.push([sequelize.literal('CAST(SUBSTRING(`testCase`.id, 6) AS UNSIGNED)'), data.sort.direction]);
         } else {
           order.push([data.sort.field, data.sort.direction]);
         }
       } else {
         order.push(
           [sequelize.literal('CASE WHEN `testCase`.id LIKE "USR%" THEN 0 ELSE 1 END'), 'ASC'], // USR shows up before S
-          [sequelize.literal('CASE WHEN `testCase`.id LIKE "USR%" THEN CAST(SUBSTRING(`testCase`.id, 7) AS UNSIGNED) END'), 'DESC'], // USR sorted numerically descending
-          [sequelize.literal('CASE WHEN `testCase`.id LIKE "S%" THEN CAST(SUBSTRING(`testCase`.id, 6) AS UNSIGNED) END'), 'ASC'] // S sorted numerically ascending
+          [sequelize.literal('CASE WHEN `testCase`.id LIKE "USR%" THEN CAST(SUBSTRING(`testCase`.id, 6) AS UNSIGNED) END'), 'DESC'], // USR sorted numerically descending
+          [sequelize.literal('CASE WHEN `testCase`.id LIKE "S%" THEN CAST(SUBSTRING(`testCase`.id, 4) AS UNSIGNED) END'), 'ASC'] // S sorted numerically ascending
         );
       }
 
@@ -408,7 +409,7 @@ class TestCaseLib {
       if (!testCase) {
         throw new Error('Test case not found');
       }
-      testCase.selectors = testCase.selectors ? testCase.selectors.join('\n') : [];
+      testCase.selectors = testCase.selectors ? testCase.selectors.join('\n') : '';
       return testCase.toJSON();
     } catch (e) {
       console.log('Error reading test case: ', e);
@@ -476,9 +477,11 @@ class TestCaseLib {
       }
       if (data.selectors !== undefined) {
         testCase.selectors = data.selectors
-          .split('\n')
-          .map(selector => selector.trim())
-          .filter(Boolean);
+          ? data.selectors
+            .split('\n')
+            .map(selector => selector.trim())
+            .filter(Boolean)
+          : [];
       }
       if (data.system_standard_id) {
         testCase.system_standard_id = data.system_standard_id;

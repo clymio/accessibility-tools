@@ -72,66 +72,10 @@
 
   }
   .dialogActions {
-    width: fit-content;
+    width: fit-content !important;
     float: right;
-    margin-top: 0;
-    max-width: 360px;
-    flex: 1 1 auto;
-    align-items: flex-start;
-    button {
-      padding: 10px 18px;
-      border-radius: 8px;
-      font-size: 16px;
-      line-height: 24px;
-      height: auto;
-      text-transform: none;
-      font-family: $regular-font;
-
-      &:first-child {
-        margin-right: 6px;
-        background-color: $palette-action-alert;
-        border: 2px solid $palette-action-alert;
-
-        &[disabled] {
-          background-color: $palette-error-main-2;
-          border-color: $palette-error-main-2;
-        }
-        p {
-          color: $palette-primary-contrastText;
-          @media (prefers-color-scheme: dark) {
-            color: $palette-dark-primary-text;
-          }
-        }
-
-
-
-      }
-      &:nth-child(2) {
-        margin-left: 6px;
-        border-color: $palette-secondary-main;
-
-        p {
-          color: $palette-primary-main-3;
-        }
-
-        &:hover {
-          background-color: $palette-secondary-main;
-        }
-
-        @media (prefers-color-scheme: dark) {
-          border-color: $palette-dark-border;
-          background-color: $palette-dark-background-2;
-
-          p {
-            color: $palette-dark-primary-text-2;
-          }
-
-          &:hover {
-            background-color: darken($palette-dark-background-2, 5);
-          }
-        }
-      }
-    }
+    margin-top: 0 !important;
+    max-width: 360px !important;
   }
 }
 

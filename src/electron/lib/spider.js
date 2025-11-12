@@ -59,7 +59,6 @@ class Spider {
       show: false,
       webPreferences: { offscreen: true, sandbox: true, webSecurity: false, session: session.fromPartition(this.urlObj.hostname) }
     });
-    window.loadURL(this.initURL);
     window.webContents.session.webRequest.onBeforeRequest(filter, (details, callback) => {
       const type = details.resourceType,
         url = details.url;
@@ -232,7 +231,7 @@ class Spider {
         return;
       }
       const urls = Array.from(links);
-      const unvisitedUrls = urls.filter(url => !visitedUrls.includes(url)).filter(u => !u.match(/\?.*/) && !u.match(/#.*/) && !u.match(/%.*/));
+      const unvisitedUrls = urls.filter(url => !visitedUrls.includes(url)).filter(u => !u.match(/\?.*/) && !u.match(/#.*/) && !u.match(/%.*/) && !u.match(/\\$/));
       const unvisitedUrlsSet = new Set(unvisitedUrls);
       const unvisitedUrlsSetIterator = unvisitedUrlsSet.values();
       const urlToVisit = unvisitedUrlsSetIterator.next().value;

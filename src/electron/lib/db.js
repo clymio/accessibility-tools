@@ -1,4 +1,4 @@
-import { DB_NAME } from '@/constants/app';
+import { DB_NAME, IS_DEVELOPMENT } from '@/constants/app';
 import { app } from 'electron';
 import log from 'electron-log';
 import { readdirSync, statSync } from 'fs-extra';
@@ -9,6 +9,12 @@ import RemediationLib from './remediation';
 import SettingsLib from './settings';
 import TestCaseLib from './testCase';
 
+if (IS_DEVELOPMENT) {
+  const devName = `${app.getName()}-dev`;
+  const defaultPath = app.getPath('userData');
+  const newPath = defaultPath.replace(app.getName(), devName);
+  app.setPath('userData', newPath);
+}
 const dbDirectoryPath = app.isPackaged ? app.getPath('userData') : process.cwd();
 const dbPath = path.join(dbDirectoryPath, DB_NAME);
 
