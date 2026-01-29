@@ -99,7 +99,7 @@
     }
   }
   .progressAccordionDetails {
-    padding: 16px;
+    padding: 16px 0 16px 16px;
   }
   .accordionTitle {
     width: 100%;
@@ -205,7 +205,11 @@
   }
 
   &.auditStatsAccordion {
-    overflow-y: auto;
+    .statsContainer {
+      overflow-y: auto;
+      max-height: 350px;
+      padding-right: 16px;
+    }
   }
 
   @media (prefers-color-scheme: dark) {

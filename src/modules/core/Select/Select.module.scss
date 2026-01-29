@@ -104,8 +104,7 @@
           font-size: 38px;
           z-index: 2;
           padding: 9px 0 9px 9px;
-          right: 2px;
-          background-color: white;
+          right: 0;
           border-radius: 8px;
         }
 
@@ -217,4 +216,33 @@
 
 .placeholder {
   font-size: 16px;
+  color: $palette-text-disabled;
+
+  @media (prefers-color-scheme: dark) {
+    color: $palette-dark-text-disabled;
+  }
+}
+
+.transparent {
+  :global(.MuiInputBase-root) {
+    div,
+    input,
+    fieldset {
+      &:not(:hover) {
+        border-color: transparent;
+      }
+    }
+    &:not(:global(.Mui-disabled)) {
+      background: transparent !important;
+      div,
+      input {
+        background: transparent !important;
+      }
+    }
+  }
+  &.multiple {
+    svg:not(.chipIcon) {
+      background-color: transparent !important;
+    }
+  }
 }

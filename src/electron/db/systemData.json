@@ -19347,6 +19347,89 @@
       "level": "AAA"
     }
   ],
+  "landmarks": [
+    {
+      "key": "HEADER",
+      "selectors": [
+        "header"
+      ],
+      "name": "Header"
+    },
+    {
+      "key": "NAV",
+      "selectors": [
+        "nav",
+        "[role='navigation']"
+      ],
+      "name": "Navigation"
+    },
+    {
+      "key": "MAIN",
+      "selectors": [
+        "main",
+        "[role='main']"
+      ],
+      "name": "Main"
+    },
+    {
+      "key": "ASIDE",
+      "selectors": [
+        "aside",
+        "[role='complementary']"
+      ],
+      "name": "Aside"
+    },
+    {
+      "key": "SECTION",
+      "selectors": [
+        "section"
+      ],
+      "name": "Section"
+    },
+    {
+      "key": "FOOTER",
+      "selectors": [
+        "footer"
+      ],
+      "name": "Footer"
+    },
+    {
+      "key": "BANNER",
+      "selectors": [
+        "[role='banner']"
+      ],
+      "name": "Banner"
+    },
+    {
+      "key": "REGION",
+      "selectors": [
+        "[role='region']"
+      ],
+      "name": "Region"
+    },
+    {
+      "key": "CONTENTINFO",
+      "selectors": [
+        "[role='contentinfo']"
+      ],
+      "name": "Contentinfo"
+    },
+    {
+      "key": "SEARCH",
+      "selectors": [
+        "[role='search']"
+      ],
+      "name": "Search"
+    },
+    {
+      "key": "FORM",
+      "selectors": [
+        "form",
+        "[role='form']"
+      ],
+      "name": "Form"
+    }
+  ],
   "axeRules": [
     {
       "id": "accesskeys",

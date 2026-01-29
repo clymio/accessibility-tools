@@ -259,3 +259,11 @@
     color: $palette-error-main !important;
   }
 }
+
+.stepOne,
+.stepTwo,
+.stepThree{
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}

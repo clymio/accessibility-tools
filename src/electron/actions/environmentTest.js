@@ -45,3 +45,9 @@ ipcMain.handle('environmentTest:generateReport', async (_, data, opt) => {
     return { success: false, message: 'Error saving file' };
   }
 });
+ipcMain.handle('environmentTest:generateOccurrenceData', async (_, data, opt) => {
+  return EnvironmentTestLib.generateTestOccurrenceData(data, opt);
+});
+ipcMain.handle('environmentTest:hasOccurrenceData', async (_, data, opt) => {
+  return EnvironmentTestLib.hasOccurrenceData(data, opt);
+});

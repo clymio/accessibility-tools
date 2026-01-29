@@ -131,7 +131,7 @@ const StepThree = () => {
             </div>
             )}
       </div>
-      <Typography variant='body1' sx={{ mt: 3, mb: 1, fontWeight: 700 }}>
+      <Typography variant='body1' sx={{ mt: 2, fontWeight: 700 }}>
         Product information
       </Typography>
       <div className={styles.formField}>
@@ -186,7 +186,7 @@ const StepThree = () => {
           helperText={touched?.product?.website && errors.product?.website}
         />
       </div>
-      <Typography variant='body1' sx={{ mt: 3, mb: 1, fontWeight: 700 }}>
+      <Typography variant='body1' sx={{ mt: 2, fontWeight: 700 }}>
         Vendor information
       </Typography>
       <div className={styles.formField}>

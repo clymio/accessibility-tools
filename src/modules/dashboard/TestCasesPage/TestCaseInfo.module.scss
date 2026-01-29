@@ -65,4 +65,12 @@
   .infoIcon {
     height: 20px;
   }
+
+  &.narrow {
+    .help {
+      .helpLinks {
+        grid-template-columns: repeat(1, 1fr);
+      }
+    }
+  }
 }

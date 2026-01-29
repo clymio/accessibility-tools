@@ -3,14 +3,22 @@ import Icon from '@/modules/core/Icon';
 import { Box, Button, Link, Typography } from '@mui/material';
 import classNames from 'classnames';
 import style from './RemediationInfo.module.scss';
+import { useUiStore } from '@/stores';
 
 const RemediationInfo = ({ remediation, isDrawer }) => {
+  const { rightDrawerSettings } = useUiStore();
   if (!remediation) return;
+  let examples = remediation.examples || [];
+  examples = examples.sort((a, b) => {
+    const aIdx = a.id.replace(`${remediation.id}-`, '');
+    const bIdx = b.id.replace(`${remediation.id}-`, '');
+    return aIdx - bIdx;
+  });
   return (
-    <Box className={style.root}>
+    <Box className={classNames(style.root, { [style.narrow]: rightDrawerSettings.isNarrow })}>
       <Box className={style.details} mt={isDrawer ? 0 : '1rem'}>
         <Typography>{remediation.description}</Typography>
-        <Typography mt='1rem'>Category: {remediation.category.name}</Typography>
+        <Typography mt='1rem'>Category: {remediation.category?.name}</Typography>
         {remediation.criteria && remediation.criteria.length > 0 && (
           <Box className={style.help}>
             <Typography>Criteria</Typography>
@@ -28,11 +36,11 @@ const RemediationInfo = ({ remediation, isDrawer }) => {
             </Box>
           </Box>
         )}
-        {remediation.examples && remediation.examples.length > 0 && (
+        {examples && examples.length > 0 && (
           <Box className={style.examples}>
             <Typography>Examples</Typography>
             <ul>
-              {remediation.examples.map(e => (
+              {examples.map(e => (
                 <li key={e.id}>
                   <Typography>{e.name}</Typography>
                   <pre>

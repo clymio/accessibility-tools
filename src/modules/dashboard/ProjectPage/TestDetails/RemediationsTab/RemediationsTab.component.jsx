@@ -58,6 +58,14 @@ const RemediationsTab = ({ editRemediation = false, setEditRemediation = () => {
               </Box>
             )}
             <RemediationInfo remediation={selectedRemediation} isDrawer={isRemediationDrawer} />
+            {currentTargetNode.parent_landmark && currentTargetNode.parent_landmark.html && isRemediationDrawer && (
+              <Box className={style.codeWrapper}>
+                <Typography className={style.codeLabel}>Landmark</Typography>
+                <pre>
+                  <code>{currentTargetNode.parent_landmark.html}</code>
+                </pre>
+              </Box>
+            )}
           </>
           )}
     </Box>

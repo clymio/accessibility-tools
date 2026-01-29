@@ -3,7 +3,8 @@ import log from 'electron-log';
 import fs from 'fs';
 import Joi from 'joi';
 import path from 'path';
-import sequelize, { getModel } from './db';
+import sequelize, { bulkUpdateColumn, getModel } from './db';
+import EnvironmentPageLib from './environmentPage';
 import joiLib from './joi';
 class AxeCoreLib {
   /**
@@ -110,95 +111,35 @@ class AxeCoreLib {
         tc = tc.toJSON();
         tc.nodes = [];
         tc.status = 'INCOMPLETE'; // all test cases are incomplete at first, and then we update them
+        const nodesMap = new Map();
         for (const [key, data] of Object.entries(STATUS_RESULTS)) {
           for (const item of data) {
             const rule = item.id;
             if (tc.test_case.rules.map(r => r.id).includes(rule)) {
               const nodes = item.nodes;
               if (nodes && nodes.length > 0) {
-                tc.nodes.push(
-                  ...nodes.map(node => ({
-                    rule: rule,
-                    target: node.target[0],
-                    html: node.html,
-                    summary: node.failureSummary,
-                    status: key
-                  }))
-                );
+                nodes.forEach((node) => {
+                  const nodeKey = `${node.html}-${node.target[0]}`;
+                  if (!nodesMap.has(nodeKey)) {
+                    nodesMap.set(nodeKey, {
+                      rule: rule,
+                      target: node.target[0],
+                      html: node.html,
+                      summary: node.failureSummary,
+                      status: key
+                    });
+                  } else {
+                    const nodeData = nodesMap.get(nodeKey);
+                    nodeData.status = key;
+                  }
+                });
               }
               tc.status = key;
             }
           }
         }
+        tc.nodes = Array.from(nodesMap.values());
         return tc;
-      });
-
-      const failedTestCaseIds = updatedTestCases.filter(tc => tc.status === STATUSES.FAIL).map(tc => tc.test_case.id);
-
-      const casesWithRem = await TestCase.findAll({
-        where: { id: failedTestCaseIds },
-        attributes: ['id'],
-        include: [
-          {
-            model: getModel('remediation'),
-            as: 'remediations',
-            attributes: ['id', 'name'],
-            through: {
-              attributes: []
-            },
-            include: [
-              {
-                model: getModel('systemCategory'),
-                as: 'category',
-                attributes: ['id', 'name', 'priority']
-              }
-            ]
-          },
-          {
-            model: getModel('systemStandardCriteria'),
-            as: 'criteria',
-            attributes: ['id'],
-            through: {
-              attributes: []
-            },
-            include: [
-              {
-                model: getModel('remediation'),
-                as: 'remediations',
-                attributes: ['id', 'name'],
-                include: [
-                  {
-                    model: getModel('systemCategory'),
-                    as: 'category',
-                    attributes: ['id', 'name', 'priority']
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      });
-
-      const remMap = new Map(
-        casesWithRem.map((tc) => {
-          tc = tc.toJSON();
-          let remediations = tc.remediations || [];
-          if (!remediations || remediations.length === 0) {
-            remediations = tc.criteria.map(c => c.remediations).flat();
-          }
-          if (!remediations || remediations.length === 0) {
-            return [tc.id, null];
-          }
-          const sortedRemediations = remediations.sort((a, b) => b.category.priority - a.category.priority);
-          return [tc.id, sortedRemediations[0].id];
-        })
-      );
-
-      updatedTestCases.forEach((tc) => {
-        tc.nodes.forEach((node) => {
-          if (node.status !== STATUSES.FAIL) return;
-          node.remediation_id = remMap.get(tc.test_case.id);
-        });
       });
 
       // create the target data for each node
@@ -246,6 +187,24 @@ class AxeCoreLib {
         }
       );
       await transaction.commit();
+      // assign default remediations to failed nodes
+      const failedNodesRes = await EnvironmentPageLib.findTestCaseNodes({
+        environment_page_id: data.environment_page_id,
+        environment_test_id: data.environment_test_id,
+        status: STATUSES.FAIL,
+        limit: false
+      });
+      const failedNodes = failedNodesRes.result;
+      const dataToUpdate = [];
+      for (const failedNode of failedNodes) {
+        const defaultRem = failedNode.test?.test_case?.remediations?.[0];
+        if (!defaultRem) continue;
+        dataToUpdate.push({
+          id: failedNode.id,
+          value: defaultRem.id
+        });
+      }
+      await bulkUpdateColumn(dataToUpdate, TestCaseEnvironmentTestPageTarget.getTableName(), 'remediation_id');
     } catch (e) {
       await transaction.rollback();
       console.log('Error handling test results: ', e);

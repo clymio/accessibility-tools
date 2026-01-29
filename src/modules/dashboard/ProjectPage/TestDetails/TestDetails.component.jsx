@@ -1,14 +1,16 @@
 import { activity, clipboard, xIcon } from '@/assets/icons';
 import { TERMINAL_SECTIONS, TERMINAL_TEST_DETAIL_STATUS_OPTIONS } from '@/constants/terminal';
+import Chip from '@/modules/core/Chip';
 import Icon from '@/modules/core/Icon';
 import Select from '@/modules/core/Select';
 import TestDetailsTab from '@/modules/dashboard/ProjectPage/TestDetails/DetailsTab/DetailsTab.component';
 import NotesTab from '@/modules/dashboard/ProjectPage/TestDetails/NotesTab/NotesTab.component';
+import PagesTab from '@/modules/dashboard/ProjectPage/TestDetails/PagesTab/PagesTab.component';
 import RemediationsTab from '@/modules/dashboard/ProjectPage/TestDetails/RemediationsTab/RemediationsTab.component';
 import style from '@/modules/dashboard/ProjectPage/TestDetails/TestDetails.module.scss';
 import { useProjectStore, useTerminalStore, useUiStore } from '@/stores';
 import { useTestDetailsStore } from '@/stores/useTestDetailsStore';
-import { Box, Chip, IconButton, Tab, Tabs, Typography } from '@mui/material';
+import { Box, IconButton, Tab, Tabs, Typography } from '@mui/material';
 import classNames from 'classnames';
 import { useEffect, useState } from 'react';
 
@@ -16,11 +18,10 @@ const TestDetails = () => {
   const { status, setFormSaved, setStatus, setNotes, setRemediation, setRemediationOptions, setCurrentTargetNode, handleStatusChange } = useTestDetailsStore();
   const { getTestStats } = useProjectStore();
   const { clickedTargetContext } = useTerminalStore();
-  const { theme, closeRightDrawer } = useUiStore();
+  const { theme, closeRightDrawer, rightDrawerSettings } = useUiStore();
 
   const statusSelectPalette = theme.palette.statusSelect;
-  const statusPalette
-    = status === 'FAIL' ? statusSelectPalette.fail : status === 'PASS' ? statusSelectPalette.pass : status === 'MANUAL' ? statusSelectPalette.warning : statusSelectPalette.disabled;
+  const statusPalette = status === 'FAIL' ? statusSelectPalette.fail : status === 'PASS' ? statusSelectPalette.pass : status === 'MANUAL' ? statusSelectPalette.warning : statusSelectPalette.disabled;
 
   const [editRemediation, setEditRemediation] = useState(false);
   const [editNotes, setEditNotes] = useState(false);
@@ -79,45 +80,44 @@ const TestDetails = () => {
 
   const TABS = {
     DETAILS: {
-      key: 0,
       tab: <Tab key='details' label='Test case details' />,
       content: <TestDetailsTab onFormSubmit={handleFormSave} />
     },
     REMEDIATIONS: {
-      key: 1,
       tab: <Tab key='remediations' label='Remediations' />,
       content: <RemediationsTab editRemediation={editRemediation} setEditRemediation={setEditRemediation} />
     },
+    PAGES: {
+      tab: <Tab key='pages' label='Pages' />,
+      content: <PagesTab />
+    },
     NOTES: {
-      key: 2,
       tab: <Tab key='notes' label='Notes' />,
       content: <NotesTab editNotes={editNotes} setEditNotes={setEditNotes} />
     }
   };
 
   if (section && section === TERMINAL_SECTIONS.REMEDIATIONS) {
-    availableTabs.push(TABS.REMEDIATIONS, TABS.DETAILS, TABS.NOTES);
+    availableTabs.push(TABS.REMEDIATIONS, TABS.DETAILS, TABS.PAGES, TABS.NOTES);
   } else {
-    availableTabs.push(TABS.DETAILS);
     if (status === 'INCOMPLETE' || status === 'FAIL') {
-      availableTabs.push(TABS.REMEDIATIONS, TABS.NOTES);
+      availableTabs.push(TABS.DETAILS, TABS.REMEDIATIONS, TABS.PAGES, TABS.NOTES);
+    } else {
+      availableTabs.push(TABS.DETAILS, TABS.PAGES);
     }
   }
 
   if (!currentTargetNode || !testCase) return null;
 
   return (
-    <Box className={style.root}>
+    <Box className={classNames(style.root, { [style.narrow]: rightDrawerSettings.isNarrow })}>
       <Box className={style.top}>
         <Box className={style.header}>
           <Box className={style.info}>
             <Typography variant='h2' className={style.id}>
-              {!isRemediationDrawer && (
-                <span>
-                  <Icon className={classNames('clym-contrast-exclude', style.icon)} icon={testCase.type === 'MANUAL' ? clipboard : activity} />
-                </span>
-              )}
+              {!isRemediationDrawer && <Icon className={classNames('clym-contrast-exclude', style.icon)} icon={testCase.type === 'MANUAL' ? clipboard : activity} />}
               {isRemediationDrawer ? remediation.id : testCase.id}
+              {currentTargetNode.landmark && <Chip type='info' label={currentTargetNode.landmark.name} />}
             </Typography>
             <Box className={style.type}>
               {!isRemediationDrawer && (
@@ -157,9 +157,7 @@ const TestDetails = () => {
           </Box>
         </Box>
 
-        {tab === 0 && (isRemediationDrawer ? TABS.REMEDIATIONS.content : TABS.DETAILS.content)}
-        {tab === 1 && (isRemediationDrawer ? TABS.DETAILS.content : TABS.REMEDIATIONS.content)}
-        {tab === 2 && TABS.NOTES.content}
+        {availableTabs[tab]?.content}
       </Box>
     </Box>
   );

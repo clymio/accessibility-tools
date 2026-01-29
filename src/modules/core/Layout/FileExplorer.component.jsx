@@ -164,7 +164,7 @@ const renderAuditMode = () => {
           summaryClassName={style.progressAccordionSummary}
           detailsClassName={style.progressAccordionDetails}
         >
-          <Box>
+          <Box className={style.statsContainer}>
             <Box className={style.stats}>
               {auditStats.items.map((stat, i) => (
                 <Box className={style.stat} key={i}>
@@ -185,9 +185,9 @@ const renderAuditMode = () => {
 
 export default function FileExplorer({ id }) {
   const isAuditPage = typeof window !== 'undefined' && window.location.pathname.includes('/audit');
-  const { project, tests, selectedTest, setSelectedPage, testStats, setTestStats, getTestStats } = useProjectStore();
+  const { project, tests, selectedTest, setSelectedPage, testStats } = useProjectStore();
   const { audit, selectedCriterion, setSelectedCriterion } = useAuditStore();
-  const { filter, setFilter, fetchData, setPageId, setTestId, setIsAudit, testsFilter, setTestsFilter, setHideTerminal } = useTerminalStore(state => ({
+  const { filter, setFilter, fetchData, setPageId, setTestId, setIsAudit, testsFilter, setTestsFilter, setHideTerminal, isAutomatedTestFinished } = useTerminalStore(state => ({
     testsFilter: state.tests.filter,
     setTestsFilter: state.tests.setFilter,
     fetchData: state.tests.fetchData,
@@ -197,7 +197,8 @@ export default function FileExplorer({ id }) {
     setPageId: state.setPageId,
     setTestId: state.setTestId,
     setIsAudit: state.setIsAudit,
-    setHideTerminal: state.setHideTerminal
+    setHideTerminal: state.setHideTerminal,
+    isAutomatedTestFinished: state.isAutomatedTestFinished
   }));
 
   const ref = useRef(null);
@@ -205,7 +206,6 @@ export default function FileExplorer({ id }) {
   const [sitemap, setSitemap] = useState([]);
   const [selectedTab, setSelectedTab] = useState(0);
   const [isDownloadLoading, setIsDownloadLoading] = useState(false);
-  const [isAutomatedTestFinished, setIsAutomatedTestFinished] = useState(false);
 
   const handleDownload = async (e) => {
     e.stopPropagation();
@@ -229,30 +229,6 @@ export default function FileExplorer({ id }) {
       }
     };
     getSitemap();
-  }, [selectedTest]);
-
-  useEffect(() => {
-    if (!selectedTest) {
-      return;
-    }
-    const isTestFinished = async () => {
-      const environmentTest = await window.api.environmentTest.read({
-        id: selectedTest.id
-      });
-      return !!environmentTest.end_date;
-    };
-    const interval = setInterval(async () => {
-      const finished = await isTestFinished();
-      if (finished) {
-        setIsAutomatedTestFinished(true);
-        clearInterval(interval);
-        getTestStats(selectedTest.id);
-      } else {
-        getTestStats(selectedTest.id);
-      }
-    }, 1000);
-
-    return () => clearInterval(interval);
   }, [selectedTest]);
 
   useEffect(() => {

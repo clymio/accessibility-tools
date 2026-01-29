@@ -204,6 +204,15 @@ ipcMain.handle('system:getAssetsPath', () => {
   return `app://`;
 });
 
+ipcMain.on('system:error', (_, message, opt = {}) => {
+  dialog.showMessageBox(window, {
+    type: 'error',
+    title: opt.title || 'Error',
+    message,
+    buttons: ['OK']
+  });
+});
+
 process.on('uncaughtException', function (error) {
   console.error(error);
 });
@@ -468,3 +477,5 @@ export const buildMenu = async () => {
   const menu = Menu.buildFromTemplate(template);
   Menu.setApplicationMenu(menu);
 };
+
+export const getMainWindow = () => window;

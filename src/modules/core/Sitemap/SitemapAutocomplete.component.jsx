@@ -1,17 +1,9 @@
-import {
-  Autocomplete,
-  Box,
-  Button,
-  InputAdornment,
-  Paper,
-  TextField,
-  Typography
-} from '@mui/material';
+import { chevronDown, search } from '@/assets/icons';
+import Icon from '@/modules/core/Icon';
+import { Autocomplete, Box, Button, InputAdornment, Paper, TextField, Typography } from '@mui/material';
 import classNames from 'classnames';
 import { useEffect, useRef, useState } from 'react';
 import style from './SitemapAutocomplete.module.scss';
-import { chevronDown, search } from '@/assets/icons';
-import Icon from '@/modules/core/Icon';
 
 const generateSitemapOptions = (tree, level = 0) => {
   if (!tree) return [];
@@ -20,7 +12,8 @@ const generateSitemapOptions = (tree, level = 0) => {
       id: item.id,
       label: item.name,
       level,
-      hasChildren: !!(item.children && item.children.length)
+      hasChildren: !!(item.children && item.children.length),
+      notClickable: item.not_clickable || item.disabled
     },
     ...(item.children ? generateSitemapOptions(item.children, level + 1) : [])
   ]);
@@ -61,10 +54,7 @@ const SitemapAutocomplete = ({
   useEffect(() => {
     if (!isAutocompleteOpen) return;
     const handleGlobalMouseDown = (e) => {
-      if (
-        paperRef.current?.contains(e.target)
-        || wrapperRef.current?.contains(e.target)
-      ) {
+      if (paperRef.current?.contains(e.target) || wrapperRef.current?.contains(e.target)) {
         return;
       }
       setIsAutocompleteOpen(false);
@@ -114,11 +104,7 @@ const SitemapAutocomplete = ({
   const handleInputKeyDownCapture = (e) => {
     if (e.key !== 'Tab' || !isAutocompleteOpen) return;
 
-    if (
-      addUrlInputRef.current?.contains(e.target)
-      || saveBtnRef.current?.contains(e.target)
-      || addUrlBtnRef.current?.contains(e.target)
-    ) {
+    if (addUrlInputRef.current?.contains(e.target) || saveBtnRef.current?.contains(e.target) || addUrlBtnRef.current?.contains(e.target)) {
       return;
     }
 
@@ -186,10 +172,7 @@ const SitemapAutocomplete = ({
         onBlur={(e) => {
           setTimeout(() => {
             const activeEl = document.activeElement;
-            if (
-              paperRef.current
-              && !paperRef.current.contains(activeEl)
-            ) {
+            if (paperRef.current && !paperRef.current.contains(activeEl)) {
               setIsAutocompleteOpen(false);
               setIsAddUrlMode(false);
 
@@ -236,23 +219,32 @@ const SitemapAutocomplete = ({
                     </InputAdornment>
                     )
                   : null,
-                endAdornment: !disabled && rightIcon
-                  ? (
-                    <InputAdornment sx={{ mr: 0 }} position='end'>
-                      <Icon className={classNames('clym-contrast-exclude', style.icon)} icon={chevronDown} />
-                    </InputAdornment>
-                    )
-                  : null
+                endAdornment:
+                  !disabled && rightIcon
+                    ? (
+                      <InputAdornment sx={{ mr: 0 }} position='end'>
+                        <Icon className={classNames('clym-contrast-exclude', style.icon)} icon={chevronDown} />
+                      </InputAdornment>
+                      )
+                    : null
               }
             }}
           />
         )}
+        getOptionDisabled={option => option.notClickable}
         renderOption={(props, option) => {
           const padding = `${(option.level + 1) * 12}px`;
           const fontWeight = option.level === 0 || option.hasChildren ? '500' : 'normal';
+          const notClickable = option.notClickable;
 
           return (
-            <li {...props} key={option.id} style={{ paddingLeft: padding, fontWeight }} className={classNames(props.className, style.autocompleteOption)}>
+            <li
+              {...props}
+              onClick={notClickable ? () => {} : props.onClick}
+              key={option.id}
+              style={{ paddingLeft: padding, fontWeight }}
+              className={classNames(props.className, style.autocompleteOption, { [style.disabled]: notClickable })}
+            >
               <Typography>{option.label}</Typography>
             </li>
           );
@@ -288,7 +280,10 @@ const SitemapAutocomplete = ({
                           autoFocus
                           value={customUrl}
                           inputRef={addUrlInputRef}
-                          onChange={(e) => { setErrorMessage(''); setCustomUrl(e.target.value); }}
+                          onChange={(e) => {
+                            setErrorMessage('');
+                            setCustomUrl(e.target.value);
+                          }}
                           onKeyDown={(e) => {
                             if (e.key === 'Escape') {
                               e.preventDefault();
@@ -340,7 +335,9 @@ const SitemapAutocomplete = ({
                       </Box>
                       {errorMessage && (
                         <Box>
-                          <Typography variant='caption' className={style.errorMessage}>{errorMessage}</Typography>
+                          <Typography variant='caption' className={style.errorMessage}>
+                            {errorMessage}
+                          </Typography>
                         </Box>
                       )}
                     </Box>

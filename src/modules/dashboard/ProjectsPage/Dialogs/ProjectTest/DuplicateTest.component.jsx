@@ -32,9 +32,7 @@ export default function DuplicateTest({ open, onClose, testId, project, onTestDu
     setIsSubmitting
   } = useProjectTestFormStore();
 
-  const {
-    openSnackbar
-  } = useSnackbarStore();
+  const { openSnackbar } = useSnackbarStore();
 
   const [environments, setEnvironments] = useState([]);
 
@@ -45,8 +43,8 @@ export default function DuplicateTest({ open, onClose, testId, project, onTestDu
       setTestName(test.name || '');
       setEssentialFunctionality(test.functionality_note || '');
       setWebPageTypes(test.page_variety_note || '');
-      setStructuredPages(test.structured_pages?.map(page => ({ id: page.id, label: page.name })) || []);
-      setRandomPages(test.random_pages?.map(page => ({ id: page.id, label: page.name })) || []);
+      setStructuredPages(test.structured_pages?.map(page => ({ ...page, label: page.name })) || []);
+      setRandomPages(test.random_pages?.map(page => ({ ...page, label: page.name })) || []);
 
       const data = await window.api.environment.find({ project_id: project?.id });
       setEnvironments(data?.result || []);
@@ -100,8 +98,8 @@ export default function DuplicateTest({ open, onClose, testId, project, onTestDu
     }
     const requestData = {
       name: testName,
-      structured_pages: structuredPages.map(page => page.id),
-      random_pages: randomPages.map(page => page.id),
+      structured_pages: structuredPages.filter(page => !page.not_clickable).map(page => page.id),
+      random_pages: randomPages.filter(page => !page.not_clickable).map(page => page.id),
       functionality_note: essentialFunctionality,
       page_variety_note: webPageTypes,
       environment_id: environmentType

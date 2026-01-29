@@ -1,13 +1,13 @@
+import { activity, circlePlus, clipboard, copy, edit, eye, toolbox, trash } from '@/assets/icons';
 import { TEST_CASE_HEADINGS } from '@/constants/testCase';
 import { getArrayTruncatedLabel } from '@/electron/lib/utils';
 import { DrawerFilter } from '@/modules/core/Drawer';
+import Icon from '@/modules/core/Icon';
 import IconButton from '@/modules/core/IconButton';
 import Search from '@/modules/core/Search';
 import Table from '@/modules/core/Table';
 import TablePagination from '@/modules/core/TablePagination';
 import { useSystemStore, useTestCasesStore } from '@/stores';
-import { circlePlus, toolbox, trash, copy, edit, eye, clipboard, activity } from '@/assets/icons';
-import Icon from '@/modules/core/Icon';
 import { Box, Button, Typography } from '@mui/material';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
@@ -146,6 +146,7 @@ const TestCases = () => {
   }, [filter, pagination, sort]);
 
   useEffect(() => {
+    handleResetFilters();
     getSelectedTestCases();
   }, []);
 
@@ -342,7 +343,9 @@ const TestCases = () => {
 
   const closeTestInfoDrawer = () => {
     setIsTestCaseInfoDrawerOpen(false);
-    setSelectedTestCaseId(null);
+    setTimeout(() => {
+      setSelectedTestCaseId(null);
+    }, 250);
   };
 
   const selectedTestCase = testCases.find(t => t.id === selectedTestCaseId) || null;

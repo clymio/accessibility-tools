@@ -1,7 +1,7 @@
 import Select from '@/modules/core/Select';
 import { useSystemStore } from '@/stores';
 import { useAuditFormStore } from '@/stores/useAuditFormStore';
-import { TextField, Typography } from '@mui/material';
+import { FormControl, TextField, Typography } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
 import { visuallyHidden } from '@mui/utils';
 import classNames from 'classnames';
@@ -140,6 +140,7 @@ const StepOne = ({}) => {
         touched={touched.wcagVersion}
         errors={errors.wcagVersion}
       />
+
       {reportType === 'VPAT' && (
         <Select
           label='Audit version'

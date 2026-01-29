@@ -43,6 +43,11 @@
     flex: 1;
     overflow-y: auto;
     overflow-x: hidden;
+
+
+    &.scaled {
+      transition: margin-right 220ms ease;
+    }
   }
 }
 

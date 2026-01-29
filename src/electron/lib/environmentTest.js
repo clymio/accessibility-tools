@@ -5,7 +5,7 @@ import { literal, Op } from 'sequelize';
 import { ENVIRONMENT_TEST_CASE_STATUS_VALUES } from '../db/models/environmentTest';
 import ArchiveLib from './archive';
 import CoreLib from './core';
-import sequelize, { getModel } from './db';
+import sequelize, { bulkUpdateColumn, getModel } from './db';
 import EnvironmentPageLib from './environmentPage';
 import joiLib from './joi';
 import ReportLib from './report';
@@ -22,6 +22,8 @@ class EnvironmentTestLib {
    * @param {Date} [input.end_date] - The end date for filtering tests.
    * @param {string} [input.project_id] - Project ID associated with the test.
    * @param {string} [input.environment_id] - Environment ID associated with the test.
+   * @param {boolean} [input.exclude_closed] - Exclude closed environment tests.
+   * @param {boolean} [input.exclude_failed] - Exclude failed environment tests.
    * @param {Object} [input.sort] - Sorting options for the results.
    * @param {string} [input.sort.field] - Field to sort by.
    * @param {string} [input.sort.direction] - Sorting direction (ASC or DESC).
@@ -42,6 +44,7 @@ class EnvironmentTestLib {
         project_id: Joi.id().optional(),
         environment_id: Joi.id().optional(),
         exclude_closed: Joi.boolean().optional(),
+        exclude_failed: Joi.boolean().optional(),
         sort: Joi.object({
           field: Joi.string().required(),
           direction: Joi.enum(['ASC', 'DESC', 'asc', 'desc']).required()
@@ -73,6 +76,11 @@ class EnvironmentTestLib {
       if (data.exclude_closed) {
         where.status = {
           [Op.not]: 'CLOSED'
+        };
+      }
+      if (data.exclude_failed) {
+        where.status = {
+          [Op.not]: 'FAILED'
         };
       }
       if (data.status) {
@@ -163,7 +171,7 @@ class EnvironmentTestLib {
           {
             model: getModel('environmentPage'),
             as: 'structured_pages',
-            attributes: ['id', 'path', 'name'],
+            attributes: ['id', 'path', 'name', 'not_clickable'],
             through: {
               attributes: []
             }
@@ -171,7 +179,7 @@ class EnvironmentTestLib {
           {
             model: getModel('environmentPage'),
             as: 'random_pages',
-            attributes: ['id', 'path', 'name'],
+            attributes: ['id', 'path', 'name', 'not_clickable'],
             through: {
               attributes: []
             }
@@ -692,6 +700,128 @@ class EnvironmentTestLib {
       return { buffer: pdfBuffer, name: `${envTest.name}-${formatDate(new Date(), 'yyyy-MM-dd')}` };
     } catch (e) {
       console.log('Error generating environment test report: ', e);
+    }
+  }
+
+  /**
+   * Generates the test occurrence data (how many times a test is repeated across the test) for an environment test.
+   * @param {Object} input
+   * @param {string} input.id - The id.
+   * @param {{}} [opt]
+   * @throws Will throw an error if the environment test is not found or if there are no targets.
+   */
+  static async generateTestOccurrenceData(input = {}, opt = {}) {
+    const schema = joiLib.schema(() =>
+      Joi.object({
+        id: Joi.id().required()
+      })
+    );
+    const data = await joiLib.validate(schema, input);
+    try {
+      const TestCaseEnvironmentTestPageTarget = getModel('testCaseEnvironmentTestPageTarget'),
+        TestPageTargetOccurrence = getModel('testPageTargetOccurrence');
+      const allTargets = await TestCaseEnvironmentTestPageTarget.findAll({
+        attributes: ['id', 'status', 'selector', 'html', 'selector_used', 'test_case_page_id', 'remediation_id'],
+        include: [
+          {
+            model: getModel('testCaseEnvironmentTestPage'),
+            as: 'test',
+            attributes: ['id', 'test_case_id', 'environment_test_id'],
+            where: {
+              environment_test_id: data.id
+            }
+          }
+        ]
+      });
+      if (allTargets.length === 0) {
+        throw new Error('Environment Test targets not found');
+      }
+      const relationMap = {},
+        remediationCounts = [];
+      for (const target of allTargets) {
+        const relatedTargets = allTargets.filter(
+          t =>
+            t.html === target.html
+            && t.selector === target.selector
+            && t.selector_used === target.selector_used
+            && t.status === target.status
+            && t.id !== target.id
+            && t.test.test_case_id === target.test.test_case_id
+            && t.test.environment_test_id === target.test.environment_test_id
+        );
+        relationMap[target.id] = relatedTargets.map(t => t.id);
+        if (target.remediation_id) {
+          remediationCounts.push({
+            id: target.id,
+            value: relatedTargets.length
+          });
+        }
+      }
+      const bulkData = [];
+      for (const targetId of Object.keys(relationMap)) {
+        const similarTargets = relationMap[targetId];
+        similarTargets.forEach((similarTarget) => {
+          bulkData.push({
+            page_target_id: targetId,
+            related_page_target_id: similarTarget
+          });
+        });
+      }
+      await TestPageTargetOccurrence.bulkCreate(bulkData, { ignoreDuplicates: true });
+      const targetCounts = Object.entries(relationMap).map(([targetId, relatedTargets]) => ({
+        id: targetId,
+        value: relatedTargets.length
+      }));
+      await Promise.all([
+        bulkUpdateColumn(targetCounts, TestCaseEnvironmentTestPageTarget.getTableName(), 'related_target_count'),
+        bulkUpdateColumn(remediationCounts, TestCaseEnvironmentTestPageTarget.getTableName(), 'related_remediation_count')
+      ]);
+    } catch (e) {
+      console.log('error generating test occurrence data');
+      console.log(e);
+    }
+  }
+
+  /**
+   * Checks if an environment test has any occurrence data.
+   * @param {Object} input
+   * @param {string} input.id - The environment test id.
+   * @param {{}} [opt]
+   * @returns - true if the environment test has any occurrence data, false otherwise.
+   */
+  static async hasOccurrenceData(input = {}, opt = {}) {
+    const schema = joiLib.schema(() =>
+      Joi.object({
+        id: Joi.id().required()
+      })
+    );
+    const data = await joiLib.validate(schema, input);
+    try {
+      const TestPageTargetOccurrence = getModel('testPageTargetOccurrence');
+      const count = await TestPageTargetOccurrence.count({
+        include: [
+          {
+            model: getModel('testCaseEnvironmentTestPageTarget'),
+            as: 'page_target',
+            attributes: ['id'],
+            required: true,
+            include: [
+              {
+                model: getModel('testCaseEnvironmentTestPage'),
+                as: 'test',
+                attributes: ['id'],
+                where: {
+                  environment_test_id: data.id
+                },
+                required: true
+              }
+            ]
+          }
+        ]
+      });
+      return count > 0;
+    } catch (e) {
+      console.log('error checking if test has occurrences', e);
     }
   }
 }

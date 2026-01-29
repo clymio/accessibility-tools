@@ -10,6 +10,7 @@ import style from './Layout.module.scss';
 import Menu from './Menu.component';
 import RightDrawer from './RightDrawer.component';
 import Terminal from './Terminal.component';
+import classNames from 'classnames';
 
 function CoreLayout({
   router = {},
@@ -20,13 +21,18 @@ function CoreLayout({
   removeContentPadding = false,
   page = null // The React page component to render in this layout.
 }) {
-  const { isResizing } = useUiStore();
+  const { isResizing, rightDrawerSettings } = useUiStore();
   const app = getAppModule(router?.fullPath);
   if (!app) return <Fragment />;
   if (!menu && app.getMenu) {
     menu = app.getMenu(app) || null;
   }
   const PageComponent = page || null;
+  const drawerWidth
+    = rightDrawerSettings.isOpen || rightDrawerSettings.isAnimating
+      ? rightDrawerSettings.drawerWidth
+      : 0;
+
   return (
     <div className={style.root} style={{ '--top-margin': `${HEADER_HEIGHT}px` }}>
       <Button href='#mainContent' variant='contained' className={style.skipBtn}>Skip to main content</Button>
@@ -35,7 +41,12 @@ function CoreLayout({
         {menu && <Menu router={router} items={menu} />}
         {showFileExplorer && <FileExplorer id='mainContent' />}
         <main className={style.content} id={!showFileExplorer ? 'mainContent' : ''} tabIndex={-1} style={{ pointerEvents: isResizing ? 'none' : 'all', ...(removeContentPadding ? { padding: 0 } : {}) }}>
-          <div className={style.contentInner}>
+          <div
+            className={classNames(style.contentInner, { [style.scaled]: rightDrawerSettings.isAnimating })}
+            style={{
+              marginRight: drawerWidth
+            }}
+          >
             {PageComponent && (
               <div className={style.page}>
                 <PageComponent />

@@ -1,16 +1,23 @@
 import { contextBridge, ipcRenderer } from 'electron';
 import log from 'electron-log/renderer';
+import path from 'path';
+
+function createIpcListener(channel, cb) {
+  const listener = (_event, payload) => {
+    cb(payload);
+  };
+
+  ipcRenderer.on(channel, listener);
+
+  return function unsubscribe() {
+    ipcRenderer.removeListener(channel, listener);
+  };
+}
 
 // Custom APIs for renderer
 const api = {
   global: {
-    onNavigate: (callback) => {
-      const listener = (_, path) => callback(path);
-      ipcRenderer.on('navigate', listener);
-      return () => {
-        ipcRenderer.removeListener('navigate', listener);
-      };
-    }
+    onNavigate: cb => createIpcListener('navigate', cb)
   },
   theme: {
     set: v => ipcRenderer.invoke('theme:set', v),
@@ -45,7 +52,10 @@ const api = {
     openClosedTest: (data, opt) => ipcRenderer.invoke('environmentTest:openClosedTest', data, opt),
     getSitemap: (data, opt) => ipcRenderer.invoke('environmentTest:getSitemap', data, opt),
     getStats: (data, opt) => ipcRenderer.invoke('environmentTest:getStats', data, opt),
-    generateReport: (data, opt) => ipcRenderer.invoke('environmentTest:generateReport', data, opt)
+    generateReport: (data, opt) => ipcRenderer.invoke('environmentTest:generateReport', data, opt),
+    onTestCompleted: cb => createIpcListener('environmentTest:onTestCompleted', cb),
+    generateOccurrenceData: (data, opt) => ipcRenderer.invoke('environmentTest:generateOccurrenceData', data, opt),
+    hasOccurrenceData: (data, opt) => ipcRenderer.invoke('environmentTest:hasOccurrenceData', data, opt)
   },
   environmentPage: {
     findTestCases: (data, opt) => ipcRenderer.invoke('environmentPage:findTestCases', data, opt),
@@ -53,7 +63,8 @@ const api = {
     readTestCase: (data, opt) => ipcRenderer.invoke('environmentPage:readTestCase', data, opt),
     findEnvironmentTest: (data, opt) => ipcRenderer.invoke('environmentPage:findEnvironmentTest', data, opt),
     updateEnvironmentTestTarget: (data, opt) => ipcRenderer.invoke('environmentPage:updateEnvironmentTestTarget', data, opt),
-    generateReport: (data, opt) => ipcRenderer.invoke('environmentPage:generateReport', data, opt)
+    generateReport: (data, opt) => ipcRenderer.invoke('environmentPage:generateReport', data, opt),
+    onTestCompleted: cb => createIpcListener('environmentPage:onTestCompleted', cb)
   },
   testCase: {
     find: (data, opt) => ipcRenderer.invoke('testCase:find', data, opt),
@@ -139,6 +150,10 @@ const api = {
     findAuditChapters: (data, opt) => ipcRenderer.invoke('audit:findAuditChapters', data, opt),
     getStats: (data, opt) => ipcRenderer.invoke('audit:getStats', data, opt),
     generateReport: (data, opt) => ipcRenderer.invoke('audit:generateReport', data, opt)
+  },
+  landmark: {
+    find: (data, opt) => ipcRenderer.invoke('landmark:find', data, opt),
+    read: (data, opt) => ipcRenderer.invoke('landmark:read', data, opt)
   }
 };
 
@@ -147,10 +162,12 @@ const system = {
   exit: () => ipcRenderer.invoke('system:exit'),
   acceptEula: () => ipcRenderer.invoke('system:acceptEula'),
   getAssetsPath: () => ipcRenderer.invoke('system:getAssetsPath'),
+  getWebviewPreloadPath: () => path.join(__dirname, 'webview.js'),
   log: {
     error: message => ipcRenderer.send('log:error', message),
     rejection: message => ipcRenderer.send('log:rejection', message)
-  }
+  },
+  showError: (message, opt) => ipcRenderer.send('system:error', message, opt)
 };
 
 ipcRenderer.on('log:error', (_, error) => {

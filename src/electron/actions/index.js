@@ -3,6 +3,7 @@ import './audit';
 import './environment';
 import './environmentPage';
 import './environmentTest';
+import './landmark';
 import './pageScripts';
 import './profile';
 import './project';

@@ -1,14 +1,19 @@
 import { useUiStore } from '@/stores';
 import { Box } from '@mui/material';
 import classNames from 'classnames';
-import { forwardRef, useState } from 'react';
+import { forwardRef, useEffect, useState } from 'react';
 import { Resizable } from 'react-resizable';
 import style from './ResizeBlock.module.scss';
 
-const ResizableBlock = ({ children, width, height, minWidth, minHeight, maxHeight, closeable = false, axis = 'x', className = '', onResize = () => {}, ...props }) => {
+const ResizableBlock = forwardRef((
+  { children, width, height, minWidth, minHeight, maxHeight, closeable = false, axis = 'x', className = '', onResize = () => {}, ...props },
+  ref
+) => {
+  ResizableBlock.displayName = 'ResizableBlock';
   const { setIsResizing } = useUiStore();
 
   const [dimensions, setDimensions] = useState({ width, height });
+
   const [isHidden, setIsHidden] = useState(false);
 
   const isHiddenOnXAxis = isHidden && (axis === 'x' || axis === 'both');
@@ -71,6 +76,8 @@ const ResizableBlock = ({ children, width, height, minWidth, minHeight, maxHeigh
     onResize({ width, height });
   };
 
+  const handleAxis = props.resizeHandles?.[0] || 'e';
+
   return (
     <Resizable
       axis={axis}
@@ -80,11 +87,12 @@ const ResizableBlock = ({ children, width, height, minWidth, minHeight, maxHeigh
       height={dimensions.height < 5 ? 5 : dimensions.height}
       onResizeStart={() => setIsResizing(true)}
       onResizeStop={() => setIsResizing(false)}
-      handle={<ResizeHandler axis={axis} isHidden={isHidden} isMaxed={isMaxed} onDoubleClick={handleResizeHandlerDoubleClick} />}
+      handle={<ResizeHandler handleAxis={handleAxis} axis={axis} isHidden={isHidden} isMaxed={isMaxed} onDoubleClick={handleResizeHandlerDoubleClick} />}
       minConstraints={closeable ? [0, 0] : props.minConstraints}
       {...props}
     >
       <Box
+        ref={ref}
         width={dimensions.width}
         height={dimensions.height < 5 ? 5 : dimensions.height}
         className={style.blockContainer}
@@ -99,7 +107,8 @@ const ResizableBlock = ({ children, width, height, minWidth, minHeight, maxHeigh
       </Box>
     </Resizable>
   );
-};
+}
+);
 
 const ResizeHandler = forwardRef(({ handleAxis, axis, isHidden, isMaxed, onDoubleClick, ...props }, ref) => {
   const componentSx = {};
@@ -107,15 +116,23 @@ const ResizeHandler = forwardRef(({ handleAxis, axis, isHidden, isMaxed, onDoubl
     componentSx.cursor = 'nesw-resize';
   } else if (axis === 'x') {
     if (isHidden) {
-      componentSx.cursor = 'e-resize';
+      componentSx.cursor = handleAxis === 'w' ? 'w-resize' : 'e-resize';
     } else if (isMaxed) {
-      componentSx.cursor = 'w-resize';
+      componentSx.cursor = handleAxis === 'w' ? 'e-resize' : 'w-resize';
     } else {
       componentSx.cursor = 'ew-resize';
     }
-    componentSx.right = 0;
-    componentSx.top = 0;
-    componentSx.bottom = 0;
+
+    if (handleAxis === 'w') {
+      componentSx.left = isHidden ? '-5px' : 0;
+      componentSx.top = 0;
+      componentSx.bottom = 0;
+    } else {
+      componentSx.right = 0;
+      componentSx.top = 0;
+      componentSx.bottom = 0;
+    }
+
     componentSx['--handle-width'] = '5px';
     componentSx['--handle-height'] = '100%';
   } else if (axis === 'y') {
@@ -132,7 +149,7 @@ const ResizeHandler = forwardRef(({ handleAxis, axis, isHidden, isMaxed, onDoubl
     componentSx['--handle-width'] = '100%';
     componentSx['--handle-height'] = '5px';
   }
-  return <Box onDoubleClick={onDoubleClick} className={classNames(style.handle, `handle-${handleAxis}`)} ref={ref} {...props} sx={componentSx}></Box>;
+  return <Box onDoubleClick={onDoubleClick} className={classNames(style.handle, style[`handle-${handleAxis}`])} ref={ref} {...props} sx={componentSx}></Box>;
 });
 ResizeHandler.displayName = 'ResizeHandler';
 

@@ -3,6 +3,11 @@
 .root {
   position: relative;
   z-index: 10;
+  background-color: $palette-background-content;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: $palette-dark-background-main-nav;
+  }
 }
 
 .handle {

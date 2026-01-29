@@ -7,15 +7,14 @@ import {
   TERMINAL_SECTIONS,
   TERMINAL_TEST_CASE_HEADINGS,
   TERMINAL_TEST_CASE_LEVEL_OPTIONS,
-  TERMINAL_TEST_CASE_STATUS_OPTIONS,
-  TEST_CASE_POLLING_TIME
+  TERMINAL_TEST_CASE_STATUS_OPTIONS
 } from '@/constants/terminal';
 import Chip from '@/modules/core/Chip';
 import Icon from '@/modules/core/Icon';
 import Select from '@/modules/core/Select';
 import TablePagination from '@/modules/core/TablePagination';
 import { useAuditStore, useProjectStore, useSnackbarStore, useSystemStore, useTerminalStore, useUiStore } from '@/stores';
-import { Box, Button, CircularProgress, Tab, Tabs, Typography } from '@mui/material';
+import { Box, Button, CircularProgress, Skeleton, Tab, Tabs, Typography } from '@mui/material';
 import classNames from 'classnames';
 import { useEffect, useState } from 'react';
 import ResizableBlock from '../ResizableBlock';
@@ -67,32 +66,20 @@ const SectionTable = ({
   test_id
 }) => {
   const { closeRightDrawer } = useUiStore();
-  const { filter, setClickedTargetContext, isAudit } = useTerminalStore(state => ({
-    tests: state.tests,
+  const { filter, setClickedTargetContext, isAudit, isPolling, isAutomatedTestFinished } = useTerminalStore(state => ({
     filter: state.filter,
-    clickedTargetContext: state.clickedTargetContext,
     setClickedTargetContext: state.setClickedTargetContext,
-    isAudit: state.isAudit
+    isAudit: state.isAudit,
+    isPolling: state.isPolling,
+    isAutomatedTestFinished: state.isAutomatedTestFinished
   }));
 
   const { fetchData, meta, filter: sectionFilter, pagination, setPagination, sort, setSort } = section;
 
-  const [isCompleted, setIsCompleted] = useState(false);
-  const [isPolling, setIsPolling] = useState(false);
   const [isDataFetching, setIsDataFetching] = useState(false);
 
   const isLoading = isPolling || isDataFetching;
   const canResolve = page_id && page_id !== 'HOME' && test_id;
-
-  const fetchTestStatus = async () => {
-    if (isAudit) return true;
-    if (!canResolve) return;
-    const environmentTest = await window.api.environmentPage.findEnvironmentTest({
-      environment_page_id: page_id,
-      environment_test_id: test_id
-    });
-    return !!environmentTest?.end_date;
-  };
 
   const handleSort = (field, direction) => {
     setSort({ field, direction });
@@ -107,36 +94,9 @@ const SectionTable = ({
   };
 
   useEffect(() => {
-    let intervalId;
-
-    const pollStatus = async () => {
-      try {
-        const isCompleted = await fetchTestStatus();
-        if (isCompleted) {
-          clearInterval(intervalId);
-          setIsPolling(false);
-          onCompleted();
-          await getDataHandler();
-          setIsCompleted(true);
-        }
-      } catch (error) {
-        console.error('Polling error:', error);
-        clearInterval(intervalId);
-        setIsPolling(false);
-      }
-    };
-
-    setIsPolling(false);
-    intervalId = setInterval(pollStatus, TEST_CASE_POLLING_TIME);
-    pollStatus(); // Run immediately
-
-    return () => clearInterval(intervalId);
-  }, [page_id, test_id, isAudit]);
-
-  useEffect(() => {
-    if (!isCompleted) return;
+    if (isPolling) return;
     getDataHandler();
-  }, [pagination, filter, sectionFilter, sort, page_id, test_id, isCompleted]);
+  }, [pagination, filter, sectionFilter, sort, page_id, test_id, isPolling, isAutomatedTestFinished]);
 
   useEffect(() => {
     setClickedTargetContext({ prev: null, curr: null, section: null });
@@ -177,10 +137,12 @@ const SectionTable = ({
 };
 
 const TestsTable = ({ page_id, test_id, height, isAuditTable = false }) => {
-  const { tests, clickedTargetContext, setClickedTargetContext } = useTerminalStore(state => ({
+  const { tests, clickedTargetContext, setClickedTargetContext, hasOccurrenceData, isAutomatedTestFinished } = useTerminalStore(state => ({
     tests: state.tests,
     clickedTargetContext: state.clickedTargetContext,
-    setClickedTargetContext: state.setClickedTargetContext
+    setClickedTargetContext: state.setClickedTargetContext,
+    hasOccurrenceData: state.hasOccurrenceData,
+    isAutomatedTestFinished: state.isAutomatedTestFinished
   }));
 
   const { data, setFilter } = tests;
@@ -221,6 +183,35 @@ const TestsTable = ({ page_id, test_id, height, isAuditTable = false }) => {
         tooltip: pageName,
         props: { sx: { maxWidth: '200px' } }
       });
+    } else if (hasOccurrenceData) {
+      if (isAutomatedTestFinished) {
+        const relatedTargets = node.related_targets || [];
+        const targets = [node, ...relatedTargets];
+        const count = targets.length;
+        const pageNames = Array.from(new Set(targets.map(t => t.test?.environment_page?.name))).sort((a, b) => {
+          if (a === 'Home') return -1;
+          if (b === 'Home') return 1;
+          return a.localeCompare(b);
+        });
+        baseItems.push({
+          label: count,
+          tooltip:
+            count > 0
+              ? (
+                <>
+                  <span>Appears on:</span>
+                  <ul>
+                    {pageNames.map(t => (
+                      <li key={t}>{t} page</li>
+                    ))}
+                  </ul>
+                </>
+                )
+              : null
+        });
+      } else {
+        baseItems.push({ component: <Skeleton variant='rectangular' /> });
+      }
     }
 
     baseItems.push({
@@ -234,10 +225,16 @@ const TestsTable = ({ page_id, test_id, height, isAuditTable = false }) => {
     };
   });
 
+  const headings = isAuditTable
+    ? TERMINAL_AUDIT_TEST_CASE_HEADINGS
+    : hasOccurrenceData
+      ? TERMINAL_TEST_CASE_HEADINGS
+      : TERMINAL_TEST_CASE_HEADINGS.filter(h => h.id !== 'relatedTargetCount');
+
   return (
     <SectionTable
       section={tests}
-      headings={isAuditTable ? TERMINAL_AUDIT_TEST_CASE_HEADINGS : TERMINAL_TEST_CASE_HEADINGS}
+      headings={headings}
       rows={rows}
       filterLabel='tests'
       onCompleted={onCompleted}
@@ -250,11 +247,12 @@ const TestsTable = ({ page_id, test_id, height, isAuditTable = false }) => {
 };
 
 const RemediationsTable = ({ page_id, test_id, height }) => {
-  const { remediations, clickedTargetContext, setClickedTargetContext } = useTerminalStore(state => ({
+  const { remediations, clickedTargetContext, setClickedTargetContext, hasOccurrenceData } = useTerminalStore(state => ({
     remediations: state.remediations,
     filter: state.filter,
     clickedTargetContext: state.clickedTargetContext,
-    setClickedTargetContext: state.setClickedTargetContext
+    setClickedTargetContext: state.setClickedTargetContext,
+    hasOccurrenceData: state.hasOccurrenceData
   }));
 
   const { data } = remediations;
@@ -271,21 +269,52 @@ const RemediationsTable = ({ page_id, test_id, height }) => {
   const rows = data.map((node) => {
     const remediation = node.remediation;
     const html = node.html || '';
+    const relatedTargets = node.related_targets?.filter(t => t.remediation_id === remediation.id) || [];
+    const targets = [node, ...relatedTargets];
+    const count = targets.length;
+    const pageNames = Array.from(new Set(targets.map(t => t.test?.environment_page?.name))).sort((a, b) => {
+      if (a === 'Home') return -1;
+      if (b === 'Home') return 1;
+      return a.localeCompare(b);
+    });
+    const baseItems = [
+      { label: remediation.id, props: { sx: { width: '180px' } } },
+      { label: remediation.name, tooltip: remediation.name, props: { sx: { maxWidth: '200px' } } },
+      { label: remediation.category.name, tooltip: remediation.category.name, props: { sx: { maxWidth: '100px' } } }
+    ];
+    if (hasOccurrenceData) {
+      baseItems.push({
+        label: count,
+        tooltip:
+          count > 0
+            ? (
+              <>
+                <span>Appears on:</span>
+                <ul>
+                  {pageNames.map(t => (
+                    <li key={t}>{t} page</li>
+                  ))}
+                </ul>
+              </>
+              )
+            : null
+      });
+    } else {
+      baseItems.push({ component: <Skeleton variant='rectangular' /> });
+    }
+    baseItems.push({ label: html, tooltip: html, props: { sx: { maxWidth: '200px' } } });
     return {
       id: node.id,
-      items: [
-        { label: remediation.id, props: { sx: { width: '180px' } } },
-        { label: remediation.name, tooltip: remediation.name, props: { sx: { maxWidth: '200px' } } },
-        { label: remediation.category.name, tooltip: remediation.category.name, props: { sx: { maxWidth: '100px' } } },
-        { label: html, tooltip: html, props: { sx: { maxWidth: '200px' } } }
-      ]
+      items: baseItems
     };
   });
+
+  const headings = hasOccurrenceData ? TERMINAL_REMEDIATION_HEADINGS : TERMINAL_REMEDIATION_HEADINGS.filter(h => h.id !== 'relatedRemediationCount');
 
   return (
     <SectionTable
       section={remediations}
-      headings={TERMINAL_REMEDIATION_HEADINGS}
+      headings={headings}
       rows={rows}
       filterLabel='remediations'
       handleRowClick={handleRowClick}
@@ -312,20 +341,21 @@ const Terminal = ({}) => {
     setTestId: state.setTestId,
     hideTerminal: state.hideTerminal
   }));
-  const { criteria } = useSystemStore();
+  const { criteria, landmarks } = useSystemStore();
 
   const { openSnackbar } = useSnackbarStore();
 
   const [isExportLoading, setIsExportLoading] = useState(false);
 
   useEffect(() => {
-    if (selectedPage?.id) {
-      setPageId(selectedPage.id);
-    }
-    if (selectedTest?.id) {
-      setTestId(selectedTest.id);
-    }
-  }, [selectedPage, selectedTest]);
+    if (!selectedPage || !selectedPage.id) return;
+    setPageId(selectedPage.id);
+  }, [selectedPage]);
+
+  useEffect(() => {
+    if (!selectedTest || !selectedTest.id) return;
+    setTestId(selectedTest.id);
+  }, [selectedTest]);
 
   const maxHeight = height * (TERMINAL_MAX_HEIGHT_PERCENTAGE / 100);
   const defaultHeight = height * (TERMINAL_DEFAULT_HEIGHT_PERCENTAGE / 100);
@@ -345,7 +375,7 @@ const Terminal = ({}) => {
   };
 
   const handleTestCaseFilterChange = (type, value) => {
-    setTestsFilter({ ...filter, [type]: value });
+    setTestsFilter({ ...testsFilter, [type]: value });
     if (isAuditPage) {
       if (selectedCriterion.criteria !== null) {
         useTerminalStore.getState().tests.fetchData();
@@ -416,6 +446,8 @@ const Terminal = ({}) => {
   const levelOptions
     = filteredLevels.length > 0 ? filteredLevels.map(l => ({ label: l, value: l })).sort((a, b) => a.label.localeCompare(b.label)) : TERMINAL_TEST_CASE_LEVEL_OPTIONS;
 
+  const landmarkOptions = landmarks.map(l => ({ label: l.name, value: l.id })).sort((a, b) => a.label.localeCompare(b.label));
+
   if (hideTerminal) {
     return null;
   }
@@ -446,6 +478,8 @@ const Terminal = ({}) => {
                   value={testsFilter.status}
                   onChange={e => handleTestCaseFilterChange('status', e)}
                   className={style.formField}
+                  selectClassName={style.selectField}
+                  transparentBg
                 />
               )}
               {!isAuditPage && (
@@ -456,9 +490,14 @@ const Terminal = ({}) => {
                     value={filter.criteria}
                     onChange={e => handleFilterChange('criteria', e)}
                     className={style.formField}
-                    placeHolder='Select criteria'
+                    placeHolder='Criteria'
                     menuMaxHeight='400px'
                     chipClassName={style.chip}
+                    placeholderClassName={style.selectField}
+                    selectClassName={style.selectField}
+                    minWidth='100px !important'
+                    transparentBg
+                    useChipValueAsLabel
                   />
                   <Select
                     placeHolder='Select level'
@@ -466,6 +505,23 @@ const Terminal = ({}) => {
                     value={levelOptions.length === 1 ? levelOptions[0].value : filter.level}
                     onChange={e => handleFilterChange('level', e)}
                     className={style.formField}
+                    selectClassName={style.selectField}
+                    minWidth='110px !important'
+                    transparentBg
+                  />
+                  <Select
+                    options={landmarkOptions}
+                    multiple
+                    value={filter.landmarks}
+                    onChange={e => handleFilterChange('landmarks', e)}
+                    className={style.formField}
+                    placeHolder='Landmark'
+                    menuMaxHeight='400px'
+                    chipClassName={style.chip}
+                    placeholderClassName={style.selectField}
+                    selectClassName={style.selectField}
+                    minWidth='115px !important'
+                    transparentBg
                   />
                   <Button className={style.exportBtn} variant='outlined' onClick={handleExport} disabled={isExportLoading}>
                     <Typography>Export</Typography>

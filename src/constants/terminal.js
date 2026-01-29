@@ -1,10 +1,9 @@
-export const TEST_CASE_POLLING_TIME = 1000;
-
 export const TERMINAL_TEST_CASE_HEADINGS = [
   { id: 'type', label: '', maxWidth: '30px' },
   { id: 'id', label: 'Test code', maxWidth: '160px' },
   { id: 'html', label: 'HTML', minWidth: '140px' },
   { id: 'selector', label: 'Selector', minWidth: '140px' },
+  { id: 'relatedTargetCount', label: 'Occurrences', maxWidth: '100px' },
   { id: 'result', label: 'Result', not_sortable: true }
 ];
 
@@ -21,6 +20,7 @@ export const TERMINAL_REMEDIATION_HEADINGS = [
   { id: 'id', label: 'Remediation code' },
   { id: 'name', label: 'Name' },
   { id: 'category', label: 'Category', minWidth: '140px' },
+  { id: 'relatedRemediationCount', label: 'Occurrences', minWidth: '100px' },
   { id: 'target', label: 'Target', minWidth: '140px' }
 ];
 

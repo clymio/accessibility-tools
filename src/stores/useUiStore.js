@@ -22,7 +22,10 @@ const initialState = {
   isResizing: false,
   rightDrawerSettings: {
     isOpen: false,
-    contentType: null
+    isAnimating: false,
+    contentType: null,
+    isNarrow: false,
+    drawerWidth: 0
   }
 };
 
@@ -43,8 +46,44 @@ export const useUiStore = create(set => ({
     }
   })),
   setIsResizing: isResizing => set({ isResizing }),
-  openRightDrawer: contentType => set({ rightDrawerSettings: { isOpen: true, contentType } }),
-  closeRightDrawer: () => set({ rightDrawerSettings: { isOpen: false, contentType: null } })
+  setRightDrawerWidth: w =>
+    set(state => ({
+      rightDrawerSettings: {
+        ...state.rightDrawerSettings,
+        drawerWidth: w
+      }
+    })),
+
+  openRightDrawer: contentType =>
+    set(state => ({
+      rightDrawerSettings: {
+        ...state.rightDrawerSettings,
+        isOpen: true,
+        contentType
+      }
+    })),
+
+  closeRightDrawer: () =>
+    set(state => ({
+      rightDrawerSettings: {
+        ...state.rightDrawerSettings,
+        isOpen: false
+      }
+    })),
+  setRightDrawerAnimating: isAnimating =>
+    set(state => ({
+      rightDrawerSettings: {
+        ...state.rightDrawerSettings,
+        isAnimating
+      }
+    })),
+  setRightDrawerIsNarrow: isNarrow =>
+    set(state => ({
+      rightDrawerSettings: {
+        ...state.rightDrawerSettings,
+        isNarrow
+      }
+    }))
 }));
 
 // try to initially set the editor size.

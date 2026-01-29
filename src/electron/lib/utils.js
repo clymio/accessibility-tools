@@ -137,7 +137,7 @@ export const chunkArray = (array = [], size = 10) => {
 /**
  * Converts a given string into a case format.
  * @param {string} str - The string
- * @param {'camel'|'kebab'} [format] - The case format to use
+ * @param {'camel'|'kebab'|'capitalized'} [format] - The case format to use
  * @return - The converted string in the given case format.
  */
 export const strToCase = (str, format) => {
@@ -151,6 +151,9 @@ export const strToCase = (str, format) => {
   }
   if (format === 'kebab') {
     return str.toLowerCase().replace(/[ :]/g, '-').replace(/[()]/g, '').replace(/-+/g, '-').replace(/^-|-$/g, '');
+  }
+  if (format === 'capitalized') {
+    return str[0].toUpperCase() + str.slice(1).toLowerCase();
   }
   return str;
 };

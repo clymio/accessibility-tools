@@ -72,12 +72,19 @@
       padding: 10px;
       border-radius: 8px;
       position: relative;
-      overflow: hidden;
       margin-top: 0;
       font-size: 14px;
       width: 100%;
       background: $palette-input-code;
       color: $palette-input-code-text;
+    }
+  }
+
+  &.narrow {
+    .help {
+      .helpLinks {
+        grid-template-columns: repeat(1, 1fr);
+      }
     }
   }
 }

@@ -28,6 +28,8 @@ export default function MyApp(props) {
     setCountries,
     auditTypes,
     setAuditTypes,
+    landmarks,
+    setLandmarks,
     imageBasePath,
     setImageBasePath
   } = useSystemStore();
@@ -123,6 +125,19 @@ export default function MyApp(props) {
       setAuditTypes(auditTypes);
     };
     getAuditTypes();
+  }, []);
+
+  // set landmarks
+  useEffect(() => {
+    if (landmarks && landmarks.length > 0) {
+      return;
+    }
+    const getLandmarks = async () => {
+      const landmarksRes = await window.api.landmark.find({ limit: false }, { detailed: true });
+      const landmarks = landmarksRes.result;
+      setLandmarks(landmarks);
+    };
+    getLandmarks();
   }, []);
 
   // init accessibility settings

@@ -8,6 +8,7 @@ const initialState = {
   environments: [],
   countries: [],
   auditTypes: [],
+  landmarks: [],
   imageBasePath: ''
 };
 
@@ -24,5 +25,6 @@ export const useSystemStore = create(set => ({
   removeEnvironment: id => set(state => ({ environments: state.environments.filter(t => t.id !== id) })),
   setCountries: countries => set({ countries }),
   setAuditTypes: auditTypes => set({ auditTypes }),
+  setLandmarks: landmarks => set({ landmarks }),
   setImageBasePath: imageBasePath => set({ imageBasePath })
 }));

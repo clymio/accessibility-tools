@@ -65,6 +65,7 @@ const WebView = ({ url, captureScreenshot = false, projectId = null }) => {
   }, [rightDrawerSettings.isOpen]);
 
   const screenshotCaptureHandler = async (webview) => {
+    if (!webview) return;
     try {
       const ss = await webview.capturePage({ width: SCREENSHOT_DEFAULT_WIDTH, height: SCREENSHOT_DEFAULT_HEIGHT });
       await window.api.project.update({ id: projectId, image: ss.toDataURL() });
@@ -85,7 +86,8 @@ const WebView = ({ url, captureScreenshot = false, projectId = null }) => {
       webview.stop();
       console.log('New window attempt blocked for:', e.url);
     };
-    const handleDomReady = () => {
+    const handleDomReady = async () => {
+      if (!webview) return;
       setIsDomReady(true);
       setOpenDevTools(() => {
         webview.openDevTools({ mode: 'detach', activate: true });
@@ -95,13 +97,6 @@ const WebView = ({ url, captureScreenshot = false, projectId = null }) => {
       if (captureScreenshot && projectId) {
         screenshotCaptureHandler(webview);
       }
-      webview.executeJavaScript(`
-        document.addEventListener('keydown', (e) => {
-          if (e.key === 'Escape') {
-            console.log(JSON.stringify({ type: 'escape-pressed', shift: e.shiftKey }));
-          }
-        });
-      `);
     };
     webview.addEventListener('dom-ready', handleDomReady);
     webview.addEventListener('did-start-loading', loadstart);
@@ -142,16 +137,9 @@ const WebView = ({ url, captureScreenshot = false, projectId = null }) => {
     const webview = ref.current;
     if (!webview) return;
 
-    const handleMessage = (event) => {
-      let data;
-      try {
-        data = JSON.parse(event.message);
-      } catch {
-        return;
-      }
-
-      if (data?.type === 'escape-pressed') {
-        const { shift } = data;
+    const handleIpc = (event) => {
+      if (event.channel === 'escape-pressed') {
+        const { shift } = event.args[0];
         webview.blur();
 
         const focusable = Array.from(document.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])')).filter(
@@ -173,12 +161,12 @@ const WebView = ({ url, captureScreenshot = false, projectId = null }) => {
       }
     };
 
-    webview.addEventListener('console-message', handleMessage);
+    webview.addEventListener('ipc-message', handleIpc);
 
     return () => {
-      webview.removeEventListener('console-message', handleMessage);
+      webview.removeEventListener('ipc-message', handleIpc);
     };
-  }, []);
+  }, [ref.current]);
 
   return (
     <>
@@ -197,6 +185,7 @@ const WebView = ({ url, captureScreenshot = false, projectId = null }) => {
         style={{
           pointerEvents: isResizing ? 'none' : 'all'
         }}
+        preload={`file://${window.system.getWebviewPreloadPath()}`}
       />
     </>
   );

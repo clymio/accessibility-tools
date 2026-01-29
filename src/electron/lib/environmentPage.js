@@ -3,11 +3,11 @@ import { Op } from 'sequelize';
 import { STANDARD_CRITERIA_LEVELS } from '../db/models/system/standardCriteria';
 import { TEST_CASE_PAGE_STATUS_VALUES } from '../db/models/testCaseEnvironmentTestPageTarget';
 import CoreLib from './core';
-import sequelize, { getModel } from './db';
+import sequelize, { bulkUpdateColumn, getModel } from './db';
 import EnvironmentLib from './environment';
 import EnvironmentTestLib from './environmentTest';
 import joiLib from './joi';
-import { fixTcTargets, formatDate } from './utils';
+import { fixTcTargets, formatDate, strToCase } from './utils';
 
 class EnvironmentPageLib {
   /**
@@ -322,12 +322,14 @@ class EnvironmentPageLib {
    * @param {string} [input.status] - test case node status.
    * @param {string[]} [input.criteria] - test case criteria.
    * @param {'A' | 'AA' | 'AAA'} [input.level] - level of the criteria
+   * @param {boolean} [input.has_remediation] - weather or not to get only test case nodes that have a remediation
    * @param {Object} [input.sort] - Sorting options for the results.
    * @param {string} [input.sort.field] - Field to sort by.
    * @param {string} [input.sort.direction] - Sorting direction (ASC or DESC).
    * @param {number} [input.page] - Page number for pagination.
    * @param {number} [input.limit] - Number of results per page.
-   * @param {{}} [opt] - Additional options for the query.
+   * @param {Object} [opt] - Additional options for the query.
+   * @param {boolean} [opt.count] - If true, also returns the count.
    * @returns - Paginated list of test case nodes.
    */
   static async findTestCaseNodes(input = {}, opt = {}) {
@@ -338,6 +340,7 @@ class EnvironmentPageLib {
         status: Joi.enum(TEST_CASE_PAGE_STATUS_VALUES).optional().allow(''),
         criteria: Joi.array().items(Joi.string()).optional().allow(''),
         level: Joi.enum(STANDARD_CRITERIA_LEVELS).optional().allow(''),
+        landmarks: Joi.array().items(Joi.string()).optional().allow(''),
         has_remediation: Joi.boolean().optional().allow(''),
         sort: Joi.object({
           field: Joi.string().required(),
@@ -353,7 +356,8 @@ class EnvironmentPageLib {
     try {
       const TestCaseEnvironmentTestPageTarget = getModel('testCaseEnvironmentTestPageTarget'),
         TestCase = getModel('testCase'),
-        Remediation = getModel('remediation');
+        Remediation = getModel('remediation'),
+        TestPageTargetOccurrence = getModel('testPageTargetOccurrence');
       const where = {},
         tcCriteriaWhere = {},
         tcWhere = {},
@@ -376,6 +380,24 @@ class EnvironmentPageLib {
 
       if (data.level) {
         tcCriteriaWhere.level = data.level;
+      }
+
+      if (data.landmarks && data.landmarks.length > 0) {
+        const landmarkNodes = await TestCaseEnvironmentTestPageTarget.findAll({
+          where: {
+            system_landmark_id: data.landmarks
+          },
+          attributes: ['id']
+        });
+        const landmarkNodeIds = landmarkNodes.map(node => node.id);
+        if (!where[Op.or]) {
+          where[Op.or] = [];
+        }
+        where[Op.or].push({
+          system_landmark_id: data.landmarks
+        }, {
+          parent_landmark_id: landmarkNodeIds
+        });
       }
 
       if (data.has_remediation) {
@@ -481,6 +503,16 @@ class EnvironmentPageLib {
           }
         ]
       });
+      include.push({
+        model: getModel('systemLandmark'),
+        as: 'landmark',
+        attributes: ['id', 'name']
+      });
+      include.push({
+        model: TestCaseEnvironmentTestPageTarget,
+        as: 'parent_landmark',
+        attributes: ['id', 'html']
+      });
 
       if (hasSort) {
         if (data.sort.field === 'id') {
@@ -510,13 +542,23 @@ class EnvironmentPageLib {
             'name',
             data.sort.direction
           ]);
+        } else if (data.sort.field === 'relatedTargetCount') {
+          order.push(['related_target_count', data.sort.direction]);
+        } else if (data.sort.field === 'relatedRemediationCount') {
+          order.push(['related_remediation_count', data.sort.direction]);
         } else {
           order.push([data.sort.field, data.sort.direction]);
+        }
+      } else {
+        // by default, sort via occurrences
+        if (data.has_remediation) {
+          order.push(['related_remediation_count', 'DESC']);
+        } else {
+          order.push(['related_target_count', 'DESC']);
         }
       }
 
       const qry = CoreLib.paginateQuery({ where, include, order }, data, opt);
-
       let paginatedResults;
       if (opt.count) {
         const res = await TestCaseEnvironmentTestPageTarget.findAndCountAll({ ...qry, distinct: true });
@@ -526,6 +568,35 @@ class EnvironmentPageLib {
         const res = await TestCaseEnvironmentTestPageTarget.findAll(qry);
         paginatedResults = CoreLib.paginateResult(res, data);
       }
+
+      let relatedTargets = await TestPageTargetOccurrence.findAll({
+        where: {
+          page_target_id: paginatedResults.result.map(r => r.id)
+        },
+        include: [
+          {
+            model: TestCaseEnvironmentTestPageTarget,
+            as: 'related_page_target',
+            attributes: ['id', 'status', 'remediation_id'],
+            include: [
+              {
+                model: getModel('testCaseEnvironmentTestPage'),
+                as: 'test',
+                attributes: ['id'],
+                include: [
+                  {
+                    model: getModel('environmentPage'),
+                    as: 'environment_page',
+                    attributes: ['id', 'name'],
+                    required: false
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      });
+      relatedTargets = relatedTargets.map(r => r.toJSON());
 
       const remediations = await Remediation.findAll({
         include: [
@@ -590,6 +661,8 @@ class EnvironmentPageLib {
           }
           r.test.test_case.remediations = r.test.test_case.remediations.sort((a, b) => b.category.priority - a.category.priority);
         }
+        const relatedTargetsData = relatedTargets.filter(relatedTarget => relatedTarget.page_target_id === r.id);
+        r.related_targets = relatedTargetsData.map(relatedTarget => relatedTarget.related_page_target) || [];
       });
 
       return paginatedResults;
@@ -708,34 +781,54 @@ class EnvironmentPageLib {
     try {
       const TestCaseEnvironmentTestPageTarget = getModel('testCaseEnvironmentTestPageTarget'),
         EnvironmentTest = getModel('environmentTest');
-      const testCaseEnvironmentTestPageTarget = await TestCaseEnvironmentTestPageTarget.findByPk(data.id, {
+      const target = await TestCaseEnvironmentTestPageTarget.findByPk(data.id, {
         include: [
           {
             model: getModel('testCaseEnvironmentTestPage'),
             as: 'test',
             attributes: ['id', 'environment_test_id']
+          },
+          {
+            model: TestCaseEnvironmentTestPageTarget,
+            as: 'related_targets',
+            attributes: ['id', 'status', 'remediation_id'],
+            through: {
+              attributes: []
+            }
           }
         ]
       });
-      if (!testCaseEnvironmentTestPageTarget) {
+      if (!target) {
         throw new Error('Environment test target not found');
       }
+      const dataToUpdate = {};
+      const relatedTargets = target.related_targets?.filter(t => t.status === target.status) || [];
+      const relatedTargetIds = relatedTargets.map(t => t.id);
+      const allIds = [target.id, ...relatedTargetIds];
       if (data.status) {
-        testCaseEnvironmentTestPageTarget.status = data.status;
+        dataToUpdate.status = data.status;
         if (data.status === 'INCOMPLETE') {
-          testCaseEnvironmentTestPageTarget.remediation_id = null;
+          dataToUpdate.remediation_id = null;
         }
       }
       if (data.notes !== undefined) {
-        testCaseEnvironmentTestPageTarget.notes = data.notes;
+        dataToUpdate.notes = data.notes;
       }
       if (data.remediation_id) {
-        testCaseEnvironmentTestPageTarget.remediation_id = data.remediation_id;
+        const relatedRemTargets = relatedTargets.filter(t => t.remediation_id === target.remediation_id);
+        const relatedRemTargetIds = relatedRemTargets.map(t => t.id);
+        const allRemTargetIds = [target.id, ...relatedRemTargetIds];
+        const occurrences = relatedRemTargets.length;
+        await bulkUpdateColumn(allRemTargetIds.map(id => ({ id, value: occurrences })), TestCaseEnvironmentTestPageTarget.getTableName(), 'related_remediation_count');
+        dataToUpdate.remediation_id = data.remediation_id;
       }
-      await testCaseEnvironmentTestPageTarget.save();
-
-      const needsManualCheck = await EnvironmentTestLib.doesTestNeedManualCheck({ id: testCaseEnvironmentTestPageTarget.test.environment_test_id });
-      const envTestObj = await EnvironmentTest.findByPk(testCaseEnvironmentTestPageTarget.test.environment_test_id);
+      await TestCaseEnvironmentTestPageTarget.update(dataToUpdate, {
+        where: {
+          id: allIds
+        }
+      });
+      const needsManualCheck = await EnvironmentTestLib.doesTestNeedManualCheck({ id: target.test.environment_test_id });
+      const envTestObj = await EnvironmentTest.findByPk(target.test.environment_test_id);
       if (!needsManualCheck && envTestObj.status !== 'COMPLETED') {
         envTestObj.status = 'COMPLETED';
       } else if (needsManualCheck && envTestObj.status === 'COMPLETED') {
@@ -769,6 +862,12 @@ class EnvironmentPageLib {
       let result,
         headings = [];
 
+      const STATUS_PRIORITIES = {
+        FAIL: 1,
+        INCOMPLETE: 2,
+        MANUAL: 3
+      };
+
       const EnvironmentTest = getModel('environmentTest');
 
       const envTest = await EnvironmentTest.findByPk(data.environment_test_id, {
@@ -785,10 +884,12 @@ class EnvironmentPageLib {
         has_remediation: opt.is_remediation_report,
         limit: false
       });
+      const hasOccurrenceData = await EnvironmentTestLib.hasOccurrenceData({ id: data.environment_test_id });
       const tests = testsRes.result;
       if (opt.is_remediation_report) {
         headings = [
           'Remediation Code',
+          ...(hasOccurrenceData ? ['Occurrences'] : []),
           'Remediation Name',
           'Remediation Description / Instructions / Steps',
           'Remediation Category',
@@ -808,6 +909,7 @@ class EnvironmentPageLib {
           const testCase = test.test.test_case;
           return [
             remediation.id,
+            ...(hasOccurrenceData ? [(test.related_remediation_count || 0) + 1] : []),
             remediation.name || '',
             remediation.description || '',
             remediation.category?.name || '',
@@ -819,15 +921,17 @@ class EnvironmentPageLib {
             testCase.name || '',
             testCase.steps || '',
             testCase.result || '',
-            testCase.type || '',
+            strToCase(testCase.type || '', 'capitalized'),
             testCase.criteria.map(c => c.id).join('\n')
           ];
         });
       } else {
         headings = [
+          'Test Status',
           'Test Type',
           'Test Case Code',
           'Test Case Name',
+          ...(hasOccurrenceData ? ['Occurrences'] : []),
           'Target HTML',
           'Target Selector',
           'Target Selector used',
@@ -840,13 +944,22 @@ class EnvironmentPageLib {
           'Remediation Description',
           'Remediation Category'
         ];
-        result = tests.map((test) => {
+        result = tests.sort((a, b) => {
+          const aPriority = STATUS_PRIORITIES[a.status] || 99;
+          const bPriority = STATUS_PRIORITIES[b.status] || 99;
+          if (aPriority !== bPriority) {
+            return aPriority - bPriority;
+          }
+          return b.related_target_count - a.related_target_count;
+        }).map((test) => {
           const remediation = test.remediation;
           const testCase = test.test.test_case;
           return [
-            testCase.type || '',
+            test.status || '',
+            strToCase(testCase.type || '', 'capitalized'),
             testCase.id || '',
             testCase.name || '',
+            ...(hasOccurrenceData ? [(test.related_target_count || 0) + 1] : []),
             test.html || '',
             test.selector || '',
             test.selector_used || '',

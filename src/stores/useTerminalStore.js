@@ -48,7 +48,10 @@ const initialState = {
   page_id: null,
   test_id: null,
   isAudit: false,
-  hideTerminal: false
+  isPolling: false,
+  isAutomatedTestFinished: false,
+  hideTerminal: false,
+  hasOccurrenceData: true
 };
 
 const testsSlice = createSlice('tests', { status: 'FAIL' });
@@ -66,7 +69,10 @@ export const useTerminalStore = create((set, get) => ({
   setPageId: page_id => set({ page_id }),
   setTestId: test_id => set({ test_id }),
   setIsAudit: isAudit => set({ isAudit }),
+  setIsPolling: isPolling => set({ isPolling }),
+  setIsAutomatedTestFinished: isAutomatedTestFinished => set({ isAutomatedTestFinished }),
   setHideTerminal: hideTerminal => set({ hideTerminal }),
+  setHasOccurrenceData: hasOccurrenceData => set({ hasOccurrenceData }),
   tests: {
     ...testsSlice(set, get),
     fetchData: async () => {

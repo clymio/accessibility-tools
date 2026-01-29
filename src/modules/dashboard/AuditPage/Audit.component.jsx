@@ -1,13 +1,17 @@
 import { LEVEL_OPTIONS_VPAT, LEVEL_OPTIONS_WCAG_ATAG } from '@/constants/audit';
 import Select from '@/modules/core/Select';
 import { useAuditStore } from '@/stores';
-import { Box, Stack, TextField, Typography } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { Box, Button, Stack, TextField, Typography } from '@mui/material';
+import { useEffect, useRef, useState } from 'react';
 import styles from './Audit.module.scss';
 
 const Audit = () => {
-  const { audit, setAudit, selectedCriterion, getAuditStats } = useAuditStore();
+  const { audit, setAudit, selectedCriterion, setSelectedCriterion, getAuditStats } = useAuditStore();
+
   const [formState, setFormState] = useState({});
+
+  const criteriaSectionRef = useRef(null);
+  const levelSelectRef = useRef(null);
 
   useEffect(() => {
     if (!audit?.id || !selectedCriterion?.id) return;
@@ -63,6 +67,10 @@ const Audit = () => {
 
   if (!audit || !selectedCriterion) return null;
 
+  const auditItems = audit.sections.map(s => s.items).flat();
+  const selectedItemIdx = auditItems.findIndex(i => i.id === selectedCriterion.id);
+  const nextItem = auditItems[selectedItemIdx + 1];
+
   const formatSectionId = (id) => {
     return id
       .split('_')
@@ -88,6 +96,14 @@ const Audit = () => {
     }
   };
 
+  const handleNext = () => {
+    if (nextItem) {
+      setSelectedCriterion(nextItem);
+      criteriaSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
+      levelSelectRef.current?.focus();
+    }
+  };
+
   const options = audit.system_audit_type_id.startsWith('WCAG') || audit.system_audit_type_id.startsWith('ATAG') ? LEVEL_OPTIONS_WCAG_ATAG : LEVEL_OPTIONS_VPAT;
 
   return (
@@ -96,8 +112,8 @@ const Audit = () => {
         {selectedCriterion.name ? selectedCriterion.name : selectedCriterion.id}
       </Typography>
       <Box height='100%' width='100%' flex={1} sx={{ overflow: 'auto', padding: '1.5rem', paddingBottom: 0 }}>
-        <Box sx={{ display: 'flex', flexDirection: 'column', marginBottom: '2rem' }}>
-          {selectedCriterion.types.map(section => (
+        <Box sx={{ display: 'flex', flexDirection: 'column', marginBottom: '2rem' }} ref={criteriaSectionRef}>
+          {selectedCriterion.types.map((section, i) => (
             <Box key={section.id} className={styles.formSection} mb={5}>
               {section.id !== 'FULL' && (
                 <Typography variant='h6' gutterBottom>
@@ -114,6 +130,7 @@ const Audit = () => {
                   onChange={value => handleChange(section.id, 'level', value)}
                   onBlur={() => handleFormSave(section.id)}
                   className={styles.formField}
+                  ref={i === 0 ? levelSelectRef : null}
                 />
               </Box>
 
@@ -131,6 +148,11 @@ const Audit = () => {
               />
             </Box>
           ))}
+          {nextItem && (
+            <Button onClick={handleNext} className={styles.nextButton}>
+              Next
+            </Button>
+          )}
         </Box>
       </Box>
     </Stack>

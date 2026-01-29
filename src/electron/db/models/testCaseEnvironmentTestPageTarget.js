@@ -38,15 +38,38 @@ export default (sequelize, DataTypes) => {
       },
       remediation_id: {
         type: DataTypes.STRING
+      },
+      related_target_count: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0
+      },
+      related_remediation_count: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0
       }
     },
     {
       indexes: [
         {
+          fields: ['status']
+        },
+        {
           fields: ['test_case_page_id']
         },
         {
           fields: ['remediation_id']
+        },
+        {
+          fields: ['related_target_count']
+        },
+        {
+          fields: ['related_remediation_count']
+        },
+        {
+          fields: ['system_landmark_id']
+        },
+        {
+          fields: ['parent_landmark_id']
         }
       ]
     }
@@ -60,6 +83,28 @@ export default (sequelize, DataTypes) => {
     TestCaseEnvironmentTestPageTarget.belongsTo(models.remediation, {
       foreignKey: 'remediation_id',
       as: 'remediation'
+    });
+    TestCaseEnvironmentTestPageTarget.belongsTo(models.systemLandmark, {
+      foreignKey: 'system_landmark_id',
+      as: 'landmark'
+    });
+    TestCaseEnvironmentTestPageTarget.belongsTo(TestCaseEnvironmentTestPageTarget, {
+      foreignKey: 'parent_landmark_id',
+      as: 'parent_landmark',
+      onDelete: 'SET NULL',
+      onUpdate: 'CASCADE'
+    });
+    TestCaseEnvironmentTestPageTarget.hasMany(TestCaseEnvironmentTestPageTarget, {
+      foreignKey: 'parent_landmark_id',
+      as: 'landmark_children',
+      onDelete: 'SET NULL',
+      onUpdate: 'CASCADE'
+    });
+    TestCaseEnvironmentTestPageTarget.belongsToMany(TestCaseEnvironmentTestPageTarget, {
+      foreignKey: 'page_target_id',
+      otherKey: 'related_page_target_id',
+      as: 'related_targets',
+      through: 'testPageTargetOccurrence'
     });
   };
 

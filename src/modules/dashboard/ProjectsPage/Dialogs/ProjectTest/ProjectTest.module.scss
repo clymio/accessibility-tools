@@ -24,6 +24,7 @@
   }
 }
 
+.stepOne,
 .stepTwo,
 .stepThree {
   display: flex;
@@ -140,7 +141,7 @@
   }
   .textField {
     border-radius: 8px;
-    margin-bottom: 1rem;
+    margin-bottom: 0;
 
     :global(.MuiInputLabel-root) {
       top: -20px;

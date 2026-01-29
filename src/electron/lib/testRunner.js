@@ -1,8 +1,10 @@
 import { BrowserWindow } from 'electron';
 import log from 'electron-log';
+import { getMainWindow } from '../main';
 import AxeCoreLib from './axecore';
 import { getModel } from './db';
 import EnvironmentTestLib from './environmentTest';
+import LandmarkRunner from './landmarkRunner';
 import { timeoutFn } from './utils';
 
 class TestRunner {
@@ -14,6 +16,7 @@ class TestRunner {
     this.testId = testId;
     this.window = null;
     this.currentPage = null;
+    this.mainWindow = getMainWindow();
   }
 
   /**
@@ -51,6 +54,9 @@ class TestRunner {
           await window.webContents.executeJavaScript(axeScript);
 
           await Promise.all([this.#handleManualTests(), this.#handleAutomatedTests()]);
+
+          const landmarkRunner = new LandmarkRunner(this.window, this.currentPage.id, this.testId);
+          await landmarkRunner.run();
 
           this.currentPage.resolve();
         } catch (error) {
@@ -313,14 +319,18 @@ class TestRunner {
         try {
           const promise = this.#runTestOnPage(page.id);
           await timeoutFn(promise, 30000); // 30 second timeout
+          this.mainWindow.send('environmentPage:onTestCompleted', { status: 'success', data: { test_id: this.testId, page_id: page.id } });
         } catch {
           log.error('test timed out on page:', page.id);
           errorCount++;
+          this.mainWindow.send('environmentPage:onTestCompleted', { status: 'error', data: { test_id: this.testId, page_id: page.id } });
         }
       }
       if (errorCount === pages.length) {
         throw new Error('All tests failed!');
       }
+
+      await EnvironmentTestLib.generateTestOccurrenceData({ id: this.testId });
 
       const needsManualCheck = await EnvironmentTestLib.doesTestNeedManualCheck({ id: this.testId });
       await EnvironmentTest.update(
@@ -331,6 +341,7 @@ class TestRunner {
           }
         }
       );
+      this.mainWindow.send('environmentTest:onTestCompleted', { status: 'success', data: { test_id: this.testId } });
     } catch (e) {
       log.error('Error running test: ', this.testId);
       log.debug(e);
@@ -343,6 +354,7 @@ class TestRunner {
           }
         }
       );
+      this.mainWindow.send('environmentTest:onTestCompleted', { status: 'error', data: { test_id: this.testId } });
     } finally {
       this.#cleanup();
       log.info('test finished');

@@ -85,8 +85,8 @@ export default function StartTest({ open, onClose, project, onTestStarted, trigg
 
     const requestData = {
       name: testName,
-      structured_pages: structuredPages.map(page => page.id),
-      random_pages: randomPages.map(page => page.id),
+      structured_pages: structuredPages.filter(page => !page.not_clickable).map(page => page.id),
+      random_pages: randomPages.filter(page => !page.not_clickable).map(page => page.id),
       functionality_note: essentialFunctionality,
       page_variety_note: webPageTypes,
       environment_id: environmentType

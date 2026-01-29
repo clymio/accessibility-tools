@@ -1,3 +1,4 @@
+import { TERMINAL_SECTIONS } from '@/constants/terminal';
 import Select from '@/modules/core/Select';
 import TestCaseInfo from '@/modules/dashboard/TestCasesPage/TestCaseInfo.component';
 import { useProjectStore, useTerminalStore } from '@/stores';
@@ -12,6 +13,7 @@ const TestDetailsTab = ({ onFormSubmit = () => {} }) => {
   const { clickedTargetContext } = useTerminalStore();
 
   const currentTargetNode = clickedTargetContext.curr;
+  const isRemediationDrawer = clickedTargetContext.section === TERMINAL_SECTIONS.REMEDIATIONS;
   const testCase = currentTargetNode?.test.test_case;
 
   const handleRemediationSelect = (value) => {
@@ -35,6 +37,14 @@ const TestDetailsTab = ({ onFormSubmit = () => {} }) => {
     <Box className={style.detailsTabWrapper}>
       <Box className={style.contentWrapper}>
         <TestCaseInfo testCase={testCase} />
+        {currentTargetNode.parent_landmark && currentTargetNode.parent_landmark.html && !isRemediationDrawer && (
+          <Box className={style.codeWrapper}>
+            <Typography className={style.codeLabel}>Landmark</Typography>
+            <pre>
+              <code>{currentTargetNode.parent_landmark.html}</code>
+            </pre>
+          </Box>
+        )}
         <Box className={style.codeWrapper}>
           <Typography className={style.codeLabel}>Selector</Typography>
           <pre>

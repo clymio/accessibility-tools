@@ -3,11 +3,13 @@ import Icon from '@/modules/core/Icon';
 import { Box, Button, Typography } from '@mui/material';
 import classNames from 'classnames';
 import style from './TestCaseInfo.module.scss';
+import { useUiStore } from '@/stores';
 
 const TestCaseInfo = ({ testCase }) => {
+  const { rightDrawerSettings } = useUiStore();
   if (!testCase) return;
   return (
-    <Box className={style.root}>
+    <Box className={classNames(style.root, { [style.narrow]: rightDrawerSettings.isNarrow })}>
       <Box className={style.content}>
         {testCase.steps && (
           <Box className={style.stepsWrapper}>

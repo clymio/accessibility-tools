@@ -4,9 +4,10 @@
   width: 100%;
   display: flex;
   align-items: center;
-  overflow: auto;
+  overflow: auto hidden;
   background-color: $palette-background-resizable-blocks;
   border-bottom: 1px solid $palette-border-resizable-blocks;
+
   @media (prefers-color-scheme: dark) {
     background-color: $palette-dark-background-content;
     border-bottom: 1px solid $palette-dark-background-main-nav;
@@ -38,26 +39,34 @@
   align-items: center;
   gap: 10px;
   background-color: $palette-background-main-nav;
+
   @media (prefers-color-scheme: dark) {
     background-color: $palette-dark-background-main-nav;
   }
+
   &:hover {
     background-color: $palette-background-header;
+
     @media (prefers-color-scheme: dark) {
       background-color: $palette-dark-background-header;
     }
   }
+
   &.active {
     background-color: $palette-background-header;
+
     @media (prefers-color-scheme: dark) {
       background-color: $palette-dark-background-2;
     }
   }
+
   p {
     font-size: 13px;
   }
+
   &.selectedPageTab {
     max-width: 200px;
+
     p {
       white-space: nowrap;
       text-overflow: ellipsis;

@@ -192,7 +192,8 @@ async function loadSystemData() {
       auditChapters,
       auditChapterSections,
       auditChapterSectionItems,
-      auditChapterSectionItemTypes
+      auditChapterSectionItemTypes,
+      landmarks
     } = systemDataJson;
     const SystemStandard = getModel('systemStandard'),
       SystemStandardVersion = getModel('systemStandardVersion'),
@@ -214,7 +215,8 @@ async function loadSystemData() {
       SystemAuditChapterSection = getModel('systemAuditChapterSection'),
       SystemAuditChapterSectionItem = getModel('systemAuditChapterSectionItem'),
       SystemAuditChapterSectionItemType = getModel('systemAuditChapterSectionItemType'),
-      SystemAuditChapterAuditTypeVersion = getModel('systemAuditChapterAuditTypeVersion');
+      SystemAuditChapterAuditTypeVersion = getModel('systemAuditChapterAuditTypeVersion'),
+      SystemLandmark = getModel('systemLandmark');
 
     // init settings
     await SettingsLib.init(dbDirectoryPath);
@@ -313,6 +315,15 @@ async function loadSystemData() {
       technologies.map(t => t.key),
       Technology,
       { is_system: true }
+    );
+
+    // load landmarks data
+    for (const landmark of landmarks) {
+      await SystemLandmark.upsert({ id: landmark.key, name: landmark.name, selectors: landmark.selectors });
+    }
+    await deleteRows(
+      landmarks.map(l => l.key),
+      SystemLandmark
     );
 
     // load environments data
@@ -618,5 +629,30 @@ async function boot() {
   }
 }
 
+/**
+ * Bulk updates a column in a table with new values.
+ * @param {{id: string, value: string}[]} data - Array of objects containing id and value to update
+ * @param {string} tableName - Name of the table to update
+ * @param {string} columnName - Name of the column to update
+ */
+async function bulkUpdateColumn(data = [], tableName, columnName) {
+  const BATCH_SIZE = 300;
+  try {
+    for (let i = 0; i < data.length; i += BATCH_SIZE) {
+      const batch = data.slice(i, i + BATCH_SIZE);
+      const ids = batch.map(b => `'${b.id}'`).join(',');
+      const cases = batch.map(b => `WHEN id = '${b.id}' THEN '${b.value}'`).join(' ');
+      await sequelize.query(`
+        UPDATE "${tableName}"
+        SET "${columnName}" = CASE ${cases} END
+        WHERE id IN (${ids});
+      `);
+    };
+  } catch (e) {
+    log.error(`error bulk updating ${tableName}`);
+    log.debug(e);
+  }
+};
+
 export default sequelize;
-export { boot, getModel };
+export { boot, bulkUpdateColumn, getModel };

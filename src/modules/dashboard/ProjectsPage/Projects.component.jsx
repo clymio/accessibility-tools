@@ -60,7 +60,7 @@ export default function Projects() {
     }
     const projectObj = await window.api.project.read({ id: newProject.id });
     setProject(projectObj);
-    const testsRes = await window.api.environmentTest.find({ project_id: projectObj.id, exclude_closed: true, limit: false }, { detailed: true });
+    const testsRes = await window.api.environmentTest.find({ project_id: projectObj.id, exclude_closed: true, exclude_failed: true, limit: false }, { detailed: true });
     const tests = testsRes.result;
     if (tests.length === 0) {
       setSelectedProject(projectObj);
@@ -77,7 +77,7 @@ export default function Projects() {
 
     setTests(tests);
     setSelectedTest(selectedTest);
-    router.push(`/${projectObj.id}`);
+    router.push(`/projects/${projectObj.id}`);
   }
 
   function onMenuClick(event, project) {

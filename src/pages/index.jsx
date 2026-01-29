@@ -1,5 +1,12 @@
-import Layout from '@/modules/core/Layout';
-import ProjectsPage from '@/modules/dashboard/ProjectsPage';
+export async function getServerSideProps() {
+  return {
+    redirect: {
+      destination: '/projects',
+      permanent: false
+    }
+  };
+}
+
 export default function Home() {
-  return <Layout page={ProjectsPage} />;
+  return null;
 }

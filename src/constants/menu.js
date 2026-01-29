@@ -17,8 +17,7 @@ export function buildMenu(module) {
   res.push({
     icon: folders,
     title: 'Projects',
-    url: module.url,
-    exact: true
+    url: `${module.url}projects`
   });
   res.push({
     icon: clipboardList,

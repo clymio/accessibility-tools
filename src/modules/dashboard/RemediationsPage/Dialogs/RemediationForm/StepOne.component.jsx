@@ -101,7 +101,7 @@ const StepOne = () => {
         />
       </div>
       <div className={styles.examples}>
-        <Typography variant='body1' sx={{ mt: 3, mb: 1, fontWeight: 700 }}>
+        <Typography variant='body1' sx={{ mt: 2, fontWeight: 700 }}>
           Examples
         </Typography>
         {examples?.map((example, index) => {

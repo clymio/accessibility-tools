@@ -41,8 +41,8 @@ class PageScriptsLib {
         const element = document.querySelector('${selector}');
         if (!element) return;
         element.style.outline = 'none';
-      } catch (e) {
-       }
+      } catch {
+      }
     })()`;
   }
 }

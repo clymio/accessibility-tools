@@ -36,10 +36,14 @@ const CoreSelect = forwardRef(({
   chipClassName = '',
   menuClassName = '',
   selectClassName = '',
+  placeholderClassName = '',
   menuMaxHeight = '',
   required = false,
   sx = {},
-  autoFocus = false
+  minWidth = null,
+  autoFocus = false,
+  transparentBg = false,
+  useChipValueAsLabel = false
 }, ref) => {
   if (value === undefined) {
     value = multiple ? [] : '';
@@ -138,7 +142,7 @@ const CoreSelect = forwardRef(({
   };
 
   return (
-    <FormControl fullWidth error={Boolean(touched && errors)} className={className}>
+    <FormControl fullWidth error={Boolean(touched && errors)} className={classNames(className, { [styles.transparent]: transparentBg })} sx={{ minWidth: minWidth || undefined }}>
       <InputLabel component='span' className={styles.inputLabel} required={required}>
         <Typography>{label}</Typography>
       </InputLabel>
@@ -160,7 +164,7 @@ const CoreSelect = forwardRef(({
                   selected.map(val => (
                     <Chip
                       key={val}
-                      label={options.find(o => o.value === val)?.label || val}
+                      label={useChipValueAsLabel ? val : options.find(o => o.value === val)?.label || val}
                       className={classNames(styles.selectChip, chipClassName)}
                       onDelete={event => handleDelete(event, val)}
                       deleteIcon={(
@@ -187,7 +191,7 @@ const CoreSelect = forwardRef(({
                   ))
                 )
               : (
-                <Typography color='textSecondary' className={styles.placeholder}>{placeHolder}</Typography>
+                <Typography className={classNames(styles.placeholder, placeholderClassName)}>{placeHolder}</Typography>
                 );
           }
           return options.find(o => o.value === selected)?.label || selected || <Typography color='textSecondary'>{placeHolder}</Typography>;
@@ -196,7 +200,8 @@ const CoreSelect = forwardRef(({
         placeholder={placeHolder}
         className={classNames(styles.selectField, selectClassName, {
           [styles.selectFieldOpen]: isOpen(index),
-          [styles.multiple]: multiple
+          [styles.multiple]: multiple,
+          [styles.transparent]: transparentBg
         })}
         disabled={options.length <= 1 || disabled}
         MenuProps={{

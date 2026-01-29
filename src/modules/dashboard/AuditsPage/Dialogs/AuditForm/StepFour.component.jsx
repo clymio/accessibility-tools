@@ -55,7 +55,7 @@ const StepFour = () => {
 
   return (
     <div className={styles.stepThree}>
-      <Typography variant='body1' sx={{ mt: 3, mb: 1, fontWeight: 700 }}>
+      <Typography variant='body1' sx={{ mt: 2, fontWeight: 700 }}>
         Evaluator
       </Typography>
       <div className={styles.formField}>
@@ -84,10 +84,10 @@ const StepFour = () => {
           </Typography>
         )}
       </div>
-      <Typography variant='body1' sx={{ mt: 3, mb: 1, fontWeight: 700 }}>
+      <Typography variant='body1' sx={{ mt: 2, fontWeight: 700 }}>
         Evaluation
       </Typography>
-      <Box className={styles.formField} sx={{ mt: 1 }}>
+      <Box className={styles.formField}>
         <TextField
           label='Notes'
           value={evaluation.notes}
@@ -102,7 +102,7 @@ const StepFour = () => {
           helperText={touched?.evaluation?.notes && errors.evaluation?.notes}
         />
       </Box>
-      <Box className={styles.formField} sx={{ mt: 1 }}>
+      <Box className={styles.formField}>
         <TextField
           label={(
             <div>
@@ -126,7 +126,7 @@ const StepFour = () => {
           helperText={touched?.evaluation?.methods && errors.evaluation?.methods}
         />
       </Box>
-      <Box className={styles.formField} sx={{ mt: 1 }}>
+      <Box className={styles.formField}>
         <TextField
           label={(
             <div>
@@ -150,7 +150,7 @@ const StepFour = () => {
           helperText={touched?.evaluation?.legalDisclaimer && errors.evaluation?.legalDisclaimer}
         />
       </Box>
-      <Box className={styles.formField} sx={{ mt: 1 }}>
+      <Box className={styles.formField}>
         <TextField
           label={(
             <div>
@@ -174,7 +174,7 @@ const StepFour = () => {
           helperText={touched?.evaluation?.repository && errors.evaluation?.repository}
         />
       </Box>
-      <Box className={styles.formField} sx={{ mt: 1 }}>
+      <Box className={styles.formField}>
         <TextField
           label={(
             <div>
@@ -198,7 +198,7 @@ const StepFour = () => {
           helperText={touched?.evaluation?.feedback && errors.evaluation?.feedback}
         />
       </Box>
-      <Box className={styles.formField} sx={{ mt: 1 }}>
+      <Box className={styles.formField}>
         <TextField
           label={(
             <div>
@@ -222,7 +222,7 @@ const StepFour = () => {
           helperText={touched?.evaluation?.license && errors.evaluation?.license}
         />
       </Box>
-      <Typography variant='body1' sx={{ mt: 3, mb: 1, fontWeight: 700 }}>
+      <Typography variant='body1' sx={{ mt: 2, fontWeight: 700 }}>
         Executive Summary
       </Typography>
       <div className={styles.formField}>

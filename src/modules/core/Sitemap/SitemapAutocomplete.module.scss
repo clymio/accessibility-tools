@@ -75,6 +75,14 @@
   p {
     font-size: 14px;
     font-weight: inherit;
+    color: inherit;
+  }
+  &.disabled {
+    cursor: not-allowed;
+    color: $palette-text-disabled;
+    @media (prefers-color-scheme: dark) {
+      color: $palette-dark-text-disabled;
+    }
   }
 }
 .paper {

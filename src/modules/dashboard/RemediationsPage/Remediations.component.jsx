@@ -153,6 +153,7 @@ const remediations = () => {
   }, [filter, pagination, sort]);
 
   useEffect(() => {
+    handleResetFilters();
     getSelectedRemediations();
   }, []);
 
@@ -251,7 +252,9 @@ const remediations = () => {
 
   const closeRemediationDrawer = () => {
     setIsRemediationInfoDrawerOpen(false);
-    setSelectedRemediationId(null);
+    setTimeout(() => {
+      setSelectedRemediationId(null);
+    }, 250);
   };
 
   const rows = remediations.map((remediation) => {
