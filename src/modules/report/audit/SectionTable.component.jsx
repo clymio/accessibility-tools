@@ -20,7 +20,7 @@ const sortConformanceTypes = (types) => {
 };
 
 const CONFORMANCE_TYPE_LEVEL_LABELS = {
-  SUPPORTS: 'Supports',
+  SUPPORT: 'Supports',
   PARTIAL_SUPPORT: 'Partially Supports',
   NOT_SUPPORTED: 'Does Not Support',
   NOT_APPLICABLE: 'Not Applicable',
@@ -85,7 +85,7 @@ const SectionTable = ({ section, showTableName = false }) => {
                           <li key={type.id}>
                             <Typography whiteSpace='nowrap' className={style.type}>
                               <span>{CONFORMANCE_TYPE_LABELS[type.id] ? `${CONFORMANCE_TYPE_LABELS[type.id]}: ` : ''}</span>
-                              {CONFORMANCE_TYPE_LEVEL_LABELS[type.level]}
+                              {CONFORMANCE_TYPE_LEVEL_LABELS[type.level] || type.level}
                             </Typography>
                           </li>
                         ))
@@ -93,7 +93,7 @@ const SectionTable = ({ section, showTableName = false }) => {
                     : (
                       <li>
                         <Typography whiteSpace='nowrap' className={style.type}>
-                          {CONFORMANCE_TYPE_LEVEL_LABELS[item.types[0].level]}
+                          {CONFORMANCE_TYPE_LEVEL_LABELS[item.types[0].level] || item.types[0].level}
                         </Typography>
                       </li>
                       )}

@@ -1,7 +1,7 @@
-import { create } from 'zustand';
 import { isDomainValid } from '@/electron/lib/utils';
+import { create } from 'zustand';
 
-export const useAuditFormStore = create((set, get) => ({
+const initialState = {
   step: 1,
   auditId: '',
   reportType: '',
@@ -111,8 +111,11 @@ export const useAuditFormStore = create((set, get) => ({
       license: false
     },
     executiveSummary: false
-  },
+  }
+};
 
+export const useAuditFormStore = create((set, get) => ({
+  ...initialState,
   setStep: newStep => set({ step: newStep }),
   setAuditId: newAuditId => set({ auditId: newAuditId }),
   setReportType: newAuditType => set({ reportType: newAuditType }),
@@ -277,9 +280,6 @@ export const useAuditFormStore = create((set, get) => ({
       if (vendor.website.trim() && !isDomainValid(vendor.website)) {
         productErrors.website = 'Invalid website URL';
       }
-      if (evaluation.repository.trim() && !isDomainValid(evaluation.repository)) {
-        errors.evaluation.repository = 'Invalid repository URL';
-      }
       if (step === 4 && !evaluator) {
         errors.evaluator = 'An evaluator profile is required';
       }
@@ -296,7 +296,7 @@ export const useAuditFormStore = create((set, get) => ({
   },
 
   markAllAsTouched: () => {
-    const { step, reportType, auditVersion, conformanceTarget, reportIdentifier, reportDate, product, touched } = get();
+    const { step, reportType, auditVersion, touched } = get();
     let updatedTouched = { ...touched };
     if (step === 1) {
       updatedTouched.reportType = true;
@@ -327,116 +327,5 @@ export const useAuditFormStore = create((set, get) => ({
   },
 
   resetForm: () =>
-    set({
-      step: 1,
-      auditId: '',
-      reportType: '',
-      wcagVersion: '',
-      conformanceTarget: '',
-      reportIdentifier: '',
-      reportDate: 0,
-      auditVersion: '',
-      hasInitializedChapters: false,
-      chapters: [],
-      project: '',
-      environmentType: '',
-      test: '',
-      product: {
-        name: '',
-        version: '',
-        description: '',
-        website: ''
-      },
-      vendor: {
-        name: '',
-        address: '',
-        website: '',
-        contactName: '',
-        contactEmail: '',
-        contactPhone: ''
-      },
-      evaluator: '',
-      evaluation: {
-        notes: '',
-        methods: '',
-        legalDisclaimer: '',
-        repository: '',
-        feedback: '',
-        license: ''
-      },
-      executiveSummary: '',
-      isSubmitting: false,
-      errors: {
-        reportType: false,
-        wcagVersion: false,
-        conformanceTarget: false,
-        reportIdentifier: false,
-        reportDate: false,
-        auditVersion: false,
-        chapters: false,
-        project: false,
-        environmentType: false,
-        test: false,
-        product: {
-          name: false,
-          version: false,
-          description: false,
-          website: false
-        },
-        vendor: {
-          name: false,
-          address: false,
-          website: false,
-          contactName: false,
-          contactEmail: false,
-          contactPhone: false
-        },
-        evaluator: false,
-        evaluation: {
-          notes: false,
-          methods: false,
-          legalDisclaimer: false,
-          repository: false,
-          feedback: false,
-          license: false
-        },
-        executiveSummary: false
-      },
-      touched: {
-        reportType: false,
-        wcagVersion: false,
-        conformanceTarget: false,
-        reportIdentifier: false,
-        reportDate: false,
-        auditVersion: false,
-        chapters: false,
-        project: false,
-        environmentType: false,
-        test: false,
-        product: {
-          name: false,
-          version: false,
-          description: false,
-          website: false
-        },
-        vendor: {
-          name: false,
-          address: false,
-          website: false,
-          contactName: false,
-          contactEmail: false,
-          contactPhone: false
-        },
-        evaluator: false,
-        evaluation: {
-          notes: false,
-          methods: false,
-          legalDisclaimer: false,
-          repository: false,
-          feedback: false,
-          license: false
-        },
-        executiveSummary: false
-      }
-    })
+    set({ ...initialState })
 }));

@@ -415,8 +415,7 @@ class AuditLib {
         feedback: Joi.string().optional().allow(null, ''),
         license: Joi.string().optional().allow(null, ''),
         summary: Joi.string().optional().allow(null, '')
-      })
-    );
+      }));
     const data = await joiLib.validate(schema, input);
     const transaction = await sequelize.transaction();
     try {
@@ -458,55 +457,55 @@ class AuditLib {
       if (data.start_date) {
         audit.start_date = data.start_date;
       }
-      if (data.product_name) {
+      if (data.product_name !== null) {
         audit.product_name = data.product_name;
       }
-      if (data.product_version) {
+      if (data.product_version !== null) {
         audit.product_version = data.product_version;
       }
-      if (data.product_description) {
+      if (data.product_description !== null) {
         audit.product_description = data.product_description;
       }
-      if (data.product_url) {
+      if (data.product_url !== null) {
         audit.product_url = data.product_url;
       }
-      if (data.vendor_name) {
+      if (data.vendor_name !== null) {
         audit.vendor_name = data.vendor_name;
       }
-      if (data.vendor_address) {
+      if (data.vendor_address !== null) {
         audit.vendor_address = data.vendor_address;
       }
-      if (data.vendor_url) {
+      if (data.vendor_url !== null) {
         audit.vendor_url = data.vendor_url;
       }
-      if (data.vendor_contact_name) {
+      if (data.vendor_contact_name !== null) {
         audit.vendor_contact_name = data.vendor_contact_name;
       }
-      if (data.vendor_contact_email) {
+      if (data.vendor_contact_email !== null) {
         audit.vendor_contact_email = data.vendor_contact_email;
       }
-      if (data.vendor_contact_phone) {
+      if (data.vendor_contact_phone !== null) {
         audit.vendor_contact_phone = data.vendor_contact_phone;
       }
-      if (data.notes) {
+      if (data.notes !== null) {
         audit.notes = data.notes;
       }
-      if (data.methods) {
+      if (data.methods !== null) {
         audit.methods = data.methods;
       }
-      if (data.disclaimer) {
+      if (data.disclaimer !== null) {
         audit.disclaimer = data.disclaimer;
       }
-      if (data.repository_url) {
+      if (data.repository_url !== null) {
         audit.repository_url = data.repository_url;
       }
-      if (data.feedback) {
+      if (data.feedback !== null) {
         audit.feedback = data.feedback;
       }
-      if (data.license) {
+      if (data.license !== null) {
         audit.license = data.license;
       }
-      if (data.summary) {
+      if (data.summary !== null) {
         audit.summary = data.summary;
       }
       await audit.save({ transaction });

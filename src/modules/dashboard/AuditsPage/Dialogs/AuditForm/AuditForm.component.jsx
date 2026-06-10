@@ -3,7 +3,7 @@ import Icon from '@/modules/core/Icon';
 import { useSnackbarStore } from '@/stores';
 import { useAuditFormStore } from '@/stores/useAuditFormStore';
 import classNames from 'classnames';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import styles from './AuditForm.module.scss';
 import StepFour from './StepFour.component';
 import StepOne from './StepOne.component';
@@ -62,13 +62,11 @@ export default function AuditForm({ open, onClose, onAuditAdded, auditId, trigge
     triggerRef.current = triggerEl;
   }, [triggerEl]);
 
-  const [audit, setAudit] = useState({});
-
-  const setAuditData = async () => {
+  const setAuditData = async (audit) => {
     if (audit) {
       setAuditId(audit.id);
       setReportType(audit.system_audit_type_id);
-      setWcagVersion(audit.wcagVersion);
+      setWcagVersion(audit.wcag_version);
       setConformanceTarget(audit.conformance_target);
       setReportIdentifier(audit.identifier);
       setReportDate(audit.start_date);
@@ -106,28 +104,22 @@ export default function AuditForm({ open, onClose, onAuditAdded, auditId, trigge
   };
 
   useEffect(() => {
-    if (!open || !auditId) return;
+    if (!auditId) return;
     const fetchAudit = async () => {
       const audit = await window.api.audit.read({ id: auditId });
-      setAudit(audit);
+      setAuditData(audit);
     };
     setStep(1);
+    resetForm();
     fetchAudit();
-  }, [open, auditId]);
-
-  useEffect(() => {
-    if (audit) {
-      resetForm();
-      setAuditData();
-    }
-  }, [audit]);
+  }, [auditId]);
 
   useEffect(() => {
     if (open) {
       resetForm();
       setStep(1);
     }
-  }, [open, setStep]);
+  }, [open]);
 
   const handleBack = () => {
     if (step === 1) {
